@@ -21,8 +21,6 @@
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 
-(autoload 'dirtree "dirtree" "Add directory to tree view" t)
-
 ;; Incremental search in minibuffer
 (iswitchb-mode 1)
 

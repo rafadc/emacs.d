@@ -23,6 +23,10 @@
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 
+;; Font
+(set-face-attribute 'default nil
+                    :family "M+ 2m" :height 180 :weight 'light)
+
 ;; Incremental search in minibuffer
 (iswitchb-mode 1)
 

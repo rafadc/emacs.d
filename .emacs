@@ -6,9 +6,6 @@
 	       "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
-;; Start in GUI
-;; (x-focus-frame nil)
-
 ;; Base16 theme
 (load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
 

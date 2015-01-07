@@ -64,3 +64,6 @@
 
 (setq cider-repl-result-prefix ";; => ")
 (setq cider-interactive-eval-result-prefix ";; => ")
+
+;; Helm
+(global-set-key (kbd "s-p") 'helm-find-files)

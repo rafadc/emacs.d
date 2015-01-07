@@ -4,11 +4,15 @@
 	       "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
+;; Start in GUI
+;; (x-focus-frame nil)
+
 ;; Base16 theme
 (load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
 
-;; Disable menubar
+;; Disable menu and icon bar
 (menu-bar-mode -1)
+(tool-bar-mode -1)
 
 ;; Show line numbers
 (global-linum-mode t)

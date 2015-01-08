@@ -25,6 +25,7 @@
 (load-file "~/.emacs.d/src/dash.el")
 
 (load-file "~/.emacs.d/src/languages/clojure.el")
+(load-file "~/.emacs.d/src/languages/markdown.el")º
 
 ;; Helm
 (global-set-key (kbd "s-p") 'helm-find-files)
@@ -32,8 +33,3 @@
 ;; Magit
 (global-set-key (kbd "<f6>") 'magit-status)
 
-;; MARKDOWN
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))

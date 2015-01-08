@@ -1,10 +1,4 @@
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives 
-	     '("marmalade" .
-	       "http://marmalade-repo.org/packages/"))
-(package-initialize)
+(load-file "~/.emacs.d/src/repositories.el")
 
 ;; Base16 theme
 (load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")

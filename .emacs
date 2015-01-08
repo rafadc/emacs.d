@@ -51,6 +51,11 @@
 
 ;; KEY-BINDINGS
 
+;; Flyspell
+(global-set-key (kbd "<f8>") 'ispell-word)
+(global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
+(global-set-key (kbd "C-M-<f8>") 'flyspell-buffer)
+
 ;; Send to Dash
 (add-to-list 'load-path "~/.emacs.d/scripts/")
 (autoload 'dash-at-point "dash-at-point"
@@ -60,6 +65,7 @@
 
 ;; Flyspell
 (add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'markdown-mode-hook 'flyspell-mode)
 
 ;; CLOJURE
 

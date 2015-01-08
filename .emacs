@@ -33,17 +33,7 @@
 
 (load-file "~/.emacs.d/src/dash.el")
 
-
-;; CLOJURE
-
-;; Hide cider special buffers
-(setq nrepl-hide-special-buffers t)
-
-;; Print a maximum of 100 items per collection
-(setq cider-repl-print-length 100)
-
-(setq cider-repl-result-prefix ";; => ")
-(setq cider-interactive-eval-result-prefix ";; => ")
+(load-file "~/.emacs.d/src/languages/clojure.el")
 
 ;; Helm
 (global-set-key (kbd "s-p") 'helm-find-files)

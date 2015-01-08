@@ -49,12 +49,9 @@
    kept-old-versions 2
    version-control t)       ; use versioned backups
 
-;; KEY-BINDINGS
+(load-file "~/.emacs.d/src/spellcheck.el")
 
-;; Flyspell
-(global-set-key (kbd "<f8>") 'ispell-word)
-(global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
-(global-set-key (kbd "C-M-<f8>") 'flyspell-buffer)
+;; KEY-BINDINGS
 
 ;; Send to Dash
 (add-to-list 'load-path "~/.emacs.d/scripts/")
@@ -62,10 +59,6 @@
   "Search the word at point with Dash." t nil)
 (global-set-key "\C-cd" 'dash-at-point)
 (global-set-key "\C-ce" 'dash-at-point-with-docset)
-
-;; Flyspell
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'markdown-mode-hook 'flyspell-mode)
 
 ;; CLOJURE
 

@@ -1,3 +1,9 @@
 My emacs files
 
-Just symlink .emacs to home folder
+Just checkout with
+
+```
+git clone http://github.com/rafadc/emacs.d .emacs.d
+```
+
+and symlink .emacs to home folder.

@@ -55,6 +55,9 @@
 (global-set-key "\C-cd" 'dash-at-point)
 (global-set-key "\C-ce" 'dash-at-point-with-docset)
 
+;; Flyspell
+(add-hook 'text-mode-hook 'flyspell-mode)
+
 ;; CLOJURE
 
 ;; Hide cider special buffers

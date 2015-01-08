@@ -51,13 +51,6 @@
 
 ;; KEY-BINDINGS
 
-;; F8 to reformat code
-(defun indent-buffer ()
-  (interactive)
-  (save-excursion
-    (indent-region (point-min) (point-max) nil)))
-(global-set-key [f8] 'indent-buffer)
-
 ;; Send to Dash
 (add-to-list 'load-path "~/.emacs.d/scripts/")
 (autoload 'dash-at-point "dash-at-point"

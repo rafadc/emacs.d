@@ -9,7 +9,7 @@
 (load-file "~/.emacs.d/src/dash.el")
 
 (load-file "~/.emacs.d/src/languages/clojure.el")
-(load-file "~/.emacs.d/src/languages/markdown.el")º
+(load-file "~/.emacs.d/src/languages/markdown.el")
 
 ;; Helm
 (global-set-key (kbd "s-p") 'helm-find-files)

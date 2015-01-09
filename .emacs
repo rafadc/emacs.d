@@ -17,3 +17,5 @@
 ;; Magit
 (global-set-key (kbd "<f6>") 'magit-status)
 
+(load-file "~/.emacs.d/src/unmanaged.el")
+

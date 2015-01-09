@@ -4291,7 +4291,7 @@
        [(0 22)
 	nil "Show number of matches in mode-line while searching" single])
  (ansible-doc .
-	      [(0 2)
+	      [(0 3)
 	       ((emacs
 		 (24 1)))
 	       "Ansible documentation Minor Mode" single])

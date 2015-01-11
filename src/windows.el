@@ -1,8 +1,8 @@
 (global-set-key (kbd "<M-s-right>") 'other-window)
 
-(defun other-window-previous ()
+(defun other-window-previous (n)
   "Moves to previous window"
-  (interactive)
-  (other-window -1))
+  (interactive "p")
+  (other-window (- n))
 
 (global-set-key (kbd "<M-s-left>") 'other-window-previous)

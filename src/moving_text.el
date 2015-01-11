@@ -20,12 +20,13 @@
 (defun duplicate-line ()
   "Duplicates current line"
   (interactive)
-  (progn
-    (move-beginning-of-line 1)
-    (push-mark)
-    (move-end-of-line 1)
-    (ns-copy-including-secondary)
-    (forward-line 1)
-    (yank)))
+  (save-excursion
+    (progn
+      (move-beginning-of-line 1)
+      (push-mark)
+      (move-end-of-line 1)
+      (kill-ring-save (mark) (point))
+      (forward-line 1)
+      (yank))))
 
 (global-set-key (kbd "s-D") 'duplicate-line)

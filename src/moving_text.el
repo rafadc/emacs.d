@@ -20,13 +20,11 @@
 (defun duplicate-line ()
   "Duplicates current line"
   (interactive)
-  (save-excursion
-    (progn
-      (move-beginning-of-line 1)
-      (push-mark)
-      (move-end-of-line 1)
-      (kill-ring-save (mark) (point))
-      (forward-line 1)
-      (yank))))
+  (let
+      ((text-to-insert (thing-at-point 'line)))
+    (forward-line 1)
+    (insert text-to-insert)
+    (forward-line -1)))
 
 (global-set-key (kbd "s-D") 'duplicate-line)
+

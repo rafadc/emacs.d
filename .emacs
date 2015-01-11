@@ -3,6 +3,7 @@
 (load-file "~/.emacs.d/src/visuals.el")
 (load-file "~/.emacs.d/src/minibuffer.el")
 (load-file "~/.emacs.d/src/keyboard.el")
+(load-file "~/.emacs.d/src/moving_text.el")
 
 (load-file "~/.emacs.d/src/backup-files.el")
 (load-file "~/.emacs.d/src/spellcheck.el")
@@ -19,3 +20,4 @@
 
 (load-file "~/.emacs.d/src/unmanaged.el")
 
+(put 'dired-find-alternate-file 'disabled nil)

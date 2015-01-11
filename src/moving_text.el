@@ -17,5 +17,15 @@
 (global-set-key (kbd "M-<down>") 'grab-line-down)
 (global-set-key (kbd "M-<up>") 'grab-line-up)
 
+(defun duplicate-line ()
+  "Duplicates current line"
+  (interactive)
+  (progn
+    (move-beginning-of-line 1)
+    (push-mark)
+    (move-end-of-line 1)
+    (ns-copy-including-secondary)
+    (forward-line 1)
+    (yank)))
 
-
+(global-set-key (kbd "s-D") 'duplicate-line)

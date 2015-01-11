@@ -15,6 +15,16 @@ and symlink .emacs to home folder.
 
 # Cheatsheet
 
+## Navigation
+
+- **M-s-right**: Next window
+- **M-s-left**: Previous window
+
+## Managing text
+
+- **M-down**: Move current line down
+- **M-up**: Move current line up
+
 ## Finding files
 
 - **C-p** : Find files in project

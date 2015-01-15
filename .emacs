@@ -5,6 +5,7 @@
 (load-file "~/.emacs.d/src/keyboard.el")
 (load-file "~/.emacs.d/src/moving_text.el")
 (load-file "~/.emacs.d/src/windows.el")
+(load-file "~/.emacs.d/src/undo.el")
 
 (load-file "~/.emacs.d/src/backup-files.el")
 (load-file "~/.emacs.d/src/spellcheck.el")

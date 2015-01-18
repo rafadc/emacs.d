@@ -1,3 +1,8 @@
+;; (add-hook 'cider-mode-hook #'eldoc-mode)
+
+;; In case of errors with nREPL you can enable this
+;; (setq nrepl-log-messages t)
+
 ;; Hide cider special buffers
 (setq nrepl-hide-special-buffers t)
 

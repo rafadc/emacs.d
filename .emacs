@@ -1,5 +1,7 @@
 (load-file "~/.emacs.d/src/repositories.el")
 
+(delete-selection-mode 1)
+
 (load-file "~/.emacs.d/src/visuals.el")
 (load-file "~/.emacs.d/src/minibuffer.el")
 (load-file "~/.emacs.d/src/keyboard.el")

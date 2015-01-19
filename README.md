@@ -18,8 +18,8 @@ Also it is a good idea to add **personal_notes.org** to global gitignore.
 
 ## Navigation
 
-- **M-s-right**: Next window
-- **M-s-left**: Previous window
+- **C-x-p**: Next window
+- **C-x-o**: Previous window
 
 ## Managing text
 

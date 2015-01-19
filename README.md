@@ -8,10 +8,11 @@ git clone https://github.com/rafadc/emacs.d .emacs.d
 
 and symlink .emacs to home folder.
 
+Also it is a good idea to add **personal_notes.org** to global gitignore.
+
 # Features
 
-- M-x overriden to autocomplete
-- 
+- M-x overridden to autocomplete
 
 # Cheatsheet
 
@@ -32,3 +33,7 @@ and symlink .emacs to home folder.
 ## Git
 
 - **F6**: Git status
+
+## Org mode
+
+-**F7**: Opens a file called *personal_notes.org* in the root folder of projectile folder. I use it for quick notes and brainstorming.

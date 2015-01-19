@@ -13,6 +13,8 @@
 (load-file "~/.emacs.d/src/backup-files.el")
 (load-file "~/.emacs.d/src/spellcheck.el")
 
+(load-file "~/.emacs.d/src/org-mode.el")
+
 (load-file "~/.emacs.d/src/helm.el")
 (load-file "~/.emacs.d/src/dash.el")
 

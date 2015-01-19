@@ -9,6 +9,7 @@
 (load-file "~/.emacs.d/src/windows.el")
 (load-file "~/.emacs.d/src/undo.el")
 
+(load-file "~/.emacs.d/src/midnight.el")
 (load-file "~/.emacs.d/src/backup-files.el")
 (load-file "~/.emacs.d/src/spellcheck.el")
 

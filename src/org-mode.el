@@ -1,8 +1,8 @@
-;; Binding F7 to open a TODO.org file in root of projectile
+;; Binding F7 to open a personal_notes.org file in root of projectile
 (require 'projectile)
 
 (defun open-todoorg ()
-  "Opens a TODO.org file in project folder"
+  "Opens a personal_notes.org file in project folder"
   (interactive)
   (let
       ((folder (first (projectile-get-project-directories))))

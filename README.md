@@ -28,6 +28,7 @@ Also it is a good idea to add **personal_notes.org** to global gitignore.
 - **s-e**: Expand region
 - **s-d**: Mark next like selection
 - **H-SPC**: Rectangle selection
+- **C-c C-e**: Evals the expression and replaces with the result
 
 ## Finding files
 

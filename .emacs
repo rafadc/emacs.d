@@ -18,6 +18,8 @@
 (load-file "~/.emacs.d/src/helm.el")
 (load-file "~/.emacs.d/src/dash.el")
 
+(load-file "~/.emacs.d/src/company-mode.el")
+
 (load-file "~/.emacs.d/src/languages/clojure.el")
 (load-file "~/.emacs.d/src/languages/markdown.el")
 (load-file "~/.emacs.d/src/languages/haskell.el")

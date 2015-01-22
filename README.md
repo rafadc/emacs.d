@@ -29,6 +29,7 @@ Also it is a good idea to add **personal_notes.org** to global gitignore.
 ## Finding files
 
 - **C-p** : Find files in project
+- **s-F** : Search in contents using ag
 
 ## Git
 

@@ -6,3 +6,4 @@
 
 (global-set-key (kbd "s-p") 'helm-projectile)
 
+(global-set-key (kbd "s-F") 'helm-do-ag)

@@ -16,4 +16,7 @@
     (ring-insert lang-ring lang)
     (ispell-change-dictionary lang)))
 
+(ispell-change-dictionary "english")
+(setq flyspell-default-dictionary "english")
+
 (global-set-key (kbd "C-S-s-<f8>") 'cycle-ispell-languages)

@@ -26,5 +26,5 @@
     (insert text-to-insert)
     (forward-line -1)))
 
-(global-set-key (kbd "s-D") 'duplicate-line)
+(global-set-key (kbd "s-*") 'duplicate-line)
 

@@ -27,6 +27,7 @@ Also it is a good idea to add **personal_notes.org** to global gitignore.
 - **M-up**: Move current line up
 - **s-e**: Expand region
 - **s-d**: Mark next like selection
+- **H-SPC**: Rectangle selection
 
 ## Finding files
 

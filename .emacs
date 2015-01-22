@@ -1,13 +1,12 @@
 (load-file "~/.emacs.d/src/repositories.el")
 
-(delete-selection-mode 1)
-
 (load-file "~/.emacs.d/src/visuals.el")
 (load-file "~/.emacs.d/src/minibuffer.el")
 (load-file "~/.emacs.d/src/keyboard.el")
 (load-file "~/.emacs.d/src/moving_text.el")
 (load-file "~/.emacs.d/src/windows.el")
 (load-file "~/.emacs.d/src/undo.el")
+(load-file "~/.emacs.d/src/selecting.el")
 
 (load-file "~/.emacs.d/src/midnight.el")
 (load-file "~/.emacs.d/src/backup-files.el")
@@ -27,9 +26,6 @@
 
 ;; Magit
 (global-set-key (kbd "<f6>") 'magit-status)
-
-;; Expand region
-(global-set-key (kbd "s-e") 'er/expand-region)
 
 (load-file "~/.emacs.d/src/unmanaged.el")
 

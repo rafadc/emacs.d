@@ -28,6 +28,9 @@
 ;; Magit
 (global-set-key (kbd "<f6>") 'magit-status)
 
+;; Expand region
+(global-set-key (kbd "s-e") 'er/expand-region)
+
 (load-file "~/.emacs.d/src/unmanaged.el")
 
 (put 'dired-find-alternate-file 'disabled nil)

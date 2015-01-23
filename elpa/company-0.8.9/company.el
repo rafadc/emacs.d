@@ -5,7 +5,7 @@
 ;; Author: Nikolaj Schumacher
 ;; Maintainer: Dmitry Gutov <dgutov@yandex.ru>
 ;; URL: http://company-mode.github.io/
-;; Version: 0.8.8
+;; Version: 0.8.9
 ;; Keywords: abbrev, convenience, matching
 ;; Package-Requires: ((emacs "24.1") (cl-lib "0.5"))
 
@@ -614,6 +614,8 @@ asynchronous call into synchronous.")
     (define-key keymap (kbd "M-p") 'company-select-previous)
     (define-key keymap (kbd "<down>") 'company-select-next-or-abort)
     (define-key keymap (kbd "<up>") 'company-select-previous-or-abort)
+    (define-key keymap [remap scroll-up-command] 'company-next-page)
+    (define-key keymap [remap scroll-down-command] 'company-previous-page)
     (define-key keymap [down-mouse-1] 'ignore)
     (define-key keymap [down-mouse-3] 'ignore)
     (define-key keymap [mouse-1] 'company-complete-mouse)
@@ -1811,6 +1813,20 @@ and invoke the normal binding."
     (company-abort)
     (company--unread-last-input)))
 
+(defun company-next-page ()
+  "Select the candidate one page further."
+  (interactive)
+  (when (company-manual-begin)
+    (company-set-selection (+ company-selection
+                              company-tooltip-limit))))
+
+(defun company-previous-page ()
+  "Select the candidate one page earlier."
+  (interactive)
+  (when (company-manual-begin)
+    (company-set-selection (- company-selection
+                              company-tooltip-limit))))
+
 (defvar company-pseudo-tooltip-overlay)
 
 (defvar company-tooltip-offset)
@@ -2372,7 +2388,7 @@ If SHOW-VERSION is non-nil, show the version in the echo area."
     (dotimes (_ len)
       (let* ((value (pop lines-copy))
              (annotation (company-call-backend 'annotation value)))
-        (setq value (company--clean-string value))
+        (setq value (company--clean-string (company-reformat value)))
         (when annotation
           (when company-tooltip-align-annotations
             ;; `lisp-completion-at-point' adds a space.
@@ -2399,7 +2415,7 @@ If SHOW-VERSION is non-nil, show the version in the echo area."
 
       (dotimes (i len)
         (let* ((item (pop items))
-               (str (company-reformat (car item)))
+               (str (car item))
                (annotation (cdr item))
                (right (company-space-string company-tooltip-margin))
                (width width))

@@ -1,6 +1,6 @@
 ;;; company-ispell.el --- company-mode completion back-end using Ispell
 
-;; Copyright (C) 2009-2011  Free Software Foundation, Inc.
+;; Copyright (C) 2009-2011, 2013-2015  Free Software Foundation, Inc.
 
 ;; Author: Nikolaj Schumacher
 
@@ -60,8 +60,15 @@ If nil, use `ispell-complete-word-dict'."
     (interactive (company-begin-backend 'company-ispell))
     (prefix (when (company-ispell-available)
               (company-grab-word)))
-    (candidates (lookup-words arg (or company-ispell-dictionary
-                                      ispell-complete-word-dict)))
+    (candidates
+     (let ((words (lookup-words arg (or company-ispell-dictionary
+                                        ispell-complete-word-dict)))
+           (completion-ignore-case t))
+       (if (string= arg "")
+           ;; Small optimization.
+           words
+         ;; Work around issue #284.
+         (all-completions arg words))))
     (sorted t)
     (ignore-case 'keep-prefix)))
 

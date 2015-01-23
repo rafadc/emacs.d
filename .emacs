@@ -15,7 +15,6 @@
 (load-file "~/.emacs.d/src/org-mode.el")
 
 (load-file "~/.emacs.d/src/helm.el")
-(load-file "~/.emacs.d/src/dash.el")
 
 (load-file "~/.emacs.d/src/company-mode.el")
 (load-file "~/.emacs.d/src/snippets.el")
@@ -29,5 +28,8 @@
 (global-set-key (kbd "<f6>") 'magit-status)
 
 (load-file "~/.emacs.d/src/unmanaged.el")
+(load-file "~/.emacs.d/src/dash.el")
 
 (put 'dired-find-alternate-file 'disabled nil)
+
+(load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")

@@ -31,4 +31,5 @@
 	)
     (append-to-file start end temp-file)
     (shell-command command)
+    (deactivate-mark)
     (message "RTF copied to clipboard")))

@@ -33,3 +33,6 @@
 (put 'dired-find-alternate-file 'disabled nil)
 
 (load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")
+
+(setq guide-key/guide-key-sequence t)
+(guide-key-mode 1)

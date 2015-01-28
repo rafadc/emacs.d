@@ -17,7 +17,9 @@
 
 ;;; Code:
 (require 'helm)
+(require 'helm-org)
 
+
 (defgroup helm-help nil
   "Embedded help for `helm'."
   :group 'helm)
@@ -27,6 +29,55 @@
   "Face for helm help string in minibuffer."
   :group 'helm-help)
 
+(defcustom helm-documentation-file "~/.emacs.d/helm-doc.org"
+  "The file where you want to save helm documentation."
+  :group 'helm-help
+  :type 'string)
+
+(defvar helm-help--string-list '(helm-help-message
+                                helm-buffer-help-message
+                                helm-ff-help-message
+                                helm-read-file-name-help-message
+                                helm-generic-file-help-message
+                                helm-grep-help-message
+                                helm-pdfgrep-help-message
+                                helm-etags-help-message
+                                helm-ucs-help-message
+                                helm-bookmark-help-message
+                                helm-esh-help-message
+                                helm-buffers-ido-virtual-help-message
+                                helm-moccur-help-message
+                                helm-top-help-message
+                                helm-apt-help-message
+                                helm-el-package-help-message
+                                helm-M-x-help-message
+                                helm-imenu-help-message
+                                helm-colors-help-message
+                                helm-semantic-help-message))
+
+
+;;;###autoload
+(defun helm-documentation (arg)
+  "Helm documentation.
+With a prefix arg refresh the documentation.
+
+Find here the documentation of all sources actually documented."
+  (interactive "P")
+  (when arg (delete-file helm-documentation-file)
+        (helm-aif (get-file-buffer helm-documentation-file)
+          (kill-buffer it)))
+  (unless (file-exists-p helm-documentation-file)
+    (with-temp-file helm-documentation-file
+      (erase-buffer)
+      (cl-loop for elm in helm-help--string-list
+            for str = (symbol-value elm)
+            do (if (functionp str)
+                   (insert (funcall str))
+                 (insert str)))))
+  (helm :sources (helm-source-org-headings-for-files
+                  (list helm-documentation-file))
+        :candidate-number-limit 99999
+        :buffer "*helm documentation*"))
 
 ;;; Global help message - Used by `helm-help'
 ;;
@@ -117,19 +168,29 @@ text to be displayed in BUFNAME."
       (setq helm-suspend-update-flag nil)
       (set-frame-configuration winconf))))
 
+(defun helm-help-scroll-up (amount)
+  (condition-case _err
+      (scroll-up-command amount)
+    (beginning-of-buffer nil)
+    (end-of-buffer nil)))
+
+(defun helm-help-scroll-down (amount)
+  (condition-case _err
+      (scroll-down-command amount)
+    (beginning-of-buffer nil)
+    (end-of-buffer nil)))
+
 (defun helm-help-event-loop ()
   (let ((prompt (propertize
-                 "[SPC,C-v,down:NextPage  b,M-v,up:PrevPage]"
+                 "[SPC,C-v,down,next:NextPage  b,M-v,up,prior:PrevPage q:Quit]"
                  'face 'helm-helper))
-        (scroll-error-top-bottom t))
-    (condition-case _err
-        (cl-loop for event = (read-key prompt) do
-              (cl-case event
-                ((?\C-v ? down) (scroll-up-command helm-scroll-amount))
-                ((?\M-v ?b up)  (scroll-down-command helm-scroll-amount))
-                (t (cl-return))))
-      (beginning-of-buffer (message "Beginning of buffer"))
-      (end-of-buffer       (message "End of Buffer")))))
+        scroll-error-top-bottom)
+    (cl-loop for event = (read-key prompt) do
+             (cl-case event
+               ((?\C-v ? down next) (helm-help-scroll-up helm-scroll-amount))
+               ((?\M-v ?b up prior) (helm-help-scroll-down helm-scroll-amount))
+               (?q (cl-return))
+               (t (ignore))))))
 
 ;;;###autoload
 (defun helm-help ()
@@ -151,7 +212,7 @@ text to be displayed in BUFNAME."
 (defvar helm-buffer-help-message
   "\n* Helm Buffer\n
 
-** Tips:
+** Helm buffers tips:
 
 *** Completion:
 
@@ -267,7 +328,7 @@ Italic     => A non--file buffer.
 (defvar helm-ff-help-message
   "\n* Helm Find Files\n
 
-** Tips:
+** Helm find files tips:
 \n*** Enter `~/' at end of pattern to quickly reach home directory.
 
 *** Enter `/' at end of pattern to quickly reach root of your file system.
@@ -306,7 +367,24 @@ Italic     => A non--file buffer.
 
 *** To create a new file just write the filename not ending with \"/\".
 
-*** You can start a recursive search with Locate of Find (See commands below).
+*** Recursive search from helm find files
+
+**** You can use helm browse project (see binding below).
+
+- With no prefix arg
+  If your current directory is under version control
+  with one of git or hg and you have installed helm-ls-git and/or helm-ls-hg
+  https://github.com/emacs-helm/helm-ls-git.git
+  https://github.com/emacs-helm/helm-ls-hg
+  you will see all your files under version control, otherwise
+  you will be back to helm-find-files.
+- With one prefix arg
+  You will see all the files under this directory
+  and other subdirectories (recursion) and this list of files will be cached.
+- With two prefix args
+  same but the cache will be refreshed.
+
+**** You can start a recursive search with Locate of Find (See commands below).
   With Locate you can use a local db with a prefix arg; If the localdb doesn't already
   exists, you will be prompted for its creation, if it exists and you want to refresh it,
   give two prefix args.
@@ -314,6 +392,7 @@ Italic     => A non--file buffer.
 \n** Specific commands for `helm-find-files':\n
 \\<helm-find-files-map>
 \\[helm-ff-run-locate]\t\t->Run Locate (C-u to specify locate db, M-n insert basename of candidate)
+\\[helm-ff-run-browse-project]\t\t->Browse project (`C-u' recurse, `C-u C-u' recurse and refresh db)
 \\[helm-ff-run-find-sh-command]\t\t->Run Find shell command from this directory.
 \\[helm-ff-run-grep]\t\t->Run Grep (C-u Recursive).
 \\[helm-ff-run-pdfgrep]\t\t->Run Pdfgrep on marked files.
@@ -371,7 +450,7 @@ Italic     => A non--file buffer.
 (defvar helm-read-file-name-help-message
   "\n* Helm read file name\n
 
-** Tips:
+** Helm read file name tips:
 
 \n*** Enter `~/' at end of pattern to quickly reach home directory.
 
@@ -442,16 +521,34 @@ C/\\[helm-cr-empty-string]\t\t->Maybe return empty string (unless `must-match').
 (defvar helm-generic-file-help-message
   "\n* Helm Generic files\n
 
-** Tips:\n
+** Helm generic file tips:\n
 
+*** Locate
 You can add after writing search pattern any of the locate command line options.
 e.g -b, -e, -n <number>...etc.
 See Man locate for more infos.
 
-*** Note:
-
 Some other sources (at the moment recentf and file in current directory sources)
 support the -b flag for compatibility with locate when they are used with it.
+
+*** Browse project
+
+When your directory is not under version control,
+don't forget to refresh your cache when files have been added/removed in your directory.
+
+*** Find command
+
+Recursively search files using \"find\" shell command.
+
+Candidates are all filenames that match all given globbing patterns.
+This respects the options `helm-case-fold-search' and
+`helm-findutils-search-full-path'.
+
+You can pass arbitrary options directly to find after a \"*\" separator.
+For example, this would find all files matching \"book\" that are larger
+than 1 megabyte:
+
+book * -size +1M
 
 \n** Specific commands for helm locate and others files sources:
 
@@ -469,6 +566,7 @@ support the -b flag for compatibility with locate when they are used with it.
 \\[helm-ff-run-open-file-externally]\t\t->Open file with external program (C-u to choose).
 \\[helm-ff-run-open-file-with-default-tool]\t\t->Open file externally with default tool.
 \\[helm-ff-run-insert-org-link]\t\t->Insert org link.
+\\[helm-generic-file-help]\t\t->Show this help.
 \n** Helm Map\n
 \\{helm-map}")
 
@@ -483,7 +581,7 @@ support the -b flag for compatibility with locate when they are used with it.
 ;;
 (defvar helm-grep-help-message
   "\n* Helm Grep\n
-** Tips:\n
+** Helm grep tips:\n
 *** You can start grep with a prefix arg to recurse in subdirectories.
 *** You can use wild card when selecting files (e.g *.el)
 *** You can grep in many differents directories by marking files or wild cards.
@@ -610,7 +708,7 @@ Or even better don't use tramp at all and mount your remote file system on SSHFS
 ;;
 (defvar helm-esh-help-message
   "\n* Helm eshell on file\n
-** Tips:
+** Helm eshell on file tips:
 
 *** Passing extra args after filename:
 
@@ -755,6 +853,15 @@ Multiple regexp matching is allowed, just enter a space to separate your regexps
 (defvar helm-el-package-help-message
   "\n* Helm elisp package\n
 \n** Helm elisp package tips:
+*** Upgrade elisp packages
+
+To see upgradables packages hit <M-U>.
+
+Then you can install all upgradables packages with the upgrade all action,
+or upgrade only the specific packages by marking them (the new ones) and running
+the upgrade action (visible only when there is upgradables packages).
+Of course you can upgrade a single package by just running the upgrade action
+without marking it.
 
 \n** Specific commands for Helm elisp package:\n
 \\<helm-el-package-map>
@@ -855,6 +962,33 @@ the amount of prefix args entered.
 (defun helm-semantic-help ()
   (interactive)
   (let ((helm-help-message helm-semantic-help-message))
+    (helm-help)))
+
+;;; helm kmacro
+;;
+;;
+(defvar helm-kmacro-help-message
+  "\n* Helm kmacro\n
+\n** Helm kmacro tips:
+- Start recording some keys with `f3'
+- Record new kmacro with `f4'
+- Start `helm-execute-kmacro' to list all your macros.
+
+Use persistent action to run your kmacro as many time as needed,
+you can change of kmacro with `helm-next-line' `helm-previous-line'.
+
+NOTE: You can't record keys running helm commands.
+
+\n** Specific commands for Helm kmacro:\n
+\\<helm-kmacro-map>
+\\[helm-kmacro-help]\t->Show this help.
+\n** Helm Map\n
+\\{helm-map}")
+
+;;;###autoload
+(defun helm-kmacro-help ()
+  (interactive)
+  (let ((helm-help-message helm-kmacro-help-message))
     (helm-help)))
 
 

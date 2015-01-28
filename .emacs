@@ -8,6 +8,8 @@
 (load-file "~/.emacs.d/src/undo.el")
 (load-file "~/.emacs.d/src/selecting.el")
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (load-file "~/.emacs.d/src/midnight.el")
 (load-file "~/.emacs.d/src/backup-files.el")
 (load-file "~/.emacs.d/src/spellcheck.el")

@@ -13,6 +13,7 @@ Also it is a good idea to add **personal_notes.org** to global gitignore.
 # Features
 
 - M-x overridden to autocomplete
+- Using guide key to bring help to all keybindings. Just press a keybinging to wait foll all possible completions.
 
 # Cheatsheet
 

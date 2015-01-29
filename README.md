@@ -19,6 +19,7 @@ Also it is a good idea to add **personal_notes.org** to global gitignore.
 
 ## Navigation
 
+- **C-TAB**: Open tree explorer
 - **C-x-p**: Next window
 - **C-x-o**: Previous window
 

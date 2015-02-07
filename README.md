@@ -44,3 +44,7 @@ Also it is a good idea to add **personal_notes.org** to global gitignore.
 ## Org mode
 
 - **F7**: Opens a file called *personal_notes.org* in the root folder of projectile folder. I use it for quick notes and brainstorming.
+
+## Other
+
+- **C-c o** : Open in external editor

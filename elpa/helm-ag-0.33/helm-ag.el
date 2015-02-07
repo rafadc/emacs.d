@@ -1,11 +1,11 @@
 ;;; helm-ag.el --- the silver searcher with helm interface -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014 by Syohei YOSHIDA
+;; Copyright (C) 2015 by Syohei YOSHIDA
 
 ;; Author: Syohei YOSHIDA <syohex@gmail.com>
 ;; URL: https://github.com/syohex/emacs-helm-ag
-;; Version: 0.32
-;; X-Original-Version: 0.32
+;; Version: 0.33
+;; X-Original-Version: 0.33
 ;; Package-Requires: ((helm "1.5.6") (cl-lib "0.5"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -423,7 +423,7 @@ They are specified to `--ignore' options."
 (defvar helm-source-do-ag
   `((name . "The Silver Searcher")
     (candidates-process . helm-ag--do-ag-candidate-process)
-    (persistent-action . helm-ag-persistent-action)
+    (persistent-action . helm-ag--persistent-action)
     (action . ,helm-ag--actions)
     (no-matchplugin)
     (nohighlight)

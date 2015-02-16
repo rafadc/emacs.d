@@ -729,7 +729,7 @@ See `helm-find-files-eshell-command-on-file-1' for more info."
                         (format "cd '%s'" helm-ff-default-directory))
                        (eshell-send-input))))
     (if (get-buffer "*eshell*")
-        (helm-switch-to-buffer "*eshell*")
+        (switch-to-buffer "*eshell*")
       (call-interactively 'eshell))
     (unless (get-buffer-process (current-buffer))
       (funcall cd-eshell))))
@@ -1333,7 +1333,7 @@ or when `helm-pattern' is equal to \"~/\"."
                  (not history-p)) ; Don't try to auto complete in history.
         (with-helm-window
           (let ((cur-cand (prog2
-                              (unless completed-p
+                              (unless (or completed-p (file-exists-p pat))
                                 ;; Only one non--existing candidate
                                 ;; and one directory candidate, move to it.
                                 (helm-next-line))
@@ -2092,9 +2092,12 @@ If a prefix arg is given or `helm-follow-mode' is on open file."
           ((string-match (image-file-name-regexp) candidate)
            (when (buffer-live-p (get-buffer image-dired-display-image-buffer))
              (kill-buffer image-dired-display-image-buffer))
+           ;; Fix emacs bug never fixed upstream.
+           (unless (file-directory-p image-dired-dir)
+             (make-directory image-dired-dir))
            (image-dired-display-image candidate)
            (message nil)
-           (helm-switch-to-buffer image-dired-display-image-buffer)
+           (switch-to-buffer image-dired-display-image-buffer)
            (with-current-buffer image-dired-display-image-buffer
              (let ((exif-data (helm-ff-exif-data candidate)))
                (setq default-directory helm-ff-default-directory)
@@ -2423,7 +2426,8 @@ Ask to kill buffers associated with that file, too."
         (message "%s File(s) deleted" len)))))
 
 (defun helm-find-file-or-marked (candidate)
-  "Open file CANDIDATE or open helm marked files in background."
+  "Open file CANDIDATE or open helm marked files in separate windows.
+Called with a prefix arg open files in background without selecting them."
   (let ((marked (helm-marked-candidates :with-wildcard t))
         (url-p (and ffap-url-regexp ; we should have only one candidate.
                     (string-match ffap-url-regexp candidate)))
@@ -2447,12 +2451,8 @@ Ask to kill buffers associated with that file, too."
                  (push helm-ff-default-directory helm-ff-history))
                (or (and helm-ff (helm-find-files-1 dir)) t))))
         (helm--reading-passwd-or-string t))
-    (if (> (length marked) 1)
-        ;; Open all marked files in background and display
-        ;; the first one.
-        (progn
-          (mapc 'find-file-noselect (cdr marked))
-          (find-file (car marked)))
+    (if (cdr marked)
+        (dired-simultaneous-find-file marked helm-current-prefix-arg)
       (if (and (not (file-exists-p candidate))
                (not url-p)
                (string-match "/$" candidate))

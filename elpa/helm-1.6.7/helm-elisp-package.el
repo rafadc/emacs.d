@@ -25,10 +25,14 @@
 (defvar helm-el-package--initialized-p nil)
 (defvar helm-el-package--tabulated-list nil)
 (defvar helm-el-package--upgrades nil)
+(defvar helm-el-package--removable-packages nil)
 
 (defun helm-el-package--init ()
   (when (null package-alist)
     (setq helm-el-package--show-only 'all))
+  (when (fboundp 'package--removable-packages)
+    (setq helm-el-package--removable-packages
+          (package--removable-packages)))
   (save-selected-window
     (list-packages helm-el-package--initialized-p)
     (setq helm-el-package--initialized-p t)
@@ -39,7 +43,9 @@
       (setq helm-el-package--tabulated-list tabulated-list-entries)
       (buffer-string)))
   (setq helm-el-package--upgrades (helm-el-package-menu--find-upgrades))
-  (setq helm-el-package--show-only 'all)
+  (if helm-force-updating-p
+      (message "Refreshing packages list done")
+    (setq helm-el-package--show-only 'all))
   (kill-buffer "*Packages*"))
 
 (defun helm-el-package-describe (candidate)
@@ -56,18 +62,24 @@
             (if (fboundp 'package-desc-name)
                 (package-desc-name id)
               (car id)))
-        and collect (if (fboundp 'package-desc-full-name)
+        collect (if (fboundp 'package-desc-full-name)
                         id
                       (car id))
         into installed-list
-        finally do (if (fboundp 'package-desc-full-name)
-                       (message (format "%d packages installed:\n(%s)"
-                                        (length installed-list)
-                                        (mapconcat #'package-desc-full-name
-                                                   installed-list ", ")))
-                     (message (format "%d packages installed:\n(%s)"
-                                      (length installed-list)
-                                      (mapconcat 'symbol-name installed-list ", "))))))
+        finally do (progn
+                     (when (boundp 'package-selected-packages)
+                       (customize-save-variable
+                        'package-selected-packages
+                        (append (mapcar 'package-desc-name installed-list)
+                                package-selected-packages)))
+                     (if (fboundp 'package-desc-full-name)
+                         (message (format "%d packages installed:\n(%s)"
+                                          (length installed-list)
+                                          (mapconcat #'package-desc-full-name
+                                                     installed-list ", ")))
+                         (message (format "%d packages installed:\n(%s)"
+                                          (length installed-list)
+                                          (mapconcat 'symbol-name installed-list ", ")))))))
 
 (defun helm-el-package-install (_candidate)
   (helm-el-package-install-1 (helm-marked-candidates)))
@@ -118,8 +130,8 @@
 (defun helm-el-package-menu--find-upgrades ()
   (cl-loop for entry in helm-el-package--tabulated-list
            for pkg-desc = (car entry)
-           for status = (aref (cadr entry) 2)
-           when (member status '("installed" "unsigned"))
+           for status = (package-desc-status pkg-desc)
+           when (member status '("installed" "unsigned" "dependency"))
            collect pkg-desc
            into installed
            when (member status '("available" "new"))
@@ -147,7 +159,10 @@
                   (package-install pkg-desc))
                  (t
                   ;; Delete.
-                  (package-delete pkg-desc)))))
+                  (if (boundp 'package-selected-packages)
+                      (with-no-warnings
+                        (package-delete pkg-desc t t))
+                      (package-delete pkg-desc))))))
 
 (defun helm-el-package-upgrade (_candidate)
   (helm-el-package-upgrade-1
@@ -171,21 +186,29 @@
 
 (defun helm-el-package--transformer (candidates _source)
   (cl-loop for c in candidates
-        for id = (get-text-property 0 'tabulated-list-id c)
-        for name = (if (fboundp 'package-desc-name)
-                       (package-desc-name id)
-                       (car id))
-        for installed-p = (assq name package-alist)
-        for upgrade-p = (assq name helm-el-package--upgrades)
-        for cand = (cons c (car (split-string c)))
-        when (or (and upgrade-p
-                      (eq helm-el-package--show-only 'upgrade))
-                 (and installed-p
-                      (eq helm-el-package--show-only 'installed))
-                 (and (not installed-p)
-                      (eq helm-el-package--show-only 'uninstalled)) 
-                 (eq helm-el-package--show-only 'all))
-        collect cand))
+           for id = (get-text-property 0 'tabulated-list-id c)
+           for name = (if (fboundp 'package-desc-name)
+                          (package-desc-name id)
+                          (car id))
+           for installed-p = (assq name package-alist)
+           for upgrade-p = (assq name helm-el-package--upgrades)
+           for user-installed-p = (and (boundp 'package-selected-packages)
+                                       (memq name package-selected-packages))
+           do (when user-installed-p (put-text-property 0 2 'display "S " c))
+           do (when (memq name helm-el-package--removable-packages)
+                (put-text-property 0 2 'display "U " c)
+                (put-text-property
+                 2 (+ (length (symbol-name name)) 2)
+                 'face 'font-lock-variable-name-face c))
+           for cand = (cons c (car (split-string c)))
+           when (or (and upgrade-p
+                         (eq helm-el-package--show-only 'upgrade))
+                    (and installed-p
+                         (eq helm-el-package--show-only 'installed))
+                    (and (not installed-p)
+                         (eq helm-el-package--show-only 'uninstalled)) 
+                    (eq helm-el-package--show-only 'all))
+           collect cand))
 
 (defun helm-el-package-show-upgrade ()
   (interactive)
@@ -230,18 +253,35 @@
     :initform
     (lambda (actions candidate)
       (let ((pkg-desc (get-text-property
-                       0 'tabulated-list-id candidate)))
-        (if (cdr (assq (package-desc-name pkg-desc)
-                       helm-el-package--upgrades))
-            (append '(("Upgrade package" . helm-el-package-upgrade)) actions)
-            actions))))
+                       0 'tabulated-list-id candidate))
+            (acts (if helm-el-package--upgrades
+                      (append actions '(("Upgrade all packages"
+                                         . helm-el-package-upgrade-all-action)))
+                      actions)))
+        (cond ((cdr (assq (package-desc-name pkg-desc)
+                          helm-el-package--upgrades))
+               (append '(("Upgrade package" . helm-el-package-upgrade)) acts))
+              ((package-installed-p (package-desc-name pkg-desc))
+               (append acts '(("Reinstall package" . helm-el-package-reinstall)
+                              ("Uninstall" . helm-el-package-uninstall))))
+              (t (append acts '(("Install" . helm-el-package-install))))))))
    (mode-line :initform helm-el-package-mode-line)
    (keymap :initform helm-el-package-map)
+   (update :initform 'helm-el-package--update)
    (candidate-number-limit :initform 9999)
-   (action :initform '(("Describe" . helm-el-package-describe)
-                       ("Install" . helm-el-package-install)
-                       ("Uninstall" . helm-el-package-uninstall)
-                       ("Upgrade all packages" . helm-el-package-upgrade-all-action)))))
+   (action :initform '(("Describe" . helm-el-package-describe)))))
+
+(defun helm-el-package--update ()
+  (setq helm-el-package--initialized-p nil))
+
+(defun helm-el-package-reinstall (_pkg)
+  (cl-loop for p in (helm-marked-candidates)
+           for pkg-desc = (get-text-property 0 'tabulated-list-id p)
+           for name = (package-desc-name pkg-desc)
+           do (if (fboundp 'package-reinstall)
+                  (package-reinstall name)
+                  (package-delete pkg-desc)
+                  (package-install name))))
 
 ;;;###autoload
 (defun helm-list-elisp-packages (arg)

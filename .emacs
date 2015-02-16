@@ -18,6 +18,7 @@
 (load-file "~/.emacs.d/src/org-mode.el")
 
 (load-file "~/.emacs.d/src/helm.el")
+(defalias 'helm-buffer-match-major-mode 'helm-buffers-list--match-fn)
 
 (load-file "~/.emacs.d/src/company-mode.el")
 (load-file "~/.emacs.d/src/snippets.el")

@@ -600,8 +600,8 @@ to exit or helm update to disable the `current-input-method' with `C-\\'."
   "Face for candidate number in mode-line." :group 'helm-faces)
 
 (defface helm-selection
-    '((((background dark)) :background "ForestGreen" :underline t)
-      (((background light)) :background "#b5ffd1" :underline t))
+    '((((background dark)) :background "ForestGreen")
+      (((background light)) :background "#b5ffd1"))
   "Face for currently selected item in the helm buffer."
   :group 'helm-faces)
 
@@ -703,7 +703,10 @@ and before performing action.")
 (defvar helm-move-selection-after-hook nil
   "Run after moving selection in `helm-buffer'.")
 
-(defvar helm-restored-variables
+(defvar helm-window-configuration-hook nil
+  "Run when switching to and back from action buffer.")
+
+(defconst helm-restored-variables
   '(helm-candidate-number-limit
     helm-source-filter
     helm-source-in-each-line-flag
@@ -1047,16 +1050,16 @@ not `exit-minibuffer' or unwanted functions."
   `(with-current-buffer (helm-buffer-get)
      ,@body))
 
-(defmacro with-helm-restore-variables(&rest body)
+(defmacro with-helm-restore-variables (&rest body)
   "Restore `helm-restored-variables' after executing BODY."
   (declare (indent 0) (debug t))
   (helm-with-gensyms (orig-vars)
     `(let ((,orig-vars (mapcar (lambda (v)
-                                (cons v (symbol-value v)))
-                              helm-restored-variables)))
+                                 (cons v (symbol-value v)))
+                               helm-restored-variables)))
        (unwind-protect (progn ,@body)
          (cl-loop for (var . value) in ,orig-vars
-                  do (set var value))
+               do (set var value))
          (helm-log "restore variables")))))
 
 (defmacro with-helm-default-directory (directory &rest body)
@@ -2164,7 +2167,8 @@ For ANY-RESUME ANY-INPUT ANY-DEFAULT and ANY-SOURCES See `helm'."
 
     (setq helm-selection-overlay
           (make-overlay (point-min) (point-min) (get-buffer buffer)))
-    (overlay-put helm-selection-overlay 'face 'helm-selection)))
+    (overlay-put helm-selection-overlay 'face 'helm-selection)
+    (overlay-put helm-selection-overlay 'priority 1)))
 
 (defun helm-restore-position-on-quit ()
   "Restore position in `helm-current-buffer' when quitting."
@@ -2872,15 +2876,22 @@ This function is used with sources build with `helm-source-sync'."
   "Give a score to CANDIDATE according to PATTERN.
 Score is calculated against number of contiguous matches found with PATTERN.
 If PATTERN is fully matched in CANDIDATE a maximal score (100) is given.
-A bonus of one point is given when PATTERN prefix match CANDIDATE."
+A bonus of one point is given when PATTERN prefix match CANDIDATE.
+Contiguous matches have a coefficient of 2."
   (let* ((pat-lookup (helm--collect-pairs-in-string pattern))
          (str-lookup (helm--collect-pairs-in-string candidate))
          (bonus (if (equal (car pat-lookup) (car str-lookup)) 1 0))
          (bonus1 (and (string-match (concat "\\<" (regexp-quote pattern) "\\>")
                                     candidate)
                       100)))
-    (+ bonus (or bonus1 (length (cl-nintersection
-                                 pat-lookup str-lookup :test 'equal))))))
+    (+ bonus (or bonus1
+                 ;; Give a coefficient of 2 for contiguous matches.
+                 ;; That's mean that "wiaaaki" will not take precedence
+                 ;; on "aaawiki" when matching on "wiki" even if "wiaaaki"
+                 ;; starts by "wi".
+                 (* (length (cl-nintersection
+                             pat-lookup str-lookup :test 'equal))
+                    2)))))
 
 (defun helm-fuzzy-matching-default-sort-fn (candidates _source &optional use-real)
   "The transformer for sorting candidates in fuzzy matching.
@@ -3503,23 +3514,25 @@ If action buffer is selected, back to the helm buffer."
   (helm-log-run-hook 'helm-select-action-hook)
   (setq helm-saved-selection (helm-get-selection))
   (with-selected-frame (with-helm-window (selected-frame))
-    (cond ((get-buffer-window helm-action-buffer 'visible)
-           (set-window-buffer (get-buffer-window helm-action-buffer)
-                              helm-buffer)
-           (kill-buffer helm-action-buffer)
-           (helm-display-mode-line (helm-get-current-source))
-           (helm-set-pattern helm-input 'noupdate))
-          (helm-saved-selection
-           (setq helm-saved-current-source (helm-get-current-source))
-           (let ((actions (helm-get-actions-from-current-source)))
-             (if (functionp actions)
-                 (message "Sole action: %s" actions)
-               (helm-show-action-buffer actions)
-               (helm-delete-minibuffer-contents)
-               ;; Make `helm-pattern' differs from the previous value.
-               (setq helm-pattern 'dummy)
-               (helm-check-minibuffer-input))))
-          (t (message "No Actions available")))))
+    (prog1
+        (cond ((get-buffer-window helm-action-buffer 'visible)
+               (set-window-buffer (get-buffer-window helm-action-buffer)
+                                  helm-buffer)
+               (kill-buffer helm-action-buffer)
+               (helm-display-mode-line (helm-get-current-source))
+               (helm-set-pattern helm-input 'noupdate))
+              (helm-saved-selection
+               (setq helm-saved-current-source (helm-get-current-source))
+               (let ((actions (helm-get-actions-from-current-source)))
+                 (if (functionp actions)
+                     (message "Sole action: %s" actions)
+                     (helm-show-action-buffer actions)
+                     (helm-delete-minibuffer-contents)
+                     ;; Make `helm-pattern' differs from the previous value.
+                     (setq helm-pattern 'dummy)
+                     (helm-check-minibuffer-input))))
+              (t (message "No Actions available")))
+      (run-hooks 'helm-window-configuration-hook))))
 
 (defun helm-show-action-buffer (actions)
   (with-current-buffer (get-buffer-create helm-action-buffer)
@@ -3542,7 +3555,8 @@ If action buffer is selected, back to the helm buffer."
                                               ((< count 10)
                                                (format "[f%s]  " count))
                                               (t (format "[f%s] " count)))
-                                        (propertize i 'face 'helm-action)) j))))
+                                        (propertize i 'face 'helm-action))
+                                j))))
             (candidate-number-limit))))
     (set (make-local-variable 'helm-source-filter) nil)
     (set (make-local-variable 'helm-selection-overlay) nil)
@@ -4040,8 +4054,8 @@ and then to second, allowing a finer preselection when possible duplicates are
 before the candidate we want to preselect."
   (with-helm-window
     (when candidate-or-regexp
-      (if helm-force-updating-p
-          (and source (helm-goto-source source))
+      (if (and helm-force-updating-p source)
+          (helm-goto-source source)
         (goto-char (point-min))
         (forward-line 1))
       (let ((start (point)))
@@ -4054,6 +4068,7 @@ before the candidate we want to preselect."
     (forward-line 0) ; Avoid scrolling right on long lines.
     (when (helm-pos-multiline-p)
       (helm-move--beginning-of-multiline-candidate))
+    (when (helm-pos-header-line-p) (forward-line 1))
     (helm-mark-current-line)))
 
 (defun helm-delete-current-selection ()
@@ -4450,11 +4465,11 @@ Returns the resulting buffer."
     (with-current-buffer buf
       (erase-buffer)
       (if (listp data)
-          (cl-loop for i in data
-                   for str = (cond ((symbolp i) (symbol-name i))
-                                   ((numberp i) (number-to-string i))
-                                   (t i))
-                   do (insert (concat str "\n")))
+          (insert (mapconcat (lambda (i)
+                               (cond ((symbolp i) (symbol-name i))
+                                     ((numberp i) (number-to-string i))
+                                     (t i)))
+                             data "\n"))
         (and (stringp data) (insert data))))
     buf))
 
@@ -4782,6 +4797,7 @@ Argument ACTION if present will be used as second argument of `display-buffer'."
                               (or (helm-get-next-candidate-separator-pos)
                                   (point-max))
                             (1+ (point-at-eol))))))
+    (overlay-put o 'priority 0)
     (overlay-put o 'face   'helm-visible-mark)
     (overlay-put o 'source (assoc-default 'name (helm-get-current-source)))
     (overlay-put o 'string (buffer-substring (overlay-start o) (overlay-end o)))
@@ -5095,8 +5111,10 @@ See `fit-window-to-buffer' for more infos."
   :group 'helm
   :global t
   (if helm-autoresize-mode
-      (add-hook 'helm-after-update-hook 'helm--autoresize-hook)
-      (remove-hook 'helm-after-update-hook 'helm--autoresize-hook)))
+      (progn (add-hook 'helm-after-update-hook 'helm--autoresize-hook)
+             (add-hook 'helm-window-configuration-hook 'helm--autoresize-hook))
+      (remove-hook 'helm-after-update-hook 'helm--autoresize-hook)
+      (remove-hook 'helm-window-configuration-hook 'helm--autoresize-hook)))
 
 
 (provide 'helm)

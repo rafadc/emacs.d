@@ -14,7 +14,7 @@
 
 ;; Font
 (set-face-attribute 'default nil
-                    :family "M+ 2m" :height 180 :weight 'light)
+                    :family "M+ 1m" :height 180 :weight 'light)
 
 ;; Smoother scrolling with mouse
 (setq mouse-wheel-follow-mouse 't)

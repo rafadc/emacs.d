@@ -7,6 +7,7 @@
 (load-file "~/.emacs.d/src/windows.el")
 (load-file "~/.emacs.d/src/undo.el")
 (load-file "~/.emacs.d/src/selecting.el")
+(load-file "~/.emacs.d/src/search.el")
 (load-file "~/.emacs.d/src/open-in-external.el")
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

@@ -1487,7 +1487,7 @@
 	     (1 0)))
 	   "Simple package system for Emacs" single])
  (pabbrev .
-	  [(4 1)
+	  [(4 2)
 	   nil "Predictive abbreviation expansion" single])
  (p4 .
      [(11 0)

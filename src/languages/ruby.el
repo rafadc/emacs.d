@@ -9,4 +9,4 @@
 ;; Adding syntax checking
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 (add-hook 'ruby-mode-hook 'flymake-cursor-mode)
-
+(add-hook 'ruby-mode-hook 'yafolding-mode)

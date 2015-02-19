@@ -9,5 +9,6 @@
 
 (setq mc/cmds-to-run-once
       '(
+	helm-M-x
 	helm-confirm-and-exit-minibuffer
 	))

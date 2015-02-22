@@ -11,3 +11,17 @@
       (message "No project folder found"))))
 
 (global-set-key (kbd "<f7>") 'projectile-open-personal-notes)
+
+(require 'org-trello)
+
+(setq trello-file "~/.trello/my-life.org")
+
+(defun open-trello-file ()
+  "Opens trello's org file"
+  (interactive)
+  (find-file "~/.trello/my-life.org")
+  (org-trello-mode))
+
+(global-set-key (kbd "C-<f7>") 'open-trello-file)
+
+;; (custom-set-variables '(org-trello-files '("/Users/rafael/.trello/my-life.org")))

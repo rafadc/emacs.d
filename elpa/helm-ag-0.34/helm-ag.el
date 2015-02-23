@@ -4,8 +4,8 @@
 
 ;; Author: Syohei YOSHIDA <syohex@gmail.com>
 ;; URL: https://github.com/syohex/emacs-helm-ag
-;; Version: 0.33
-;; X-Original-Version: 0.33
+;; Version: 0.34
+;; X-Original-Version: 0.34
 ;; Package-Requires: ((helm "1.5.6") (cl-lib "0.5"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -73,6 +73,11 @@ They are specified to `--ignore' options."
   :type 'boolean
   :group 'helm-ag)
 
+(defcustom helm-ag-edit-save t
+  "Save buffers you edit at completed."
+  :type 'boolean
+  :group 'helm-ag)
+
 (defvar helm-ag--command-history '())
 (defvar helm-ag--context-stack nil)
 (defvar helm-ag--default-directory nil)
@@ -80,6 +85,7 @@ They are specified to `--ignore' options."
 (defvar helm-ag--last-query nil)
 (defvar helm-ag--extra-options nil)
 (defvar helm-ag--extra-options-history nil)
+(defvar helm-ag--original-window nil)
 (defvar helm-do-ag--default-target nil)
 (defvar helm-do-ag--extensions nil)
 
@@ -264,12 +270,14 @@ They are specified to `--ignore' options."
 
 (defun helm-ag--select-source ()
   (if (eq helm-ag-source-type 'file-line)
-      '(helm-ag-source-grep)
-    '(helm-ag-source)))
+      'helm-ag-source-grep
+    'helm-ag-source))
 
 (defun helm-ag--query ()
   (let* ((searched-word (helm-ag--searched-word))
          (query (read-string "Pattern: " searched-word 'helm-ag--command-history)))
+    (when (string= query "")
+      (error "Input is empty!!"))
     (setq helm-ag--last-query query)))
 
 (defsubst helm-ag--clear-variables ()
@@ -281,28 +289,138 @@ They are specified to `--ignore' options."
   (helm-ag--clear-variables)
   (let ((filename (file-name-nondirectory (buffer-file-name))))
     (helm-ag--query)
-    (helm-attrset 'search-this-file (buffer-file-name) helm-ag-source)
-    (helm-attrset 'name (format "Search at %s" filename) helm-ag-source)
-    (helm :sources (helm-ag--select-source) :buffer "*helm-ag*")))
+    (let ((source (helm-ag--select-source)))
+      (helm-attrset 'search-this-file (buffer-file-name) (symbol-value source))
+      (helm-attrset 'name (format "Search at %s" filename) (symbol-value source))
+      (helm :sources (list source) :buffer "*helm-ag*"))))
 
 (defsubst helm-ag--has-c-u-preffix-p ()
   (and current-prefix-arg
        (or (equal current-prefix-arg '(4))
            (equal current-prefix-arg '(-4)))))
 
-(defun helm-ag--default-directory ()
+(defun helm-ag--get-default-directory ()
   (if (helm-ag--has-c-u-preffix-p)
       (file-name-as-directory
        (read-directory-name "Search directory: " nil nil t))
     default-directory))
 
 (defsubst helm-ag--helm-header (dir)
-  (concat "Search at " dir))
+  (concat "Search at " (abbreviate-file-name dir)))
+
+(defun helm-ag--run-other-window-action ()
+  (interactive)
+  (with-helm-alive-p
+    (helm-quit-and-execute-action 'helm-ag--action--find-file-other-window)))
+
+(defsubst helm-ag--kill-edit-buffer ()
+  (kill-buffer (get-buffer "*helm-ag-edit*")))
+
+(defun helm-ag--edit-commit ()
+  (interactive)
+  (goto-char (point-min))
+  (let ((read-only-files 0)
+        (default-directory helm-ag--default-directory))
+    (while (re-search-forward "^\\([^:]+\\):\\([1-9][0-9]*\\):\\(.*\\)$" nil t)
+      (let ((file (match-string-no-properties 1))
+            (line (string-to-number (match-string-no-properties 2)))
+            (body (match-string-no-properties 3)))
+        (with-current-buffer (find-file-noselect file)
+          (if buffer-read-only
+              (cl-incf read-only-files)
+            (goto-char (point-min))
+            (forward-line (1- line))
+            (delete-region (line-beginning-position) (line-end-position))
+            (insert body)
+            (when helm-ag-edit-save
+              (save-buffer))))))
+    (select-window helm-ag--original-window)
+    (helm-ag--kill-edit-buffer)
+    (if (not (zerop read-only-files))
+        (message "%d files are read-only and not editable." read-only-files)
+      (message "Success update"))))
+
+(defun helm-ag--edit-abort ()
+  (interactive)
+  (when (y-or-n-p "Discard changes ?")
+    (select-window helm-ag--original-window)
+    (helm-ag--kill-edit-buffer)
+    (message "Abort edit")))
+
+(defvar helm-ag-edit-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-c") 'helm-ag--edit-commit)
+    (define-key map (kbd "C-c C-k") 'helm-ag--edit-abort)
+    map))
+
+(defun helm-ag--edit (_candidate)
+  (with-current-buffer (get-buffer-create "*helm-ag-edit*")
+    (erase-buffer)
+    (set (make-local-variable 'helm-ag--default-directory) helm-ag--default-directory)
+    (let (buf-content)
+      (with-current-buffer (get-buffer "*helm-ag*")
+        (goto-char (point-min))
+        (forward-line 1)
+        (let* ((body-start (point))
+               (marked-lines (cl-loop for ov in (overlays-in body-start (point-max))
+                                      when (eq 'helm-visible-mark (overlay-get ov 'face))
+                                      return (helm-marked-candidates))))
+          (if (not marked-lines)
+              (setq buf-content (buffer-substring-no-properties
+                                 body-start (point-max)))
+            (setq buf-content (concat (mapconcat 'identity marked-lines "\n") "\n")))))
+      (insert buf-content)
+      (add-text-properties (point-min) (point-max)
+                           '(read-only t rear-nonsticky t front-sticky t))
+      (let ((inhibit-read-only t))
+        (setq header-line-format
+              (format "[%s] C-c C-c: Commit, C-c C-k: Abort"
+                      (abbreviate-file-name helm-ag--default-directory)))
+        (goto-char (point-min))
+        (while (re-search-forward "^\\(\\(?:[^:]+:\\)\\{1,2\\}\\)\\(.*\\)$" nil t)
+          (let ((file-line-begin (match-beginning 1))
+                (file-line-end (match-end 1))
+                (body-begin (match-beginning 2))
+                (body-end (match-end 2)))
+            (add-text-properties file-line-begin file-line-end
+                                 '(face font-lock-function-name-face
+                                        intangible t))
+            (remove-text-properties body-begin body-end '(read-only t))
+            (set-text-properties body-end (1+ body-end)
+                                 '(read-only t rear-nonsticky t)))))))
+  (other-window 1)
+  (switch-to-buffer (get-buffer "*helm-ag-edit*"))
+  (goto-char (point-min))
+  (use-local-map helm-ag-edit-map))
+
+(defun helm-ag-edit ()
+  (interactive)
+  (helm-quit-and-execute-action 'helm-ag--edit))
+
+(defconst helm-ag--help-message
+  "\n* Helm Ag\n
+
+\n** Specific commands for Helm Ag:\n
+\\<helm-ag-map>
+\\[helm-ag--run-other-window-action]\t\t-> Open result in other buffer
+\\[helm-ag--up-one-level]\t\t-> Search in parent directory.
+\\[helm-ag-edit]\t\t-> Edit search results.
+\\[helm-ag-help]\t\t-> Show this help.
+\n** Helm Ag Map\n
+\\{helm-map}")
+
+(defun helm-ag-help ()
+  (interactive)
+  (let ((helm-help-message helm-ag--help-message))
+    (helm-help)))
 
 (defvar helm-ag-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
+    (define-key map (kbd "C-c o") 'helm-ag--run-other-window-action)
     (define-key map (kbd "C-l") 'helm-ag--up-one-level)
+    (define-key map (kbd "C-c C-e") 'helm-ag-edit)
+    (define-key map (kbd "C-c ?") 'helm-ag-help)
     map)
   "Keymap for `helm-ag'.")
 
@@ -317,22 +435,28 @@ They are specified to `--ignore' options."
       (let ((parent (file-name-directory (directory-file-name default-directory))))
         (helm-run-after-quit
          (lambda ()
-           (let ((default-directory parent))
-             (helm-attrset 'name (helm-ag--helm-header default-directory) helm-ag-source)
-             (helm :sources (helm-ag--select-source) :buffer "*helm-ag*"
+           (let ((default-directory parent)
+                 (source (helm-ag--select-source)))
+             (helm-attrset 'name (helm-ag--helm-header default-directory)
+                           (symbol-value source))
+             (helm :sources (list source) :buffer "*helm-ag*"
                    :keymap helm-ag-map)))))
     (message nil)))
 
 ;;;###autoload
 (defun helm-ag (&optional basedir)
   (interactive)
+  (setq helm-ag--original-window (selected-window))
   (helm-ag--clear-variables)
-  (let ((helm-ag--default-directory (or basedir (helm-ag--default-directory))))
+  (let ((helm-ag--default-directory (or basedir (helm-ag--get-default-directory))))
     (helm-ag--query)
-    (helm-attrset 'search-this-file nil helm-ag-source)
-    (helm-attrset 'name (helm-ag--helm-header helm-ag--default-directory) helm-ag-source)
-    (helm :sources (helm-ag--select-source) :buffer "*helm-ag*"
-          :keymap helm-ag-map)))
+    (let ((source (helm-ag--select-source)))
+      (helm-attrset 'search-this-file nil
+                    (symbol-value source))
+      (helm-attrset 'name (helm-ag--helm-header helm-ag--default-directory)
+                    (symbol-value source))
+      (helm :sources (list source) :buffer "*helm-ag*"
+            :keymap helm-ag-map))))
 
 (defun helm-ag--do-ag-propertize ()
   (with-helm-window
@@ -399,26 +523,32 @@ They are specified to `--ignore' options."
          (when (string= event "finished\n")
            (helm-ag--do-ag-propertize)))))))
 
+(defconst helm-do-ag--help-message
+  "\n* Helm Do Ag\n
+
+\n** Specific commands for Helm Ag:\n
+\\<helm-do-ag-map>
+\\[helm-ag--run-other-window-action]\t\t-> Open result in other buffer
+\\[helm-ag--do-ag-up-one-level]\t\t-> Search in parent directory.
+\\[helm-ag-edit]\t\t-> Edit search results.
+\\[helm-ag--do-ag-help]\t\t-> Show this help.
+\n** Helm Ag Map\n
+\\{helm-map}")
+
+(defun helm-ag--do-ag-help ()
+  (interactive)
+  (let ((helm-help-message helm-do-ag--help-message))
+    (helm-help)))
+
 (defvar helm-do-ag-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
+    (define-key map (kbd "C-c o") 'helm-ag--run-other-window-action)
     (define-key map (kbd "C-l") 'helm-ag--do-ag-up-one-level)
+    (define-key map (kbd "C-c C-e") 'helm-ag-edit)
+    (define-key map (kbd "C-c ?") 'helm-ag--do-ag-help)
     map)
   "Keymap for `helm-do-ag'.")
-
-(defun helm-ag--do-ag-up-one-level ()
-  (interactive)
-  (if (or (not (helm-ag--root-directory-p))
-          (y-or-n-p "Here may be project root. Continue searcing ? "))
-      (let ((parent (file-name-directory (directory-file-name default-directory)))
-            (initial-input helm-input))
-        (helm-run-after-quit
-         (lambda ()
-           (let ((default-directory parent))
-             (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
-                   :input initial-input
-                   :keymap helm-do-ag-map)))))
-    (message nil)))
 
 (defvar helm-source-do-ag
   `((name . "The Silver Searcher")
@@ -429,6 +559,21 @@ They are specified to `--ignore' options."
     (nohighlight)
     (requires-pattern . 3)
     (candidate-number-limit . 9999)))
+
+(defun helm-ag--do-ag-up-one-level ()
+  (interactive)
+  (if (or (not (helm-ag--root-directory-p))
+          (y-or-n-p "Here may be project root. Continue searcing ? "))
+      (let ((parent (file-name-directory (directory-file-name default-directory)))
+            (initial-input helm-input))
+        (helm-run-after-quit
+         (lambda ()
+           (let ((default-directory parent))
+             (helm-attrset 'name (helm-ag--helm-header parent)
+                           helm-source-do-ag)
+             (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
+                   :input initial-input :keymap helm-do-ag-map)))))
+    (message nil)))
 
 (defun helm-ag--set-do-ag-option ()
   (when (or (< (prefix-numeric-value current-prefix-arg) 0)
@@ -445,6 +590,7 @@ They are specified to `--ignore' options."
 (defun helm-do-ag (&optional basedir)
   (interactive)
   (require 'helm-mode)
+  (setq helm-ag--original-window (selected-window))
   (helm-ag--clear-variables)
   (let* ((helm-ag--default-directory (or basedir default-directory))
          (helm-do-ag--default-target (or basedir (helm-read-file-name
@@ -454,6 +600,8 @@ They are specified to `--ignore' options."
          (helm-do-ag--extensions (helm-ag--do-ag-searched-extensions)))
     (helm-ag--set-do-ag-option)
     (helm-ag--save-current-context)
+    (helm-attrset 'name (helm-ag--helm-header helm-ag--default-directory)
+                  helm-source-do-ag)
     (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
           :input (helm-ag--insert-thing-at-point helm-ag-insert-at-point)
           :keymap helm-do-ag-map)))

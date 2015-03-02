@@ -1,9 +1,4 @@
 (1
- (curl-for-url .
-	       [(0 0 2)
-		((noflet
-     (0 0 15)))
-		"use url-retrieve with curl doing the work" single])
  (zone-matrix .
 	      [(0 0 1)
 	       nil "Matrix themed Zone mode" tar])
@@ -42,6 +37,9 @@
  (zeal-at-point .
 		[(0 0 3)
 		 nil "Search the word at point with Zeal" single])
+ (yoshi-theme .
+	      [(5 12 0)
+	       nil "Theme named after my cat" single])
  (yesql-ghosts .
 	       [(0 1 0)
 		((s
@@ -167,9 +165,9 @@
 	     (1 9 0)))
 	   "use elisp doc strings to make other documentation" single])
  (wiki-nav .
-	   [(1 0 0)
+	   [(1 0 2)
 	    ((button-lock
-	      (1 0 0))
+	      (1 0 2))
 	     (nav-flash
 	      (1 0 0)))
 	    "Simple file navigation using [[WikiStrings]]" single])
@@ -1907,9 +1905,6 @@
  (memoize .
 	  [(1 0 1)
 	   nil "Memoization functions" single])
- (melpa-repository .
-		   [(0 0 5)
-		    nil "add the melpa elpa repository to emacs" single])
  (mediawiki .
 	    [(2 2 3)
 	     nil "mediawiki frontend" single])
@@ -3149,9 +3144,9 @@
 		 [(0 1 2)
 		  nil "A simple theme for Emacs." single])
  (fixmee .
-	 [(0 8 4)
+	 [(0 8 6)
 	  ((button-lock
-	    (1 0 0))
+	    (1 0 2))
 	   (nav-flash
 	    (1 0 0))
 	   (back-button
@@ -3430,7 +3425,7 @@
 	   [(1 4 6)
 	    nil "Screen for Emacsen" single])
  (elpy .
-       [(1 7 0)
+       [(1 7 1)
 	((company
 	  (0 8 2))
 	 (find-file-in-project
@@ -3774,6 +3769,11 @@
  (current-story .
 		[(0 1 0)
 		 nil "Track and insert current Pivotal Tracker" single])
+ (curl-for-url .
+	       [(0 0 2)
+		((noflet
+     (0 0 15)))
+		"use url-retrieve with curl doing the work" single])
  (cups .
        [(0 1)
 	nil "CUPS features for Emacs" single])
@@ -4168,7 +4168,7 @@
 	  [(0 7)
 	   nil "helpful description of the arguments to C functions" single])
  (button-lock .
-	      [(1 0 0)
+	      [(1 0 2)
 	       nil "Clickable text defined by regular expression" single])
  (butler .
 	 [(0 2 0)

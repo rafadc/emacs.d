@@ -5,6 +5,9 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+;; Show full path of file in status bar
+(setq frame-title-format '(:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b")))
+
 ;; Show line numbers
 (global-linum-mode t)
 

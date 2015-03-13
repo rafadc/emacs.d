@@ -1,5 +1,6 @@
 (load-file "~/.emacs.d/src/repositories.el")
 
+(setq-default indent-tabs-mode nil)
 (load-file "~/.emacs.d/src/visuals.el")
 (load-file "~/.emacs.d/src/minibuffer.el")
 (load-file "~/.emacs.d/src/keyboard.el")

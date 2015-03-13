@@ -27,6 +27,7 @@
 (load-file "~/.emacs.d/src/languages/clojure.el")
 (load-file "~/.emacs.d/src/languages/markdown.el")
 (load-file "~/.emacs.d/src/languages/haskell.el")
+(load-file "~/.emacs.d/src/languages/htmlcss.el")
 (load-file "~/.emacs.d/src/languages/ruby.el")
 
 ;; Magit

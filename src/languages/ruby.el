@@ -10,3 +10,5 @@
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 (add-hook 'ruby-mode-hook 'flymake-cursor-mode)
 (add-hook 'ruby-mode-hook 'yafolding-mode)
+
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))

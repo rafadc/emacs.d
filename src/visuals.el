@@ -1,5 +1,6 @@
 ;; Colored toolbar
 (sml/setup)
+(sml/apply-theme 'dark)
 
 ;; Base16 theme
 (load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")

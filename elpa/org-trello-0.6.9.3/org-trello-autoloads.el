@@ -3,7 +3,7 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "org-trello" "org-trello.el" (21736 49336 0
+;;;### (autoloads nil "org-trello" "org-trello.el" (21771 61864 0
 ;;;;;;  0))
 ;;; Generated autoloads from org-trello.el
 
@@ -137,8 +137,8 @@ Sync your org-mode and your trello together.
 ;;;;;;  "org-trello-controller.el" "org-trello-data.el" "org-trello-entity.el"
 ;;;;;;  "org-trello-hash.el" "org-trello-input.el" "org-trello-log.el"
 ;;;;;;  "org-trello-pkg.el" "org-trello-proxy.el" "org-trello-query.el"
-;;;;;;  "org-trello-setup.el" "org-trello-utils.el") (21736 49336
-;;;;;;  789259 0))
+;;;;;;  "org-trello-setup.el" "org-trello-utils.el") (21771 61864
+;;;;;;  282934 0))
 
 ;;;***
 

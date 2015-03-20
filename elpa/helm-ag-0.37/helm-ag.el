@@ -4,8 +4,8 @@
 
 ;; Author: Syohei YOSHIDA <syohex@gmail.com>
 ;; URL: https://github.com/syohex/emacs-helm-ag
-;; Package-Version: 0.36
-;; Version: 0.36
+;; Package-Version: 0.37
+;; Version: 0.37
 ;; Package-Requires: ((helm "1.5.6") (cl-lib "0.5"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -127,12 +127,24 @@ They are specified to `--ignore' options."
                                  grep-find-ignored-directories)
            collect (helm-ag--construct-ignore-option ignore)))
 
-(defun helm-ag--parse-query (query)
-  (let ((inputs (ignore-errors (split-string-and-unquote query))))
-    (if (or (null inputs) (= (length inputs) 1))
-        (list query)
-      (setq helm-ag--last-query (car (last inputs)))
-      (append (butlast inputs) (last inputs)))))
+(defun helm-ag--parse-query (input)
+  (with-temp-buffer
+    (insert input)
+    (let (end options)
+      (goto-char (point-min))
+      (when (re-search-forward "\\s-*--\\s-+" nil t)
+        (setq end (match-end 0)))
+      (goto-char (point-min))
+      (while (re-search-forward "\\s-*\\(-\\S-+\\)\\s-+" end t)
+        (push (match-string-no-properties 1) options)
+        (when end
+          (cl-decf end (- (match-end 0) (match-beginning 0))))
+        (replace-match ""))
+      (let ((query (buffer-string)))
+        (setq helm-ag--last-query query)
+        (if (not options)
+            (list query)
+          (nconc (nreverse options) (list query)))))))
 
 (defun helm-ag--construct-command (this-file)
   (let* ((commands (split-string helm-ag-base-command nil t))

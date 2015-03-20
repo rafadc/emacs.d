@@ -2,13 +2,13 @@
 
 ;; Copyright (C)
 ;;   2010-2013 Jeremy Rayman
-;;   2013-2014 Fanael Linithien
+;;   2013-2015 Fanael Linithien
 ;; Author: Jeremy Rayman <opensource@jeremyrayman.com>
 ;;         Fanael Linithien <fanael4@gmail.com>
 ;; Maintainer: Fanael Linithien <fanael4@gmail.com>
 ;; Created: 2010-09-02
-;; Version: 2.1
-;; X-Original-Version: 2.1
+;; Version: 2.1.1
+;; Package-Version: 2.1.1
 ;; Keywords: faces, convenience, lisp, tools
 ;; Homepage: https://github.com/Fanael/rainbow-delimiters
 
@@ -216,9 +216,6 @@ Returns t if char at loc meets one of the following conditions:
     (t
      nil))))
 
-(defconst rainbow-delimiters--delim-regex "\\s(\\|\\s)"
-  "Regex matching all opening and closing delimiters the mode highlights.")
-
 ;; Main function called by font-lock.
 (defun rainbow-delimiters--propertize (end)
   "Highlight delimiters in region between point and END.
@@ -227,12 +224,15 @@ Used by font-lock for dynamic highlighting."
   (let* ((inhibit-point-motion-hooks t)
          (last-ppss-pos (point))
          (ppss (syntax-ppss)))
-    (while (re-search-forward rainbow-delimiters--delim-regex end t)
-      (let* ((delim-pos (match-beginning 0))
+    (while (> end (progn (skip-syntax-forward "^()" end)
+                         (point)))
+      (let* ((delim-pos (point))
              (delim-syntax (syntax-after delim-pos)))
-        (setq ppss (save-excursion
-                     (parse-partial-sexp last-ppss-pos delim-pos nil nil ppss)))
+        (setq ppss (parse-partial-sexp last-ppss-pos delim-pos nil nil ppss))
         (setq last-ppss-pos delim-pos)
+        ;; `skip-syntax-forward' leaves the point at the delimiter, move past
+        ;; it.
+        (forward-char)
         (let ((delim-syntax-code (car delim-syntax)))
           (cond
            ((rainbow-delimiters--char-ineligible-p delim-pos ppss delim-syntax-code)

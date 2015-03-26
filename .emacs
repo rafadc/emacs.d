@@ -31,9 +31,7 @@
 (load-file "~/.emacs.d/src/languages/htmlcss.el")
 (load-file "~/.emacs.d/src/languages/ruby.el")
 
-;; Magit
-(global-set-key (kbd "<f6>") 'magit-status)
-
+(load-file "~/.emacs.d/src/git.el")
 (load-file "~/.emacs.d/src/unmanaged.el")
 (load-file "~/.emacs.d/src/dash.el")
 

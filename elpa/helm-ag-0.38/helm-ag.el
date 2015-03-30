@@ -4,8 +4,8 @@
 
 ;; Author: Syohei YOSHIDA <syohex@gmail.com>
 ;; URL: https://github.com/syohex/emacs-helm-ag
-;; Package-Version: 0.37
-;; Version: 0.37
+;; Package-Version: 0.38
+;; Version: 0.38
 ;; Package-Requires: ((helm "1.5.6") (cl-lib "0.5"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -94,6 +94,8 @@ They are specified to `--ignore' options."
 (defvar helm-ag--default-directory nil)
 (defvar helm-ag--last-default-directory nil)
 (defvar helm-ag--last-query nil)
+(defvar helm-ag--elisp-regexp-query nil)
+(defvar helm-ag--valid-regexp-for-emacs nil)
 (defvar helm-ag--extra-options nil)
 (defvar helm-ag--extra-options-history nil)
 (defvar helm-ag--original-window nil)
@@ -222,26 +224,43 @@ They are specified to `--ignore' options."
         t)
     (invalid-regexp nil)))
 
+(defun helm-ag--pcre-to-elisp-regexp (pcre)
+  ;; This is very simple conversion
+  (with-temp-buffer
+    (insert pcre)
+    (goto-char (point-min))
+    (while (re-search-forward "[(){}|]" nil t)
+      (backward-char 1)
+      (cond ((looking-back "\\\\\\\\"))
+            ((looking-back "\\\\")
+             (delete-char -1))
+            (t
+             (insert "\\")))
+      (forward-char 1))
+    (buffer-string)))
+
 (defun helm-ag--highlight-candidate (candidate)
   (let ((limit (1- (length candidate)))
         (last-pos 0))
-    (when (helm-ag--validate-regexp helm-ag--last-query)
+    (when helm-ag--valid-regexp-for-emacs
       (while (and (< last-pos limit)
-                  (string-match helm-ag--last-query candidate last-pos))
-        (put-text-property (match-beginning 0) (match-end 0)
-                           'face 'helm-match
-                           candidate)
-        (setq last-pos (1+ (match-end 0)))))
+                  (string-match helm-ag--elisp-regexp-query candidate last-pos))
+        (let ((start (match-beginning 0))
+              (end (match-end 0)))
+          (if (= start end)
+              (cl-incf last-pos)
+            (put-text-property start end 'face 'helm-match candidate)
+            (setq last-pos (1+ (match-end 0)))))))
     candidate))
 
 (defun helm-ag--candidate-transform-for-this-file (candidate)
-  (when (string-match "\\`\\([^:]+\\):\\(.+\\)" candidate)
+  (when (string-match "\\`\\([^:]+\\):\\(.*\\)" candidate)
     (format "%s:%s"
             (propertize (match-string 1 candidate) 'face 'helm-grep-lineno)
             (helm-ag--highlight-candidate (match-string 2 candidate)))))
 
 (defun helm-ag--candidate-transform-for-files (candidate)
-  (when (string-match "\\`\\([^:]+\\):\\([^:]+\\):\\(.+\\)" candidate)
+  (when (string-match "\\`\\([^:]+\\):\\([^:]+\\):\\(.*\\)" candidate)
     (format "%s:%s:%s"
             (propertize (match-string 1 candidate) 'face 'helm-moccur-buffer)
             (propertize (match-string 2 candidate) 'face 'helm-grep-lineno)
@@ -311,7 +330,10 @@ They are specified to `--ignore' options."
          (query (read-string "Pattern: " searched-word 'helm-ag--command-history)))
     (when (string= query "")
       (error "Input is empty!!"))
-    (setq helm-ag--last-query query)))
+    (setq helm-ag--last-query query
+          helm-ag--elisp-regexp-query (helm-ag--pcre-to-elisp-regexp query))
+    (setq helm-ag--valid-regexp-for-emacs
+          (helm-ag--validate-regexp helm-ag--elisp-regexp-query))))
 
 (defsubst helm-ag--clear-variables ()
   (setq helm-ag--last-default-directory nil))
@@ -520,6 +542,7 @@ Special commands:
          (lambda ()
            (let ((default-directory parent)
                  (source (helm-ag--select-source)))
+             (setq helm-ag--last-default-directory default-directory)
              (helm-attrset 'name (helm-ag--helm-header default-directory)
                            (symbol-value source))
              (helm :sources (list source) :buffer "*helm-ag*"
@@ -544,27 +567,28 @@ Special commands:
 (defun helm-ag--do-ag-propertize ()
   (with-helm-window
     (goto-char (point-min))
-    (when (helm-ag--validate-regexp helm-input)
-      (cl-loop with one-file-p = (helm-ag--search-only-one-file-p)
-               while (not (eobp))
-               do
-               (progn
-                 (let ((start (point))
-                       (bound (line-end-position))
-                       file-end line-end)
-                   (when (or one-file-p (search-forward ":" bound t))
-                     (setq file-end (1- (point)))
-                     (when (search-forward ":" bound t)
-                       (setq line-end (1- (point)))
-                       (unless one-file-p
-                         (set-text-properties start file-end '(face helm-moccur-buffer)))
-                       (set-text-properties (1+ file-end) line-end
-                                            '(face helm-grep-lineno))
+    (let ((regexp (helm-ag--pcre-to-elisp-regexp helm-input)))
+      (when (helm-ag--validate-regexp regexp)
+        (cl-loop with one-file-p = (helm-ag--search-only-one-file-p)
+                 while (not (eobp))
+                 do
+                 (progn
+                   (let ((start (point))
+                         (bound (line-end-position))
+                         file-end line-end)
+                     (when (or one-file-p (search-forward ":" bound t))
+                       (setq file-end (1- (point)))
+                       (when (search-forward ":" bound t)
+                         (setq line-end (1- (point)))
+                         (unless one-file-p
+                           (set-text-properties start file-end '(face helm-moccur-buffer)))
+                         (set-text-properties (1+ file-end) line-end
+                                              '(face helm-grep-lineno))
 
-                       (when (re-search-forward helm-input bound t)
-                         (set-text-properties (match-beginning 0) (match-end 0)
-                                              '(face helm-match))))))
-                 (forward-line 1))))
+                         (when (re-search-forward regexp bound t)
+                           (set-text-properties (match-beginning 0) (match-end 0)
+                                                '(face helm-match))))))
+                   (forward-line 1)))))
     (goto-char (point-min))
     (helm-display-mode-line (helm-get-current-source))))
 
@@ -653,6 +677,7 @@ Special commands:
         (helm-run-after-quit
          (lambda ()
            (let ((default-directory parent))
+             (setq helm-ag--last-default-directory default-directory)
              (helm-attrset 'name (helm-ag--helm-header parent)
                            helm-source-do-ag)
              (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
@@ -670,6 +695,14 @@ Special commands:
   (when (helm-ag--has-c-u-preffix-p)
     (helm-grep-get-file-extensions helm-do-ag--default-target)))
 
+(defsubst helm-do-ag--is-target-one-directory-p (targets)
+  (and (listp targets) (= (length targets) 1) (file-directory-p (car targets))))
+
+(defsubst helm-do-ag--helm ()
+  (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
+        :input (helm-ag--insert-thing-at-point helm-ag-insert-at-point)
+        :keymap helm-do-ag-map))
+
 ;;;###autoload
 (defun helm-do-ag (&optional basedir)
   (interactive)
@@ -678,18 +711,45 @@ Special commands:
   (setq helm-ag--original-window (selected-window))
   (helm-ag--clear-variables)
   (let* ((helm-ag--default-directory (or basedir default-directory))
-         (helm-do-ag--default-target (or basedir (helm-read-file-name
-                                                  "Search in file(s): "
-                                                  :default default-directory
-                                                  :marked-candidates t :must-match t)))
-         (helm-do-ag--extensions (helm-ag--do-ag-searched-extensions)))
+         (helm-do-ag--default-target (unless basedir
+                                       (helm-read-file-name
+                                        "Search in file(s): "
+                                        :default default-directory
+                                        :marked-candidates t :must-match t)))
+         (helm-do-ag--extensions (helm-ag--do-ag-searched-extensions))
+         (one-directory-p (helm-do-ag--is-target-one-directory-p
+                           helm-do-ag--default-target)))
     (helm-ag--set-do-ag-option)
     (helm-ag--save-current-context)
     (helm-attrset 'name (helm-ag--helm-header helm-ag--default-directory)
                   helm-source-do-ag)
-    (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
-          :input (helm-ag--insert-thing-at-point helm-ag-insert-at-point)
-          :keymap helm-do-ag-map)))
+    (if (not one-directory-p)
+        (helm-do-ag--helm)
+      (let* ((helm-ag--default-directory
+              (file-name-as-directory (car helm-do-ag--default-target)))
+             (helm-do-ag--default-target nil))
+        (helm-do-ag--helm)))))
+
+(defun helm-ag--project-root ()
+  (cl-loop for dir in '(".git/" ".hg/" ".svn/")
+           when (locate-dominating-file default-directory dir)
+           return it))
+
+;;;###autoload
+(defun helm-ag-project-root ()
+  (interactive)
+  (let ((rootdir (helm-ag--project-root)))
+    (unless rootdir
+      (error "Here is not repository"))
+    (helm-ag rootdir)))
+
+;;;###autoload
+(defun helm-do-ag-project-root ()
+  (interactive)
+  (let ((rootdir (helm-ag--project-root)))
+    (unless rootdir
+      (error "Here is not repository"))
+    (helm-do-ag rootdir)))
 
 (provide 'helm-ag)
 

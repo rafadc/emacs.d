@@ -413,6 +413,71 @@ I set the delay to 0 to prevent any waiting for the autocompletion popup to show
 (yas-global-mode 1)
 #+END_SRC
 
+* Programming languages
+
+** Clojure
+
+#+BEGIN_SRC emacs-lisp
+;; (add-hook 'cider-mode-hook #'eldoc-mode)
+
+;; In case of errors with nREPL you can enable this
+;; (setq nrepl-log-messages t)
+
+;; Hide cider special buffers
+(setq nrepl-hide-special-buffers t)
+
+;; Print a maximum of 100 items per collection
+(setq cider-repl-print-length 100)
+
+(setq cider-repl-result-prefix ";; => ")
+(setq cider-interactive-eval-result-prefix ";; => ")
+#+END_SRC
+
+** Haskell
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(add-hook 'haskell-mode-hook 'flycheck-mode)
+#+END_SRC
+
+** HTML & CSS
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+#+END_SRC
+
+** Markdown
+
+#+BEGIN_SRC emacs-lisp
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+#+END_SRC
+
+** Ruby
+
+Adding file types with no rb extension
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist
+	     '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode))
+
+(add-to-list 'auto-mode-alist
+               '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))
+
+
+;; Adding syntax checking
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+(add-hook 'ruby-mode-hook 'flymake-cursor-mode)
+(add-hook 'ruby-mode-hook 'yafolding-mode)
+
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+#+END_SRC
+
 
 * TODO Not yet migrated code
 

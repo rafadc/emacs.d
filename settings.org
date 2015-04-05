@@ -212,13 +212,36 @@ This is binding the visualization to C-s-z but instead of that combo I need to u
 (global-set-key (kbd "<C-s-268632090>") 'undo-tree-visualize)
 #+END_SRC
 
+* Selecting text
+
+Typing over a selection deletes text
+
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode 1)
+#+END_SRC
+
+Expand region key binding.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "s-e") 'er/expand-region)
+#+END_SRC
+
+These are multiple cursors bindings.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "s-d") 'mc/mark-next-like-this)
+(global-set-key (kbd "s-D") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-s-d") 'mc/mark-all-like-this)
+
+(global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
+#+END_SRC
+
 
 * TODO Not yet migrated code
 
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/selecting.el")
 (load-file "~/.emacs.d/src/search.el")
 (load-file "~/.emacs.d/src/open-in-external.el")
 

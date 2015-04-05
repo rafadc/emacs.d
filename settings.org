@@ -94,7 +94,6 @@ Scrolling with keyboard before touching bottom
       scroll-preserve-screen-position 1)
 #+END_SRC
 
-
 * Minibuffer
 
 Incremental search in minibuffer
@@ -299,7 +298,6 @@ Kill buffers if they were last disabled more than this seconds ago
 (setq clean-buffer-list-kill-regexps '("^.*$"))
 #+END_SRC
 
-
 * Backup files
 
 This will create a folder called $HOME/.saves-emacs that will contain all backups.
@@ -501,7 +499,6 @@ These are stand alone scripts I don't want in this config file.
 (require 'restclient)
 #+END_SRC
 
-
 * Help and documentation
 
 ** Guide key
@@ -533,19 +530,19 @@ Integration with Dash
 (setq projectile-switch-project-action 'neotree-projectile-action)
 #+END_SRC
 
+* File navigation
+
+Making dired to open the file in the current buffer instead of opening a new one
+
+#+BEGIN_SRC emacs-lisp
+(put 'dired-find-alternate-file 'disabled nil)
+#+END_SRC
+
+
 * Custom scripts
 
 These are scripts that are worthy of their own source file and I'm not including them here.
 
 #+BEGIN_SRC emacs-lisp
 (load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")
-#+END_SRC
-
-
-* TODO Not yet migrated code
-
-This is the config files I'm yet to move to settings.org
-
-#+BEGIN_SRC emacs-lisp
-(put 'dired-find-alternate-file 'disabled nil)
 #+END_SRC

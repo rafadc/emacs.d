@@ -501,7 +501,17 @@ These are stand alone scripts I don't want in this config file.
 (require 'restclient)
 #+END_SRC
 
+* Dash
 
+Integration with Dash
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/unmanaged/dash-at-point")
+(autoload 'dash-at-point "dash-at-point"
+  "Search the word at point with Dash." t nil)
+(global-set-key "\C-cd" 'dash-at-point)
+(global-set-key "\C-ce" 'dash-at-point-with-docset)
+#+END_SRC
 
 
 * TODO Not yet migrated code
@@ -509,8 +519,6 @@ These are stand alone scripts I don't want in this config file.
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/dash.el")
-
 (put 'dired-find-alternate-file 'disabled nil)
 
 (load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")

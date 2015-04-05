@@ -488,6 +488,20 @@ Adding file types with no rb extension
 (global-set-key (kbd "s-<f6>") 'git-timemachine)
 #+END_SRC
 
+* Unmanaged scripts
+
+These are stand alone scripts I don't want in this config file.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/unmanaged/nyan-mode")
+(load "nyan-mode.el")
+(nyan-mode +1)
+
+(add-to-list 'load-path "~/.emacs.d/unmanaged/restclient")
+(require 'restclient)
+#+END_SRC
+
+
 
 
 * TODO Not yet migrated code
@@ -495,7 +509,6 @@ Adding file types with no rb extension
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/unmanaged.el")
 (load-file "~/.emacs.d/src/dash.el")
 
 (put 'dired-find-alternate-file 'disabled nil)

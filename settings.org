@@ -21,11 +21,85 @@ To use this change your init file for something like
                    user-emacs-directory))
 #+END_SRC
 
-At this moment all features are in external el files. These lines just load them.
+Then you will only have your org file to handle all your emacs configuration. It may sound overkill in the beginning. I'm testing this too ;)
+
+At this moment all features are in external el files. I'm migrating from those to this dile only so there are some *load-file*s out there yet.
+
+* Visuals
+
+Use spaces instead of tabs
 
 #+BEGIN_SRC emacs-lisp
 (setq-default indent-tabs-mode nil)
-(load-file "~/.emacs.d/src/visuals.el")
+#+END_SRC
+
+I like this dark theme...
+
+#+BEGIN_SRC emacs-lisp
+(sml/setup)
+(sml/apply-theme 'dark)
+#+END_SRC
+
+...but since the colors of the fonts are not that awesome this helps.
+
+#+BEGIN_SRC emacs-lisp
+(load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
+#+END_SRC
+
+Disable menu and icon bar
+
+#+BEGIN_SRC emacs-lisp
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+#+END_SRC
+
+Show full path of file in status bar
+
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format '(:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b")))
+#+END_SRC
+
+Show line numbers
+
+#+BEGIN_SRC emacs-lisp
+(global-linum-mode t)
+#+END_SRC
+
+Paren highlight
+#+BEGIN_SRC emacs-lisp
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+#+END_SRC
+
+Font
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'default nil
+                    :family "M+ 1m" :height 180 :weight 'light)
+#+END_SRC
+
+Smoother scrolling with mouse. This is the only thing I still miss from Sublime text
+
+#+BEGIN_SRC emacs-lisp
+(setq mouse-wheel-follow-mouse 't)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+#+END_SRC
+
+Scrolling with keyboard before touching bottom
+
+#+BEGIN_SRC emacs-lisp
+(setq redisplay-dont-pause t
+      scroll-margin 1
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
+#+END_SRC
+
+
+* TODO Not yet migrated code
+
+This is the config files I'm yet to move to settings.org
+
+#+BEGIN_SRC emacs-lisp
 (load-file "~/.emacs.d/src/minibuffer.el")
 (load-file "~/.emacs.d/src/keyboard.el")
 (load-file "~/.emacs.d/src/manipulating-text.el")

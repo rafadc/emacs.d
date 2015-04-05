@@ -269,6 +269,13 @@ With a prefix ARG always prompt for command to use."
 (global-set-key (kbd "C-c o") 'open-with)
 #+END_SRC
 
+* Whitespace handling
+
+Remove trailing whitespace of the file
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
 
 
 * TODO Not yet migrated code
@@ -276,9 +283,6 @@ With a prefix ARG always prompt for command to use."
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/open-in-external.el")
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (load-file "~/.emacs.d/src/midnight.el")
 (load-file "~/.emacs.d/src/backup-files.el")

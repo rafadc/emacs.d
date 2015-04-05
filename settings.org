@@ -180,6 +180,20 @@ This is a small script so ALT key drags lines up and down.
 (global-set-key (kbd "C-c C-e") 'eval-and-replace)
 #+END_SRC
 
+* Windows
+
+This is a small snippet to move to next or previous windows with C-x p and C-x o
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x p") 'other-window)
+
+(defun other-window-previous (&optional n)
+  "Moves to previous window"
+  (interactive "p")
+  (other-window (if n (- n) -1)))
+
+(global-set-key (kbd "C-x o") 'other-window-previous)
+#+END_SRC
 
 
 * TODO Not yet migrated code
@@ -187,7 +201,6 @@ This is a small script so ALT key drags lines up and down.
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/windows.el")
 (load-file "~/.emacs.d/src/undo.el")
 (load-file "~/.emacs.d/src/selecting.el")
 (load-file "~/.emacs.d/src/search.el")

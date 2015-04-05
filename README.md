@@ -6,8 +6,6 @@ Just checkout with
 git clone https://github.com/rafadc/emacs.d .emacs.d
 ```
 
-and symlink .emacs to home folder.
-
 Also it is a good idea to add **personal_notes.org** to global gitignore.
 
 # Features

@@ -376,6 +376,26 @@ This is done so we avoid cluttering the folder where the file is being edited
 ;; (custom-set-variables '(org-trello-files '("/Users/rafael/.trello/my-life.org")))
 #+END_SRC
 
+* Helm
+
+This is done to solve a bug in MELPA stable helm version. Once this is not needed I should remove this line.
+
+#+BEGIN_SRC emacs-lisp
+(defalias 'helm-buffer-match-major-mode 'helm-buffers-list--match-fn)
+(defalias 'helm-buffer-match-major-mode 'helm-buffers-match-function)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-x") 'helm-M-x) ; Helm for emacs commands
+
+(global-set-key (kbd "C-x b") 'helm-buffers-list) ; Helm for buffer list
+
+(global-set-key (kbd "M-y") 'helm-show-kill-ring) ; Helm for kill ring
+
+(global-set-key (kbd "s-p") 'helm-projectile)
+
+(global-set-key (kbd "s-F") 'helm-do-ag)
+#+END_SRC
 
 
 * TODO Not yet migrated code
@@ -383,11 +403,6 @@ This is done so we avoid cluttering the folder where the file is being edited
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/org-mode.el")
-
-(load-file "~/.emacs.d/src/helm.el")
-(defalias 'helm-buffer-match-major-mode 'helm-buffers-list--match-fn)
-
 (load-file "~/.emacs.d/src/company-mode.el")
 (load-file "~/.emacs.d/src/snippets.el")
 

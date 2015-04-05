@@ -397,13 +397,23 @@ This is done to solve a bug in MELPA stable helm version. Once this is not neede
 (global-set-key (kbd "s-F") 'helm-do-ag)
 #+END_SRC
 
+* Company mode
+
+I set the delay to 0 to prevent any waiting for the autocompletion popup to show
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'global-company-mode)
+(setq company-idle-delay 0)
+#+END_SRC
+
+
+
 
 * TODO Not yet migrated code
 
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/company-mode.el")
 (load-file "~/.emacs.d/src/snippets.el")
 
 (load-file "~/.emacs.d/src/languages/clojure.el")

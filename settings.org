@@ -513,6 +513,14 @@ Integration with Dash
 (global-set-key "\C-ce" 'dash-at-point-with-docset)
 #+END_SRC
 
+* Neo tree
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key [C-tab] 'neotree-toggle)
+
+(setq projectile-switch-project-action 'neotree-projectile-action)
+#+END_SRC
+
 
 * TODO Not yet migrated code
 

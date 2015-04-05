@@ -14,48 +14,16 @@
  ;; If there is more than one, they won't work right.
  )
 
-(load-file "~/.emacs.d/src/repositories.el")
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+	     '("marmalade" .
+	       "http://marmalade-repo.org/packages/"))
+(package-initialize)
 
-(setq-default indent-tabs-mode nil)
-(load-file "~/.emacs.d/src/visuals.el")
-(load-file "~/.emacs.d/src/minibuffer.el")
-(load-file "~/.emacs.d/src/keyboard.el")
-(load-file "~/.emacs.d/src/manipulating-text.el")
-(load-file "~/.emacs.d/src/windows.el")
-(load-file "~/.emacs.d/src/undo.el")
-(load-file "~/.emacs.d/src/selecting.el")
-(load-file "~/.emacs.d/src/search.el")
-(load-file "~/.emacs.d/src/open-in-external.el")
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(load-file "~/.emacs.d/src/midnight.el")
-(load-file "~/.emacs.d/src/backup-files.el")
-(load-file "~/.emacs.d/src/spellcheck.el")
-
-(load-file "~/.emacs.d/src/org-mode.el")
-
-(load-file "~/.emacs.d/src/helm.el")
-(defalias 'helm-buffer-match-major-mode 'helm-buffers-list--match-fn)
-
-(load-file "~/.emacs.d/src/company-mode.el")
-(load-file "~/.emacs.d/src/snippets.el")
-
-(load-file "~/.emacs.d/src/languages/clojure.el")
-(load-file "~/.emacs.d/src/languages/markdown.el")
-(load-file "~/.emacs.d/src/languages/haskell.el")
-(load-file "~/.emacs.d/src/languages/htmlcss.el")
-(load-file "~/.emacs.d/src/languages/ruby.el")
-
-(load-file "~/.emacs.d/src/git.el")
-(load-file "~/.emacs.d/src/unmanaged.el")
-(load-file "~/.emacs.d/src/dash.el")
-
-(put 'dired-find-alternate-file 'disabled nil)
-
-(load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")
-
-(setq guide-key/guide-key-sequence t)
-(guide-key-mode 1)
-
-(load-file "~/.emacs.d/src/neotree.el")
+(require 'ob-tangle)
+(require 'org)
+(org-babel-load-file
+ (expand-file-name "settings.org"
+                   user-emacs-directory))

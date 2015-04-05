@@ -501,7 +501,19 @@ These are stand alone scripts I don't want in this config file.
 (require 'restclient)
 #+END_SRC
 
-* Dash
+
+* Help and documentation
+
+** Guide key
+
+When I start typing a combo a help with the possible continuations appear if I wait for a while.
+
+#+BEGIN_SRC emacs-lisp
+(setq guide-key/guide-key-sequence t)
+(guide-key-mode 1)
+#+END_SRC
+
+** Dash
 
 Integration with Dash
 
@@ -536,9 +548,4 @@ This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
 (put 'dired-find-alternate-file 'disabled nil)
-
-
-(setq guide-key/guide-key-sequence t)
-(guide-key-mode 1)
-
 #+END_SRC

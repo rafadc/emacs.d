@@ -534,5 +534,4 @@ This is the config files I'm yet to move to settings.org
 (setq guide-key/guide-key-sequence t)
 (guide-key-mode 1)
 
-(load-file "~/.emacs.d/src/neotree.el")
 #+END_SRC

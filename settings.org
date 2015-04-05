@@ -21,12 +21,6 @@ To use this change your init file for something like
                    user-emacs-directory))
 #+END_SRC
 
-To avoid some temp files being created we can disable the export of babel evaluation
-
-#+BEGIN_SRC emacs-lisp
-(setq org-export-babel-evaluate nil)
-#+END_SRC
-
 At this moment all features are in external el files. These lines just load them.
 
 #+BEGIN_SRC emacs-lisp

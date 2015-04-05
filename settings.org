@@ -277,14 +277,34 @@ Remove trailing whitespace of the file
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
+* Midnight
+
+#+BEGIN_SRC emacs-lisp
+(require 'midnight)
+#+END_SRC
+
+Kill buffers if they were last disabled more than this seconds ago
+
+#+BEGIN_SRC emacs-lisp
+(setq clean-buffer-list-delay-special 900)
+
+(defvar clean-buffer-list-timer nil
+  "Stores clean-buffer-list timer if there is one. You can disable clean-buffer-list by (cancel-timer clean-buffer-list-timer).")
+
+;; run clean-buffer-list every 4 hours
+(setq clean-buffer-list-timer (run-at-time t 14400 'clean-buffer-list))
+
+;; kill everything, clean-buffer-list is very intelligent at not killing
+;; unsaved buffer.
+(setq clean-buffer-list-kill-regexps '("^.*$"))
+#+END_SRC
+
 
 * TODO Not yet migrated code
 
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-
-(load-file "~/.emacs.d/src/midnight.el")
 (load-file "~/.emacs.d/src/backup-files.el")
 (load-file "~/.emacs.d/src/spellcheck.el")
 

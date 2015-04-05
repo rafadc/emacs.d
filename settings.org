@@ -521,6 +521,14 @@ Integration with Dash
 (setq projectile-switch-project-action 'neotree-projectile-action)
 #+END_SRC
 
+* Custom scripts
+
+These are scripts that are worthy of their own source file and I'm not including them here.
+
+#+BEGIN_SRC emacs-lisp
+(load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")
+#+END_SRC
+
 
 * TODO Not yet migrated code
 
@@ -529,7 +537,6 @@ This is the config files I'm yet to move to settings.org
 #+BEGIN_SRC emacs-lisp
 (put 'dired-find-alternate-file 'disabled nil)
 
-(load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")
 
 (setq guide-key/guide-key-sequence t)
 (guide-key-mode 1)

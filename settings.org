@@ -132,13 +132,61 @@ I must admit that this is only here so I can make an hyper-space combo.
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 #+END_SRC
 
+* Manipulating text
+
+This is a small script so ALT key drags lines up and down.
+
+#+BEGIN_SRC emacs-lisp
+(defun grab-line-down ()
+  "Moves current line down"
+  (interactive)
+  (progn
+   (forward-line 1)
+   (transpose-lines 1)
+   (forward-line -1)))
+
+(defun grab-line-up ()
+  "Moves current line up"
+  (interactive)
+  (progn
+   (forward-line 1)
+   (transpose-lines -1)
+   (forward-line -2)))
+
+(global-set-key (kbd "M-<down>") 'grab-line-down)
+(global-set-key (kbd "M-<up>") 'grab-line-up)
+
+(defun duplicate-line ()
+  "Duplicates current line"
+  (interactive)
+  (let
+      ((text-to-insert (thing-at-point 'line)))
+    (forward-line 1)
+    (insert text-to-insert)
+    (forward-line -1)))
+
+(global-set-key (kbd "s-*") 'duplicate-line)
+
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+(global-set-key (kbd "C-c C-e") 'eval-and-replace)
+#+END_SRC
+
+
 
 * TODO Not yet migrated code
 
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/manipulating-text.el")
 (load-file "~/.emacs.d/src/windows.el")
 (load-file "~/.emacs.d/src/undo.el")
 (load-file "~/.emacs.d/src/selecting.el")

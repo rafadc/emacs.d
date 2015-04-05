@@ -195,13 +195,29 @@ This is a small snippet to move to next or previous windows with C-x p and C-x o
 (global-set-key (kbd "C-x o") 'other-window-previous)
 #+END_SRC
 
+* Undo
+
+#+BEGIN_SRC emacs-lisp
+(global-undo-tree-mode 1)
+
+(defalias 'redo 'undo-tree-redo)
+
+(global-set-key (kbd "s-z") 'undo)
+(global-set-key (kbd "s-Z") 'redo)
+#+END_SRC
+
+This is binding the visualization to C-s-z but instead of that combo I need to use that strange status number.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<C-s-268632090>") 'undo-tree-visualize)
+#+END_SRC
+
 
 * TODO Not yet migrated code
 
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/undo.el")
 (load-file "~/.emacs.d/src/selecting.el")
 (load-file "~/.emacs.d/src/search.el")
 (load-file "~/.emacs.d/src/open-in-external.el")

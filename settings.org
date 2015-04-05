@@ -300,12 +300,29 @@ Kill buffers if they were last disabled more than this seconds ago
 #+END_SRC
 
 
+* Backup files
+
+This will create a folder called $HOME/.saves-emacs that will contain all backups.
+
+This is done so we avoid cluttering the folder where the file is being edited
+
+#+BEGIN_SRC emacs-lisp
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves-emacs"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
+#+END_SRC
+
+
 * TODO Not yet migrated code
 
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/backup-files.el")
 (load-file "~/.emacs.d/src/spellcheck.el")
 
 (load-file "~/.emacs.d/src/org-mode.el")

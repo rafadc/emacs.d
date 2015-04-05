@@ -118,14 +118,26 @@ This can solve it
 (add-hook 'iswitchb-define-mode-map-hook 'iswitchb-local-keys)
 #+END_SRC
 
+* Keyboard
+
+#+BEGIN_SRC emacs-lisp
+(setq mac-option-key-is-meta t)
+(setq mac-right-option-modifier nil)
+#+END_SRC
+
+This is not too useful but it is awesome. This makes Fn key in Mac to be Hyper.
+I must admit that this is only here so I can make an hyper-space combo.
+
+#+BEGIN_SRC emacs-lisp
+(setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
+#+END_SRC
+
 
 * TODO Not yet migrated code
 
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/minibuffer.el")
-(load-file "~/.emacs.d/src/keyboard.el")
 (load-file "~/.emacs.d/src/manipulating-text.el")
 (load-file "~/.emacs.d/src/windows.el")
 (load-file "~/.emacs.d/src/undo.el")

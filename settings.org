@@ -236,13 +236,21 @@ These are multiple cursors bindings.
 (global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
 #+END_SRC
 
+* Search
+
+Using phi search for a nice incremental search that allows to go to the search or come back if the search is not what expected.
+
+#+BEGIN_SRC emacs-lisp
+(require 'phi-search)
+(global-set-key (kbd "C-s") 'phi-search)
+#+END_SRC
+
 
 * TODO Not yet migrated code
 
 This is the config files I'm yet to move to settings.org
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/search.el")
 (load-file "~/.emacs.d/src/open-in-external.el")
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

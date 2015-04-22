@@ -186,6 +186,18 @@ This is a small script so ALT key drags lines up and down.
 (global-set-key (kbd "C-c C-e") 'eval-and-replace)
 #+END_SRC
 
+I hace ALT-backspace to change my kill ring since I don't often want that there.
+
+#+BEGIN_SRC emacs-lisp
+(defun delete-word (arg)
+  "Delete characters backward until encountering the beginning of a word.
+With argument ARG, do this that many times."
+  (interactive "p")
+  (delete-region (point) (progn (backward-word arg) (point))))
+
+(global-set-key (kbd "<M-backspace>") 'delete-word)
+#+END_SRC
+
 * Windows
 
 This is a small snippet to move to next or previous windows with C-x p and C-x o

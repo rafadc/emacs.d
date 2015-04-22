@@ -94,6 +94,13 @@ Scrolling with keyboard before touching bottom
       scroll-preserve-screen-position 1)
 #+END_SRC
 
+Asking y/n instead of yes/no
+
+#+BEGIN_SRC emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+
 * Minibuffer
 
 Incremental search in minibuffer

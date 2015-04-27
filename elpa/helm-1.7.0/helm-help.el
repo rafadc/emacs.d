@@ -428,6 +428,11 @@ also using not recursive wilcard (e.g \"*.el\") is perfectly fine for this.
 This feature (\"**\") is activated by default with the option `helm-file-globstar'.
 The directory selection with \"**foo/\" like bash shopt globstar option is not supported yet.
 
+*** Bookmark your `helm-find-files' session
+
+You can bookmark your `helm-find-files' session with `C-x r m'.
+You can retrieve later these bookmarks easily by using M-x helm-filtered-bookmarks.
+
 \n** Specific commands for `helm-find-files':\n
 \\<helm-find-files-map>
 \\[helm-ff-run-locate]\t\t->Run Locate (C-u to specify locate db, M-n insert basename of candidate)
@@ -1059,7 +1064,8 @@ the amount of prefix args entered.
 Use persistent action to run your kmacro as many time as needed,
 you can change of kmacro with `helm-next-line' `helm-previous-line'.
 
-NOTE: You can't record keys running helm commands.
+NOTE: You can't record keys running helm commands except `helm-M-x' unless
+you don't choose from there a command using helm completion.
 
 \n** Specific commands for Helm kmacro:\n
 \\<helm-kmacro-map>
@@ -1529,11 +1535,6 @@ HELM-ATTRIBUTE should be a symbol."
   `re-search-forward'. This attribute is meant to be used with
   (candidates . helm-candidates-in-buffer) or
   (candidates-in-buffer) in short.")
-
-(helm-document-attribute 'search-from-end "optional"
-  "  Make `helm-candidates-in-buffer' search from the end of buffer.
-  If this attribute is specified, `helm-candidates-in-buffer'
-  uses `re-search-backward' instead.")
 
 (helm-document-attribute 'get-line "optional"
   "  A function like `buffer-substring-no-properties' or `buffer-substring'.

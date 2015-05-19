@@ -557,6 +557,21 @@ Making dired to open the file in the current buffer instead of opening a new one
 (put 'dired-find-alternate-file 'disabled nil)
 #+END_SRC
 
+* Some general purpose functions
+
+These are some general functions that are useful and have no better place to be in
+
+#+BEGIN_SRC emacs-lisp
+(defun prelude-copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+#+END_SRC
 
 * Custom scripts
 

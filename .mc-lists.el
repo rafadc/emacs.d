@@ -3,12 +3,13 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-	magit-status
-	ruby-end-space
-	))
+        delete-word
+        magit-status
+        ruby-end-space
+        ))
 
 (setq mc/cmds-to-run-once
       '(
-	helm-M-x
-	helm-confirm-and-exit-minibuffer
-	))
+        helm-M-x
+        helm-confirm-and-exit-minibuffer
+        ))

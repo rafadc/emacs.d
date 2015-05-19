@@ -1178,7 +1178,7 @@
 	       [(1 1)
 		nil "Python Pyvirtualenv support" single])
  (pyvenv .
-	 [(1 4)
+	 [(1 7)
 	  nil "Python virtual environment interface" single])
  (python-pylint .
 		[(1 1)
@@ -1566,7 +1566,7 @@
 	      (1 6 8)))
 	    "Blog from Org mode to wordpress" tar])
  (org-trello .
-	     [(0 6 9 3)
+	     [(0 6 9 4)
 	      ((request-deferred
 		(0 2 0))
 	       (deferred
@@ -1621,7 +1621,7 @@
 	       (6 1)))
 	     "basic support for magit links" single])
  (org-journal .
-	      [(1 7 2)
+	      [(1 8 1)
 	       nil "a simple org-mode based journaling mode" single])
  (org-gnome .
 	    [(0 1)
@@ -3183,7 +3183,7 @@
 	    [(0)
 	     nil "Resize a frame.  In particular, fit a frame to its buffers." single])
  (firestarter .
-	      [(0 1 0)
+	      [(0 1 1)
 	       nil "Execute (shell) commands on save" single])
  (fiplr .
 	[(0 1 3)
@@ -3254,7 +3254,7 @@
        (2 2 0)))
      "Modern API for working with files and directories" single])
  (eyebrowse .
-	    [(0 4 0)
+	    [(0 4 5)
 	     ((dash
 	       (2 7 0)))
 	     "Easy window config switching" single])
@@ -3444,7 +3444,7 @@
 	   [(1 4 6)
 	    nil "Screen for Emacsen" single])
  (elpy .
-       [(1 7 1)
+       [(1 8 0)
 	((company
 	  (0 8 2))
 	 (find-file-in-project
@@ -4088,7 +4088,7 @@
 	 [(0 1 0)
 	  nil "eldoc mode for clojure" single])
  (clj-refactor .
-	       [(0 13 0)
+	       [(1 0 5)
 		((s
 		  (1 8 0))
 		 (dash
@@ -4096,11 +4096,11 @@
 		 (yasnippet
 		  (0 6 1))
 		 (paredit
-		  (22))
+		  (24))
 		 (multiple-cursors
 		  (1 2 2))
 		 (cider
-		  (0 6 0)))
+		  (0 8 1)))
 		"A collection of clojure refactoring functions" single])
  (clj-mode .
 	   [(0 9)
@@ -4440,13 +4440,6 @@
 	      (auto-complete
 	       (1 4)))
 	     "Auto-complete backend for geiser" tar])
- (ac-cider-compliment .
-		      [(0 1 0)
-		       ((cider
-			 (0 5 0))
-			(auto-complete
-			 (1 4)))
-		       "auto-complete sources for Clojure using" single])
  (ac-cider .
 	   [(0 2 0)
 	    ((cider

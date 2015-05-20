@@ -33,17 +33,17 @@ Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 #+END_SRC
 
-I like this dark theme...
+The theme is based on base16 color set
+
+#+BEGIN_SRC emacs-lisp
+(load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
+#+END_SRC
+
+But the dark theme colors are cooler
 
 #+BEGIN_SRC emacs-lisp
 (sml/setup)
 (sml/apply-theme 'dark)
-#+END_SRC
-
-...but since the colors of the fonts are not that awesome this helps.
-
-#+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
 #+END_SRC
 
 Disable menu and icon bar
@@ -377,18 +377,6 @@ This is done so we avoid cluttering the folder where the file is being edited
       (message "No project folder found"))))
 
 (global-set-key (kbd "<f7>") 'projectile-open-personal-notes)
-
-(require 'org-trello)
-
-(setq trello-file "~/.trello/my-life.org")
-
-(defun open-trello-file ()
-  "Opens trello's org file"
-  (interactive)
-  (find-file "~/.trello/my-life.org")
-  (org-trello-mode))
-
-(global-set-key (kbd "C-<f7>") 'open-trello-file)
 
 ;; (custom-set-variables '(org-trello-files '("/Users/rafael/.trello/my-life.org")))
 #+END_SRC

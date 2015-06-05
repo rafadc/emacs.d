@@ -390,6 +390,8 @@ This is done to solve a bug in MELPA stable helm version. Once this is not neede
 (defalias 'helm-buffer-match-major-mode 'helm-buffers-match-function)
 #+END_SRC
 
+Helm bindings to substitute some standard commands
+
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "M-x") 'helm-M-x) ; Helm for emacs commands
 
@@ -400,6 +402,8 @@ This is done to solve a bug in MELPA stable helm version. Once this is not neede
 (global-set-key (kbd "s-p") 'helm-projectile)
 
 (global-set-key (kbd "s-F") 'helm-do-ag)
+
+(global-set-key (kbd "C-x r l") 'helm-bookmarks)
 #+END_SRC
 
 * Company mode

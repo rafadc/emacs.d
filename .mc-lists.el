@@ -12,4 +12,5 @@
       '(
         helm-M-x
         helm-confirm-and-exit-minibuffer
+        helm-do-ag
         ))

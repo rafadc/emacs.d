@@ -4403,10 +4403,10 @@
 		  (1 11 5)))
 		"Space align various Clojure forms" single])
  (alchemist .
-	    [(1 0 0)
+	    [(1 0 1)
 	     ((emacs
 	       (24)))
-	     "Elixir tooling integration into Emacs" single])
+	     "Elixir tooling integration into Emacs" tar])
  (ahg .
       [(0 99)
        nil "Alberto's Emacs interface for Mercurial (Hg)" single])

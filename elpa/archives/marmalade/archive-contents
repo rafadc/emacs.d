@@ -131,7 +131,7 @@
    [(1 1)
     nil "Poor-man's namespaces for elisp" single])
  (wisp-mode .
-	    [(0 2)
+	    [(0 2 1)
 	     nil "Tools for wisp: the Whitespace-to-Lisp preprocessor" single])
  (wisp .
        [(0 1 4)
@@ -895,7 +895,7 @@
 	   [(1 4)
 	    nil "pattern matching for elisp" single])
  (shackle .
-	  [(0 6 1)
+	  [(0 7 0)
 	   ((cl-lib
 	     (0 5)))
 	   "Enforce rules for popups" single])
@@ -1571,7 +1571,7 @@
 	      (1 6 8)))
 	    "Blog from Org mode to wordpress" tar])
  (org-trello .
-	     [(0 6 9 6)
+	     [(0 7 0)
 	      ((request-deferred
 		(0 2 0))
 	       (deferred
@@ -3259,7 +3259,7 @@
        (2 2 0)))
      "Modern API for working with files and directories" single])
  (eyebrowse .
-	    [(0 6 4)
+	    [(0 6 5)
 	     ((dash
 	       (2 7 0))
 	      (emacs
@@ -3652,7 +3652,7 @@
 	       [(0 2 2)
 		nil "Aspell extra dictionary for Drupal" tar])
  (drupal-mode .
-	      [(0 5 0)
+	      [(0 6 0)
 	       ((php-mode
 		 (1 5 0)))
 	       "Advanced minor mode for Drupal development" tar])
@@ -4371,7 +4371,7 @@
 		 (24 1)))
 	       "Ansible documentation Minor Mode" single])
  (annotate .
-	   [(0 1 5)
+	   [(0 2 2)
 	    nil "annotate files without changing them" single])
  (angular-snippets .
 		   [(0 2 3)
@@ -4403,7 +4403,7 @@
 		  (1 11 5)))
 		"Space align various Clojure forms" single])
  (alchemist .
-	    [(1 0 1)
+	    [(1 1 0)
 	     ((emacs
 	       (24)))
 	     "Elixir tooling integration into Emacs" tar])

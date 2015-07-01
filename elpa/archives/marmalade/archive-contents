@@ -692,6 +692,9 @@
 		(magit
 		 (0 8 1)))
 	       "Saner defaults and goodies." tar])
+ (ssh-file-modes .
+		 [(1 20150626)
+		  nil "major modes for ssh authorized_keys and known_hosts files" single])
  (ssh .
       [(1 2)
        nil "Support for remote logins using ssh." single])
@@ -1553,7 +1556,7 @@
 	     [(0 0 8)
 	      nil "export html and meta data used by static blog like nikola from org file" tar])
  (org2jekyll .
-	     [(0 1 5)
+	     [(0 1 6)
 	      ((dash
 		(2 10 0))
 	       (dash-functional
@@ -3259,7 +3262,7 @@
        (2 2 0)))
      "Modern API for working with files and directories" single])
  (eyebrowse .
-	    [(0 6 5)
+	    [(0 6 6)
 	     ((dash
 	       (2 7 0))
 	      (emacs
@@ -3775,7 +3778,7 @@
 		     (24)))
 		   "Collection of useful combinators for Emacs Lisp" single])
  (dash .
-       [(2 10 0)
+       [(2 11 0)
 	nil "A modern list library for Emacs" single])
  (dart-mode .
 	    [(0 13)

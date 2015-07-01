@@ -551,6 +551,8 @@ Making dired to open the file in the current buffer instead of opening a new one
 
 These are some general functions that are useful and have no better place to be in
 
+Copies the file to the clipboard.
+
 #+BEGIN_SRC emacs-lisp
 (defun copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
@@ -561,6 +563,29 @@ These are some general functions that are useful and have no better place to be 
     (when filename
       (kill-new filename)
       (message "Copied buffer file name '%s' to the clipboard." filename))))
+#+END_SRC
+
+This function just reloads chrome. This is useful to avoid too much alt-tab
+
+#+BEGIN_SRC emacs-lisp
+(defun chrome-reload ()
+  "Reloads current chrome window"
+  (interactive)
+  (shell-command "chrome-cli reload"))
+#+END_SRC
+
+This function just reloads chrome. This is useful to avoid too much alt-tab
+
+#+BEGIN_SRC emacs-lisp
+(define-prefix-command 'manage-browser-map)
+(global-set-key (kbd "C-b") 'manage-browser-map)
+
+(defun chrome-reload ()
+  "Reloads current chrome window"
+  (interactive)
+  (shell-command "chrome-cli reload"))
+
+(define-key manage-browser-map "r" 'chrome-reload)
 #+END_SRC
 
 * Custom scripts

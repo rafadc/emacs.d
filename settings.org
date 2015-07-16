@@ -287,7 +287,7 @@ With a prefix ARG always prompt for command to use."
 (global-set-key (kbd "C-c o") 'open-with)
 #+END_SRC
 
-* Whitespace handling
+* White space handling
 
 Remove trailing whitespace of the file
 
@@ -507,9 +507,9 @@ It requires projectile to find git root folder. After that we get the currently 
       ((git-folder (car (projectile-get-project-directories)))
        (command (concat "git --git-dir=" git-folder ".git branch | sed -n '/* /s///p'"))
        (branch-name (shell-command-to-string command))
-       (ticket-name (split-string branch-name "\\.")))
-    (if ticket-name
-      (insert ticket-name))))
+       (ticket-name (car (split-string branch-name "\\."))))
+    (if (string-match "PFM-" ticket-name)
+      (insert (concat ticket-name " ")))))
 
 (add-hook 'git-commit-mode-hook 'insert-pfm-in-commit-message)
 #+END_SRC
@@ -605,6 +605,36 @@ This function just reloads chrome. This is useful to avoid too much alt-tab
   (shell-command "chrome-cli reload"))
 
 (define-key manage-browser-map "r" 'chrome-reload)
+#+END_SRC
+
+Look in Bing's dictionary.
+
+Kudos to: https://medium.com/@flyrain000/use-the-new-web-browser-in-emacs-24-4-2c37eb67818b
+
+#+BEGIN_SRC emacs-lisp
+(defun bing-dict ()
+ "Search current word in bing dictionary."
+ (interactive)
+ (save-restriction
+ (let (start end)
+ (skip-chars-backward "A-Za-z0–9") (setq start (point))
+ (skip-chars-forward "A-Za-z0–9") (setq end (point))
+ (setq current-word (buffer-substring start end))
+ (eww (concat "http://cn.bing.com/dict/search?q=" current-word))
+ (if (not (string= (buffer-name) "*eww*"))
+ (switch-to-buffer-other-window "*eww*"))
+ (hl-line-mode "*eww*")
+ ;wait for 2 second, because the buffer will refresh soon and it go back to top line.
+ (sit-for 2)
+ (search-forward current-word nil t 2)
+ ;mark the word for 1 second
+ (end-of-line)
+ (set-mark (line-beginning-position))
+ (sit-for 1)
+ (deactivate-mark)
+ )))
+
+(global-set-key (kbd "C-c q") 'bing-dict)
 #+END_SRC
 
 * Custom scripts

@@ -100,7 +100,6 @@ Asking y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-
 * Minibuffer
 
 Incremental search in minibuffer
@@ -550,7 +549,8 @@ Integration with Dash
 (global-set-key "\C-ce" 'dash-at-point-with-docset)
 #+END_SRC
 
-* Neo tree
+* File navigation
+** Neo tree
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key [C-tab] 'neotree-toggle)
@@ -558,7 +558,7 @@ Integration with Dash
 (setq projectile-switch-project-action 'neotree-projectile-action)
 #+END_SRC
 
-* File navigation
+** Dired
 
 Making dired to open the file in the current buffer instead of opening a new one
 

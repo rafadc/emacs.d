@@ -495,6 +495,25 @@ Adding file types with no rb extension
 (global-set-key (kbd "s-<f6>") 'git-timemachine)
 #+END_SRC
 
+A small custom script for inserting the ticket name in Platform161 commit message.
+
+It requires projectile to find git root folder. After that we get the currently selected branch with git and sed and finally we get the ticket name. In the split I have to ue \\. instead of a single dot because it is a regexp and I need to escape twice the \
+
+#+BEGIN_SRC emacs-lisp
+(defun insert-pfm-in-commit-message ()
+  "Inserts the PFM ticket name at the beginning of commit message"
+  (interactive)
+  (let*
+      ((git-folder (car (projectile-get-project-directories)))
+       (command (concat "git --git-dir=" git-folder ".git branch | sed -n '/* /s///p'"))
+       (branch-name (shell-command-to-string command))
+       (ticket-name (split-string branch-name "\\.")))
+    (if ticket-name
+      (insert ticket-name))))
+
+(add-hook 'git-commit-mode-hook 'insert-pfm-in-commit-message)
+#+END_SRC
+
 * Unmanaged scripts
 
 These are stand alone scripts I don't want in this config file.

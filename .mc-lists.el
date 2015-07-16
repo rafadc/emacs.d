@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         delete-word
+        helm-projectile
         magit-status
         ruby-end-space
         ))

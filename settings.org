@@ -136,6 +136,16 @@ I must admit that this is only here so I can make an hyper-space combo.
 #+BEGIN_SRC emacs-lisp
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 #+END_SRC
+* Mouse in terminal
+
+This takes back mouse and makes it work in a terminal.
+
+#+BEGIN_SRC emacs-lisp
+(require 'mouse)
+(xterm-mouse-mode t)
+(defun track-mouse (e))
+(setq mouse-sel-mode t)
+#+END_SRC
 
 * Manipulating text
 

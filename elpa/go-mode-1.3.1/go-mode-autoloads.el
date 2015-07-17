@@ -1,9 +1,9 @@
 ;;; go-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
 
-;;;### (autoloads nil "go-mode" "go-mode.el" (21766 38782 0 0))
+;;;### (autoloads nil "go-mode" "go-mode.el" (21928 38194 0 0))
 ;;; Generated autoloads from go-mode.el
 
 (autoload 'go-mode "go-mode" "\
@@ -54,11 +54,12 @@ go get code.google.com/p/rog-go/exp/cmd/godef
 
 If you're looking for even more integration with Go, namely
 on-the-fly syntax checking, auto-completion and snippets, it is
-recommended that you look at goflymake
-\(https://github.com/dougm/goflymake), gocode
-\(https://github.com/nsf/gocode), go-eldoc
-\(github.com/syohex/emacs-go-eldoc) and yasnippet-go
-\(https://github.com/dominikh/yasnippet-go)
+recommended that you look at flycheck
+\(see URL `https://github.com/flycheck/flycheck') or flymake in combination
+with goflymake (see URL `https://github.com/dougm/goflymake'), gocode
+\(see URL `https://github.com/nsf/gocode'), go-eldoc
+\(see URL `github.com/syohex/emacs-go-eldoc') and yasnippet-go
+\(see URL `https://github.com/dominikh/yasnippet-go')
 
 \(fn)" t nil)
 
@@ -74,21 +75,28 @@ you save any file, kind of defeating the point of autoloading.
 \(fn)" t nil)
 
 (autoload 'godoc "go-mode" "\
-Show go documentation for a query, much like M-x man.
+Show Go documentation for QUERY, much like M-x man.
 
 \(fn QUERY)" t nil)
 
 (autoload 'go-download-play "go-mode" "\
-Downloads a paste from the playground and inserts it in a Go
-buffer. Tries to look for a URL at point.
+Download a paste from the playground and insert it in a Go buffer.
+Tries to look for a URL at point.
 
 \(fn URL)" t nil)
 
 ;;;***
 
+;;;### (autoloads nil nil ("go-mode-pkg.el") (21928 38194 632038
+;;;;;;  0))
+
+;;;***
+
+(provide 'go-mode-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; go-mode-autoloads.el ends here

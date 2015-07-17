@@ -138,13 +138,13 @@ I must admit that this is only here so I can make an hyper-space combo.
 #+END_SRC
 * Mouse in terminal
 
-This takes back mouse and makes it work in a terminal.
+This takes back mouse and makes it work in a terminal. Commented until I make terminal mode to work as I want.
 
 #+BEGIN_SRC emacs-lisp
-(require 'mouse)
-(xterm-mouse-mode t)
-(defun track-mouse (e))
-(setq mouse-sel-mode t)
+;(require 'mouse)
+;(xterm-mouse-mode t)
+;(defun track-mouse (e))
+;(setq mouse-sel-mode t)
 #+END_SRC
 
 * Manipulating text

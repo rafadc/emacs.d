@@ -37,6 +37,9 @@ The theme is based on base16 color set
 
 #+BEGIN_SRC emacs-lisp
 (load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
+
+(set-face-background col-highlight-face "gray32")
+(list-colors-display)
 #+END_SRC
 
 But the dark theme colors are cooler
@@ -538,6 +541,10 @@ These are stand alone scripts I don't want in this config file.
 
 (add-to-list 'load-path "~/.emacs.d/unmanaged/restclient")
 (require 'restclient)
+
+(add-to-list 'load-path "~/.emacs.d/unmanaged/hl-line+")
+(require 'hl-line+)
+
 #+END_SRC
 
 There is a problem with MELPA stable projectile helm version. It is outdated and seems to be broken. Until they fix it I have the latest here

@@ -128,6 +128,7 @@ This can solve it
 #+BEGIN_SRC emacs-lisp
 (setq mac-option-key-is-meta t)
 (setq mac-right-option-modifier nil)
+(setq mac-command-modifier 'super)
 #+END_SRC
 
 This is not too useful but it is awesome. This makes Fn key in Mac to be Hyper.

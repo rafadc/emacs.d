@@ -493,6 +493,9 @@ Adding file types with no rb extension
 (add-hook 'ruby-mode-hook 'yafolding-mode)
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+
+;; Projectile rails mode
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
 #+END_SRC
 
 * Git
@@ -535,6 +538,13 @@ These are stand alone scripts I don't want in this config file.
 
 (add-to-list 'load-path "~/.emacs.d/unmanaged/restclient")
 (require 'restclient)
+#+END_SRC
+
+There is a problem with MELPA stable projectile helm version. It is outdated and seems to be broken. Until they fix it I have the latest here
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/unmanaged/helm-projectile")
+(require 'helm-projectile)
 #+END_SRC
 
 * Help and documentation

@@ -38,7 +38,8 @@ The theme is based on base16 color set
 #+BEGIN_SRC emacs-lisp
 (load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
 
-(set-face-background col-highlight-face "gray32")
+;(set-face-background hl-line-face "gray18")
+;(set-face-background col-highlight-face "gray18")
 (list-colors-display)
 #+END_SRC
 
@@ -267,7 +268,8 @@ These are multiple cursors bindings.
 (global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
 #+END_SRC
 
-* Search
+* Moving around
+** Search
 
 Using phi search for a nice incremental search that allows to go to the search or come back if the search is not what expected.
 
@@ -275,6 +277,17 @@ Using phi search for a nice incremental search that allows to go to the search o
 (require 'phi-search)
 (global-set-key (kbd "C-s") 'phi-search)
 #+END_SRC
+
+** Avy jump
+
+Avy jump is great for moving around.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1)
+#+END_SRC
+
+#+RESULTS:
+: avy-goto-word-or-subword-1
 
 * Open in external editor
 

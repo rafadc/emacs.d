@@ -33,6 +33,15 @@ Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 #+END_SRC
 
+Nothing bigger than 80 lines. This is nice also for code. ;). Anyway we can avoid the org node since this may make sense for longer texts.
+
+#+BEGIN_SRC emacs-lisp
+(setq whitespace-line-column 80)
+(setq whitespace-style '(face empty tabs lines-tail trailing))
+(setq whitespace-global-modes '(not org-mode web-mode "Web" emacs-lisp-mode))
+(global-whitespace-mode t)
+#+END_SRC
+
 The theme is based on base16 color set
 
 #+BEGIN_SRC emacs-lisp
@@ -77,8 +86,7 @@ Paren highlight
 
 Font
 #+BEGIN_SRC emacs-lisp
-(set-face-attribute 'default nil
-                    :family "M+ 1m" :height 180 :weight 'light)
+(set-face-attribute 'default nil :font "M+ 2m" :height 170 :weight 'regular)
 #+END_SRC
 
 Smoother scrolling with mouse. This is the only thing I still miss from Sublime text

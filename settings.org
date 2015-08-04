@@ -80,10 +80,15 @@ Paren highlight
 (setq show-paren-delay 0)
 #+END_SRC
 
-Font. The more I use it the more I like M2
+Font. I like a ton of different fonts and I use them a lot. My choices are:
+
+- Hermit light: Playful. Coding must be fun.
+- M2 regular 170: When you are feeling professional
+- Input Mono Compressed: Somewhat old school but really readable.
+
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
-                    :family "M+ 2m" :height 170 :weight 'regular)
+                    :family "Hermit" :height 170 :weight 'light)
 #+END_SRC
 
 Smoother scrolling with mouse. This is the only thing I still miss from Sublime text

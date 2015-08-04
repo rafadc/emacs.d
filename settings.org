@@ -232,6 +232,12 @@ This is a small snippet to move to next or previous windows with C-x p and C-x o
 (global-set-key (kbd "C-x o") 'other-window-previous)
 #+END_SRC
 
+Enabling winner mode to restore the configuration of window layout.
+
+#+BEGIN_SRC emacs-lisp
+(winner-mode t)
+#+END_SRC
+
 * Undo
 
 #+BEGIN_SRC emacs-lisp

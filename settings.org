@@ -46,10 +46,6 @@ The theme is based on base16 color set
 
 #+BEGIN_SRC emacs-lisp
 (load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
-
-;(set-face-background hl-line-face "gray18")
-;(set-face-background col-highlight-face "gray18")
-(list-colors-display)
 #+END_SRC
 
 But the dark theme colors are cooler
@@ -84,9 +80,10 @@ Paren highlight
 (setq show-paren-delay 0)
 #+END_SRC
 
-Font
+Font. The more I use it the more I like M2
 #+BEGIN_SRC emacs-lisp
-(set-face-attribute 'default nil :font "M+ 2m" :height 170 :weight 'regular)
+(set-face-attribute 'default nil
+                    :family "M+ 2m" :height 170 :weight 'regular)
 #+END_SRC
 
 Smoother scrolling with mouse. This is the only thing I still miss from Sublime text

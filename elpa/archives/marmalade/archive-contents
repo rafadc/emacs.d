@@ -1,4 +1,18 @@
 (1
+ (flycheck-gdc-dub .
+		   [(0 1)
+		    ((d-mode
+		      (20150317 117))
+		     (flycheck
+		      (20150317 2246)))
+		    "Provides support for retrieving include paths from dub build descriptions.." tar])
+ (flycheck-vala .
+		[(0 1)
+		 ((vala-mode
+		   (20150324 1525))
+		  (flycheck
+		   (20150317 2246)))
+		 "Provides support for use of valac as a Flycheck checker for Vala." tar])
  (zone-matrix .
 	      [(0 0 1)
 	       nil "Matrix themed Zone mode" tar])
@@ -3178,7 +3192,7 @@
 		      (1 0 1)))
 		    "Flycheck: Cabal projects and sandboxes" tar])
  (flycheck-gdc .
-	       [(0 2)
+	       [(0 3)
 		((d-mode
 		  (20150317 117))
 		 (flycheck

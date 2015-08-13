@@ -88,7 +88,7 @@ Font. I like a ton of different fonts and I use them a lot. My choices are:
 
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
-                    :family "Hermit" :height 170 :weight 'light)
+                    :family "Input Mono Compressed" :height 170 :weight 'light)
 #+END_SRC
 
 Smoother scrolling with mouse. This is the only thing I still miss from Sublime text

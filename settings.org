@@ -299,11 +299,9 @@ Using phi search for a nice incremental search that allows to go to the search o
 Avy jump is great for moving around.
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1)
-#+END_SRC
 
-#+RESULTS:
-: avy-goto-word-or-subword-1
+(global-set-key (kbd "C-c j") 'avy-goto-char)
+#+END_SRC
 
 * Open in external editor
 

@@ -2,3 +2,9 @@
 auto-save-list/
 settings.el
 tramp
+
+# XKCD temporal files
+/xkcd
+
+# Cookies should not be in a public repo
+url/cookies

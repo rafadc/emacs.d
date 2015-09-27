@@ -25,6 +25,18 @@ Then you will only have your org file to handle all your emacs configuration. It
 
 At this moment all features are in external el files. I'm migrating from those to this dile only so there are some *load-file*s out there yet.
 
+* Use package
+
+Bootstrapping use-package. This looks for use package in the system ans installs it if it is not there. This is the only package we need to install this way.
+
+#+BEGIN_SRC emacs-lisp
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+#+END_SRC
+
 * Visuals
 
 Use spaces instead of tabs
@@ -300,7 +312,9 @@ Avy jump is great for moving around.
 
 #+BEGIN_SRC emacs-lisp
 
-(global-set-key (kbd "C-c j") 'avy-goto-char)
+(use-package avy
+  :ensure t
+  :bind ("C-c j" . avy-goto-char))
 #+END_SRC
 
 * Open in external editor

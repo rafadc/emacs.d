@@ -21,6 +21,9 @@
 (add-to-list 'package-archives
 	     '("marmalade" .
 	       "http://marmalade-repo.org/packages/"))
+
+(setq package-enable-at-startup nil)
+
 (package-initialize)
 
 (require 'ob-tangle)

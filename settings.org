@@ -425,6 +425,9 @@ This is done so we avoid cluttering the folder where the file is being edited
 * Org mode
 
 #+BEGIN_SRC emacs-lisp
+(use-package org
+  :ensure t)
+
 ;; Binding F7 to open a personal_notes.org file in root of projectile
 (require 'projectile)
 
@@ -438,8 +441,6 @@ This is done so we avoid cluttering the folder where the file is being edited
       (message "No project folder found"))))
 
 (global-set-key (kbd "<f7>") 'projectile-open-personal-notes)
-
-;; (custom-set-variables '(org-trello-files '("/Users/rafael/.trello/my-life.org")))
 #+END_SRC
 
 * Helm

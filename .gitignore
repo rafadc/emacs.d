@@ -1,6 +1,9 @@
-*.elc
 auto-save-list/
+
+# The compiled settings will not be commited
+*.elc
 settings.el
+
 tramp
 
 # XKCD temporal files

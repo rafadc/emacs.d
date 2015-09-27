@@ -48,10 +48,13 @@ Use spaces instead of tabs
 Nothing bigger than 80 lines. This is nice also for code. ;). Anyway we can avoid the org node since this may make sense for longer texts.
 
 #+BEGIN_SRC emacs-lisp
-(setq whitespace-line-column 120)
-(setq whitespace-style '(face empty tabs lines-tail trailing))
-(setq whitespace-global-modes '(not org-mode web-mode "Web" emacs-lisp-mode))
-(global-whitespace-mode t)
+(use-package whitespace
+  :ensure t
+  :diminish whitespace-mode
+  :config (progn (setq whitespace-line-column 120)
+                 (setq whitespace-style '(face empty tabs lines-tail trailing))
+                 (setq whitespace-global-modes '(not org-mode web-mode "Web" emacs-lisp-mode))
+                 (global-whitespace-mode t)))
 #+END_SRC
 
 The theme is based on base16 color set
@@ -283,17 +286,20 @@ Typing over a selection deletes text
 Expand region key binding.
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "s-e") 'er/expand-region)
+(use-package expand-region
+  :ensure t
+  :bind (("s-e" . er/expand-region)))
 #+END_SRC
 
 These are multiple cursors bindings.
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "s-d") 'mc/mark-next-like-this)
-(global-set-key (kbd "s-D") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-s-d") 'mc/mark-all-like-this)
-
-(global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
+(use-package multiple-cursors
+  :ensure t
+  :bind (("s-d" . mc/mark-next-like-this)
+         ("s-D" . mc/mark-previous-like-this)
+         ("C-s-d" . mc/mark-all-like-this)
+         ("H-SPC" . set-rectangular-region-anchor)))
 #+END_SRC
 
 * Moving around
@@ -544,12 +550,17 @@ Adding file types with no rb extension
 
 * Git
 
-#+BEGIN_SRC emacs-lisp
-;; Magit
-(global-set-key (kbd "<f6>") 'magit-status)
+We will use Magit for git. Also opening timemachine is a nice binding to have.
 
-;; Git time machine
-(global-set-key (kbd "s-<f6>") 'git-timemachine)
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :ensure t
+  :bind (("<f6>" . magit-status)))
+
+(use-package git-timemachine
+  :ensure t
+  :bind (("s-<f6>" . git-timemachine)))
+
 #+END_SRC
 
 * Unmanaged scripts
@@ -603,9 +614,10 @@ Integration with Dash
 ** Neo tree
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key [C-tab] 'neotree-toggle)
-
-(setq projectile-switch-project-action 'neotree-projectile-action)
+(use-package neotree
+  :ensure t
+  :bind ("<C-tab>" . neotree-toggle)
+  :init (setq projectile-switch-project-action 'neotree-projectile-action))
 #+END_SRC
 
 ** Dired

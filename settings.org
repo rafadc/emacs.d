@@ -552,6 +552,16 @@ Adding file types with no rb extension
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 #+END_SRC
 
+** Elixir
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package alchemist
+  :ensure t
+  :config (setq alchemist-hooks-test-on-save t))
+#+END_SRC
+
+
 * Git
 
 We will use Magit for git. Also opening timemachine is a nice binding to have.

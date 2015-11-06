@@ -62,11 +62,23 @@
       (global-unset-key (kbd "C-c p c"))
       (global-unset-key (kbd "C-c p n"))))
 
+(defun insert-pfm-in-commit-message ()
+  "Inserts the PFM ticket name at the beginning of commit message"
+  (interactive)
+  (let*
+      ((git-folder (car (projectile-get-project-directories)))
+       (command (concat "git --git-dir=" git-folder ".git branch | sed -n '/* /s///p'"))
+       (branch-name (shell-command-to-string command))
+       (ticket-name (split-string branch-name "\\.")))
+    (if ticket-name
+      (insert ticket-name))))
 
 (defun p161-mode (&optional arg)
   "Platform 161 mode"
   (interactive "P")
   (setq p161-mode (toggle-p161))
   (if p161-mode
-      (add-shortcuts)
+      (progn
+        (add-shortcuts)
+        (add-hook 'git-commit-mode-hook 'insert-pfm-in-commit-message))
     (remove-shortcuts)) )

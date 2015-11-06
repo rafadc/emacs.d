@@ -260,13 +260,19 @@ Enabling winner mode to restore the configuration of window layout.
 
 * Undo
 
+Much better undo than the default one.
+
 #+BEGIN_SRC emacs-lisp
-(global-undo-tree-mode 1)
 
-(defalias 'redo 'undo-tree-redo)
+(use-package undo-tree
+  :ensure t
+  :init
+    (progn
+      (global-undo-tree-mode 1)
+      (defalias 'redo 'undo-tree-redo)
 
-(global-set-key (kbd "s-z") 'undo)
-(global-set-key (kbd "s-Z") 'redo)
+      (global-set-key (kbd "s-z") 'undo)
+      (global-set-key (kbd "s-Z") 'redo)))
 #+END_SRC
 
 This is binding the visualization to C-s-z but instead of that combo I need to use that strange status number.

@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         delete-word
+        git-rebase-squash
         helm-projectile
         magit-status
         ruby-end-space
@@ -14,4 +15,5 @@
         helm-M-x
         helm-confirm-and-exit-minibuffer
         helm-do-ag
+        ns-copy-including-secondary
         ))

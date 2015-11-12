@@ -467,9 +467,9 @@ Helm bindings to substitute some standard commands
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring) ; Helm for kill ring
 
-(global-set-key (kbd "s-p") 'helm-projectile)
+(global-set-key (kbd "C-p") 'helm-projectile)
 
-(global-set-key (kbd "s-F") 'helm-do-ag)
+(global-set-key (kbd "C-F") 'helm-do-ag)
 #+END_SRC
 
 * Company mode

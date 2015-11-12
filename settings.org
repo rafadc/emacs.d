@@ -634,9 +634,18 @@ Integration with Dash
 ** Neo tree
 
 #+BEGIN_SRC emacs-lisp
+(defun neotree-to-root ()
+  "Toggles neotree moving to root of project"
+  (interactive)
+
+  (if (neo-global--window-exists-p)
+    (neotree-hide)
+    (let ((git-folder (car (projectile-get-project-directories))))
+                              (neotree-dir git-folder))))
+
 (use-package neotree
   :ensure t
-  :bind ("<C-tab>" . neotree-toggle)
+  :bind ("<C-tab>" . neotree-to-root)
   :init (setq projectile-switch-project-action 'neotree-projectile-action))
 #+END_SRC
 
@@ -725,4 +734,6 @@ These are scripts that are worthy of their own source file and I'm not including
 
 #+BEGIN_SRC emacs-lisp
 (load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")
+
+(load-file "~/.emacs.d/src/p161-mode/p161-mode.el")
 #+END_SRC

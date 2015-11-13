@@ -811,9 +811,8 @@ File: magit.info,  Node: Naming Buffers,  Next: Quitting Windows,  Prev: Switchi
 
         • ‘%v’
 
-          The value the buffer is locked to, in parentheses, if it is
-          the buffer is actually locked to its value.  An empty string
-          otherwise.
+          The value the buffer is locked to, in parentheses, or an empty
+          string if the buffer is not locked to a value.
 
         • ‘%V’
 
@@ -823,10 +822,10 @@ File: magit.info,  Node: Naming Buffers,  Next: Quitting Windows,  Prev: Switchi
         • ‘%t’
 
           The top-level directory of the working tree of the repository,
-          or if ‘magit-uniquify-buffer-name’ is non-nil an abbreviation
+          or if ‘magit-uniquify-buffer-names’ is non-nil an abbreviation
           of that.
      The value should always contain either ‘%m’ or ‘%M’, ‘%v’ or ‘%V’,
-     and ‘%t’.  If ‘magit-uniquify-buffer-name’ is non-nil, then the
+     and ‘%t’.  If ‘magit-uniquify-buffer-names’ is non-nil, then the
      value must end with ‘%t’.
 
  -- User Option: magit-uniquify-buffer-names
@@ -1220,7 +1219,7 @@ But your mileage may vary.
 
      Recursively show the bodies of children of the current section.
      With a prefix argument show children down to the level of the
-     currect section, and hide deeper children.
+     current section, and hide deeper children.
 
  -- Command: magit-section-hide-children
 
@@ -2321,7 +2320,7 @@ particular argument.
      This command resets the context for diff hunks to the default
      height.
 
-   The following commands quicky change what diff is being displayed
+   The following commands quickly change what diff is being displayed
 without having to using one of the diff popups.
 
 ‘C-c C-d’     (‘magit-diff-while-committing’)
@@ -3196,9 +3195,9 @@ for finishing and aborting the commit.
      Cancel the current editing session by returning with exit code 1.
      Git then cancels the commit, but leaves the file untouched.
 
-   In additon to being used by Git, these messages may also be stored in
-a ring that persists until Emacs is closed.  By default the message is
-stored at the beginning and the end of an edit session (regardless of
+   In addition to being used by Git, these messages may also be stored
+in a ring that persists until Emacs is closed.  By default the message
+is stored at the beginning and the end of an edit session (regardless of
 whether the session is finished successfully or was canceled).  It is
 sometimes useful to bring back messages from that ring.
 
@@ -4283,7 +4282,7 @@ Also see *note (gitman)git-push:: .
 
 ‘P i’     (‘magit-push-implicitly’)
 
-     Push without explicitly specifing what to push.  This runs ‘git
+     Push without explicitly specifying what to push.  This runs ‘git
      push -v’.  What is being pushed depends on various Git variables as
      described in the *note (gitman)git-push:: and *note
      (gitman)git-config::

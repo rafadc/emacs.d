@@ -16,7 +16,7 @@
 ;;	Rémi Vanicat      <vanicat@debian.org>
 ;;	Yann Hodique      <yann.hodique@gmail.com>
 
-;; Package-Requires: ((emacs "24.4") (async "1.5") (dash "2.12.1") (with-editor "2.3.0") (git-commit "2.3.0") (magit-popup "2.3.0"))
+;; Package-Requires: ((emacs "24.4") (async "1.5") (dash "2.12.1") (with-editor "2.3.1") (git-commit "2.3.1") (magit-popup "2.3.1"))
 ;; Keywords: git tools vc
 ;; Homepage: https://github.com/magit/magit
 
@@ -1122,7 +1122,6 @@ Non-interactively DIRECTORY is (re-)initialized unconditionally."
                                    toplevel directory)))
          (user-error "Abort")))
      (list directory)))
-  (make-directory directory t)
   ;; `git init' does not understand the meaning of "~"!
   (magit-call-git "init" (magit-convert-git-filename
                           (expand-file-name directory)))

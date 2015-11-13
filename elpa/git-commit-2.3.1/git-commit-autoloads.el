@@ -3,7 +3,7 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "git-commit" "git-commit.el" (22081 9569 0
+;;;### (autoloads nil "git-commit" "git-commit.el" (22085 42668 0
 ;;;;;;  0))
 ;;; Generated autoloads from git-commit.el
 
@@ -27,7 +27,7 @@ provide such a commit message.
 
 ;;;***
 
-;;;### (autoloads nil nil ("git-commit-pkg.el") (22081 9569 897622
+;;;### (autoloads nil nil ("git-commit-pkg.el") (22085 42668 516817
 ;;;;;;  0))
 
 ;;;***

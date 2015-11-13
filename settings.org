@@ -579,7 +579,7 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
 
 (use-package git-timemachine
   :ensure t
-  :bind (("s-<f6>" . git-timemachine)))
+  :bind (("C-<f6>" . git-timemachine)))
 
 #+END_SRC
 

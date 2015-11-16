@@ -37,6 +37,19 @@ Bootstrapping use-package. This looks for use package in the system ans installs
 (require 'use-package)
 #+END_SRC
 
+
+* Editing settings
+
+I'll add a function to edit settings.org file. I don't need a shortcut since this is not such a common task now.
+
+#+BEGIN_SRC emacs-lisp
+(defun settings ()
+  "Edits settings.org file"
+  (interactive)
+  (find-file "~/.emacs.d/settings.org"))
+#+END_SRC
+
+
 * Visuals
 
 Use spaces instead of tabs

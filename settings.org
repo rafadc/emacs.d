@@ -49,7 +49,6 @@ I'll add a function to edit settings.org file. I don't need a shortcut since thi
   (find-file "~/.emacs.d/settings.org"))
 #+END_SRC
 
-
 * Visuals
 
 Use spaces instead of tabs
@@ -179,6 +178,13 @@ I must admit that this is only here so I can make an hyper-space combo.
 #+BEGIN_SRC emacs-lisp
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 #+END_SRC
+
+There are some default mac bindings that are annoying to me. I will disable s-P for printing
+
+#+BEGIN_SRC emacs-lisp
+(global-unset-key (kbd "s-p"))
+#+END_SRC
+
 * Mouse in terminal
 
 This takes back mouse and makes it work in a terminal. Commented until I make terminal mode to work as I want.

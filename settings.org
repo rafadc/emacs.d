@@ -539,10 +539,13 @@ I set the delay to 0 to prevent any waiting for the autocompletion popup to show
 ** HTML & CSS
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-
-(setq web-mode-markup-indent-offset 2)
-(setq web-mode-css-indent-offset 2)
+(use-package web-mode
+  :mode (("\\.html?\\'" . web-mode)
+         ("\\.html\\.erb\\'" . web-mode))
+  :config
+    (progn
+      (setq web-mode-markup-indent-offset 2)
+      (setq web-mode-css-indent-offset 2)))
 #+END_SRC
 
 ** Markdown

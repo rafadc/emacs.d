@@ -305,6 +305,7 @@ See also `helm-locate'."
    (requires-pattern :initform 3)
    (history :initform 'helm-file-name-history)
    (keymap :initform helm-generic-files-map)
+   (persistent-action :initform 'helm-ff-kill-or-find-buffer-fname)
    (help-message :initform 'helm-generic-file-help-message)
    (candidate-number-limit :initform 9999)))
 
@@ -388,7 +389,7 @@ Where db_path is a filename matched by
 `helm-locate-db-file-regexp'."
   (interactive "P")
   (setq helm-ff-default-directory default-directory)
-  (helm-locate-1 arg))
+  (helm-locate-1 arg nil nil (thing-at-point 'filename)))
 
 (provide 'helm-locate)
 

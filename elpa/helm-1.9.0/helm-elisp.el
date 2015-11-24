@@ -26,6 +26,10 @@
 (require 'helm-files)
 (require 'advice)
 
+(declare-function 'helm-describe-function "helm-lib")
+(declare-function 'helm-describe-variable "helm-lib")
+(declare-function 'helm-describe-face "helm-lib")
+
 
 (defgroup helm-elisp nil
   "Elisp related Applications and libraries for Helm."
@@ -327,8 +331,11 @@ in other window according to the value of `helm-elisp-help-function'."
   (let ((sym (intern-soft candidate)))
     (cl-typecase sym
       ((and fboundp boundp)
-       (when (member name '("describe-function" "describe-variable"))
-         (funcall (intern (format "helm-%s" name)) sym)))
+       (if (member name '("describe-function" "describe-variable"))
+           (funcall (intern (format "helm-%s" name)) sym)
+           ;; When there is no way to know what to describe
+           ;; prefer describe-function.
+           (helm-describe-function sym)))
       (fboundp  (helm-describe-function sym))
       (bound    (helm-describe-variable sym))
       (face     (helm-describe-face sym)))))
@@ -373,7 +380,8 @@ If SYM is not documented, return \"Not documented\"."
                 (cond ((string= name "describe-function")
                        (documentation sym t))
                       ((string= name  "describe-variable")
-                       (documentation-property sym 'variable-documentation t))))
+                       (documentation-property sym 'variable-documentation t))
+                      (t (documentation sym t))))
                (fbound  (documentation sym t))
                (bound   (documentation-property sym 'variable-documentation t))
                (face    (face-documentation sym)))))
@@ -766,13 +774,12 @@ Filename completion happen if string start after or between a double quote."
 ;;
 (defclass helm-absolute-time-timers-class (helm-source-sync helm-type-timers)
   ((candidates :initform timer-list)
-   (filtered-candidate-transformer
-    :initform
-    (lambda (candidates _source)
-      (cl-loop for timer in candidates
-               collect (cons (helm-elisp--format-timer timer) timer))))
    (allow-dups :initform t)
-   (volatile :initform t)))
+   (candidate-transformer
+    :initform
+    (lambda (candidates)
+      (cl-loop for timer in candidates
+               collect (cons (helm-elisp--format-timer timer) timer))))))
 
 (defvar helm-source-absolute-time-timers
   (helm-make-source "Absolute Time Timers" 'helm-absolute-time-timers-class))
@@ -780,10 +787,9 @@ Filename completion happen if string start after or between a double quote."
 (defclass helm-idle-time-timers-class (helm-source-sync helm-type-timers)
   ((candidates :initform timer-idle-list)
    (allow-dups :initform t)
-   (volatile :initform t)
-   (filtered-candidate-transformer
+   (candidate-transformer
     :initform
-    (lambda (candidates _source)
+    (lambda (candidates)
       (cl-loop for timer in candidates
                collect (cons (helm-elisp--format-timer timer) timer))))))
 

@@ -325,9 +325,9 @@ These are multiple cursors bindings.
 #+BEGIN_SRC emacs-lisp
 (use-package multiple-cursors
   :ensure t
-  :bind (("s-d" . mc/mark-next-like-this)
-         ("s-D" . mc/mark-previous-like-this)
-         ("C-s-d" . mc/mark-all-like-this)
+  :bind (("C-d" . mc/mark-next-like-this)
+         ("C-S-d" . mc/mark-previous-like-this)
+         ("C-M-d" . mc/mark-all-like-this)
          ("H-SPC" . set-rectangular-region-anchor)))
 #+END_SRC
 

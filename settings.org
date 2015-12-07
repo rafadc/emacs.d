@@ -685,6 +685,24 @@ Making dired to open the file in the current buffer instead of opening a new one
 #+END_SRC
 
 
+* Applications
+** RSS reader
+
+I use elfeed to read RSS
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package elfeed
+  :ensure t
+  :init (setq elfeed-feeds
+                 '(("http://feeds.feedburner.com/codinghorror" programming) ; Coding Horror
+                   ("http://www.toptal.com/blog.rss" programming)           ; Toptal
+                   ("http://xkcd.com/rss.xml" webcomic)                     ; XKCD
+                   )))
+
+#+END_SRC
+
+
 * Some general purpose functions
 
 These are some general functions that are useful and have no better place to be in

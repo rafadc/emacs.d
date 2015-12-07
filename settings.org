@@ -723,11 +723,7 @@ This function just reloads chrome. This is useful to avoid too much alt-tab
   "Reloads current chrome window"
   (interactive)
   (shell-command "chrome-cli reload"))
-#+END_SRC
 
-This function just reloads chrome. This is useful to avoid too much alt-tab
-
-#+BEGIN_SRC emacs-lisp
 (define-prefix-command 'manage-browser-map)
 (global-set-key (kbd "C-b") 'manage-browser-map)
 

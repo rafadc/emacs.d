@@ -694,7 +694,9 @@ I use elfeed to read RSS
 
 (use-package elfeed
   :ensure t
-  :init (load-file "~/.emacs.d/elfeed/feeds.el"))
+  :init (progn
+          (load-file "~/.emacs.d/elfeed/feeds.el")
+          (setf url-queue-timeout 30)))
 
 #+END_SRC
 

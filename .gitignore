@@ -12,3 +12,5 @@ tramp
 # Cookies should not be in a public repo
 url/cookies
 url/cache
+
+elpa

@@ -694,11 +694,7 @@ I use elfeed to read RSS
 
 (use-package elfeed
   :ensure t
-  :init (setq elfeed-feeds
-                 '(("http://feeds.feedburner.com/codinghorror" programming) ; Coding Horror
-                   ("http://www.toptal.com/blog.rss" programming)           ; Toptal
-                   ("http://xkcd.com/rss.xml" webcomic)                     ; XKCD
-                   )))
+  :init (load-file "~/.emacs.d/elfeed/feeds.el"))
 
 #+END_SRC
 

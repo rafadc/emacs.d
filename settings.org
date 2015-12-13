@@ -426,6 +426,15 @@ This is done so we avoid cluttering the folder where the file is being edited
 
 * Spellchecker
 
+Flyspell uses some homebrew binaries. We need to add /usr/local to the exectuables path in emacs.
+
+#+BEGIN_SRC emacs-lisp
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setq exec-path (append exec-path '("/usr/local/bin")))
+#+END_SRC
+
+Now we can enable flyspell
+
 #+BEGIN_SRC emacs-lisp
 ;; Flyspell
 (global-set-key (kbd "<f8>") 'ispell-word)

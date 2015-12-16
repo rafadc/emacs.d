@@ -594,6 +594,14 @@ Adding file types with no rb extension
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 #+END_SRC
 
+Use Rubocop for Ruby code linting
+
+#+BEGIN_SRC emacs-lisp
+(use-package rubocop
+  :ensure t
+  :init (add-hook 'ruby-mode-hook #'rubocop-mode))
+#+END_SRC
+
 ** Elixir
 
 #+BEGIN_SRC emacs-lisp

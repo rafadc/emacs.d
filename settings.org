@@ -573,11 +573,11 @@ I set the delay to 0 to prevent any waiting for the autocompletion popup to show
 
 ** Ruby
 
-Adding file types with no rb extension
+Adding file types with no rb extension: rake files, puppet...
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist
-	     '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode))
+	     '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\|pp\\)\\'" . ruby-mode))
 
 (add-to-list 'auto-mode-alist
                '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))

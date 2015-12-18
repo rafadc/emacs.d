@@ -442,7 +442,8 @@ Enabling projectile for project management
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
-  :init (setq projectile-enable-caching t))
+  :init (setq projectile-enable-caching nil)
+  :config (projectile-global-mode))
 #+END_SRC
 
 
@@ -530,7 +531,7 @@ Helm bindings to substitute some standard commands
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring) ; Helm for kill ring
 
-(global-set-key (kbd "C-p") 'helm-projectile)
+(global-set-key (kbd "C-p") 'helm-projectile-find-file)
 
 (global-set-key (kbd "C-F") 'helm-do-ag)
 #+END_SRC
@@ -737,8 +738,7 @@ Integration with Dash
 
 (use-package neotree
   :ensure t
-  :bind ("<C-tab>" . neotree-toggle)
-  :init (setq projectile-switch-project-action 'neotree-projectile-action))
+  :bind ("<C-tab>" . neotree-toggle))
 #+END_SRC
 
 ** Dired

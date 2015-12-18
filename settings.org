@@ -432,6 +432,17 @@ This is done so we avoid cluttering the folder where the file is being edited
    version-control t)       ; use versioned backups
 #+END_SRC
 
+* Projectile
+
+Enabling projectile for project management
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t
+  :init (setq projectile-enable-caching t))
+#+END_SRC
+
+
 * Spellchecker
 
 Flyspell uses some homebrew binaries. We need to add /usr/local to the exectuables path in emacs.
@@ -496,6 +507,15 @@ This is done to solve a bug in MELPA stable helm version. Once this is not neede
 #+BEGIN_SRC emacs-lisp
 (defalias 'helm-buffer-match-major-mode 'helm-buffers-list--match-fn)
 (defalias 'helm-buffer-match-major-mode 'helm-buffers-match-function)
+#+END_SRC
+
+Using projectile mode
+
+#+BEGIN_SRC emacs-lisp
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+
+(global-set-key (kbd "C-c p p") 'helm-projectile-switch-project)
 #+END_SRC
 
 Helm bindings to substitute some standard commands

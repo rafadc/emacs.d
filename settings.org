@@ -118,6 +118,9 @@ To show the list of available fonts you can eval
 (print (font-family-list))
 
 #+BEGIN_SRC emacs-lisp
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+
 (set-face-attribute 'default nil
                     :family "Inconsolata" :height 210 :weight 'light)
 #+END_SRC

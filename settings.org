@@ -122,6 +122,14 @@ To show the list of available fonts you can eval
                     :family "Inconsolata" :height 210 :weight 'light)
 #+END_SRC
 
+Manually setting font for managing Unicode symbols
+
+#+BEGIN_SRC emacs-lisp
+(set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)
+#+END_SRC
+
+
+
 Smoother scrolling with mouse. This is the only thing I still miss from Sublime text
 
 #+BEGIN_SRC emacs-lisp
@@ -698,17 +706,15 @@ Integration with Dash
 
 #+BEGIN_SRC emacs-lisp
 (defun neotree-to-root ()
-  "Toggles neotree moving to root of project"
+  "Moves neotree to root of project"
   (interactive)
 
-  (if (neo-global--window-exists-p)
-    (neotree-hide)
-    (let ((git-folder (car (projectile-get-project-directories))))
-                              (neotree-dir git-folder))))
+  (let ((git-folder (car (projectile-get-project-directories))))
+                              (neotree-dir git-folder)))
 
 (use-package neotree
   :ensure t
-  :bind ("<C-tab>" . neotree-to-root)
+  :bind ("<C-tab>" . neotree-toggle)
   :init (setq projectile-switch-project-action 'neotree-projectile-action))
 #+END_SRC
 

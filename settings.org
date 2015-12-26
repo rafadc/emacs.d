@@ -37,6 +37,19 @@ Bootstrapping use-package. This looks for use package in the system ans installs
 (require 'use-package)
 #+END_SRC
 
+* Environment from shell
+
+Copy the environment variables from shell's environment
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config (when (memq window-system '(mac ns))
+            (exec-path-from-shell-initialize)))
+#+END_SRC
+
+
 
 * Editing settings
 
@@ -449,15 +462,6 @@ Enabling projectile for project management
 
 * Spellchecker
 
-Flyspell uses some homebrew binaries. We need to add /usr/local to the exectuables path in emacs.
-
-#+BEGIN_SRC emacs-lisp
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setq exec-path (append exec-path '("/usr/local/bin")))
-#+END_SRC
-
-Now we can enable flyspell
-
 #+BEGIN_SRC emacs-lisp
 ;; Flyspell
 (global-set-key (kbd "<f8>") 'ispell-word)
@@ -556,6 +560,21 @@ I set the delay to 0 to prevent any waiting for the autocompletion popup to show
 
 * Programming languages
 
+Globally we will enable electric pair to match parentheses.
+
+#+BEGIN_SRC emacs-lisp
+(electric-pair-mode 1)
+#+END_SRC
+
+We will globally enable syntax highlight
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :config (add-hook 'after-init-hook #'global-flycheck-mode))
+
+#+END_SRC
+
 ** Clojure
 
 #+BEGIN_SRC emacs-lisp
@@ -651,6 +670,27 @@ Use Rubocop for Ruby code linting
   :ensure t
   :config (setq alchemist-hooks-test-on-save t))
 #+END_SRC
+
+** Javascript
+
+Linting and syntax checking.
+
+Before having it available you need to run
+
+npm install -g eslint babel-eslint eslint-plugin-react
+
+
+#+BEGIN_SRC emacs-lisp
+(use-package js2-mode
+  :ensure t)
+#+END_SRC
+
+React specific settings
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+#+END_SRC
+
 
 
 * Puppet
@@ -828,4 +868,6 @@ These are scripts that are worthy of their own source file and I'm not including
 (load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")
 
 (load-file "~/.emacs.d/src/p161-mode/p161-mode.el")
+
+(load-file "~/.emacs.d/src/emacs-presentation-mode/emacs-presentation-mode.el")
 #+END_SRC

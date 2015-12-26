@@ -7,6 +7,13 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(elfeed-feeds
+   (quote
+    ("http://nullprogram.com/feed/"
+     ("http://feeds.feedburner.com/codinghorror" programming)
+     ("http://www.toptal.com/blog.rss" programming)
+     ("http://xkcd.com/rss.xml" webcomic)
+     ("http://sachachua.com/blog/feed/" emacs))))
  '(magit-push-arguments (quote ("--set-upstream")))
  '(magit-rebase-arguments (quote ("--autosquash" "--autostash"))))
 (custom-set-faces

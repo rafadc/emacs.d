@@ -540,15 +540,6 @@ Helm bindings to substitute some standard commands
 (global-set-key (kbd "C-F") 'helm-do-ag)
 #+END_SRC
 
-* Company mode
-
-I set the delay to 0 to prevent any waiting for the autocompletion popup to show
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook 'global-company-mode)
-(setq company-idle-delay 0)
-#+END_SRC
-
 * Snippets
 
 #+BEGIN_SRC emacs-lisp
@@ -573,6 +564,17 @@ We will globally enable syntax highlight
   :ensure t
   :config (add-hook 'after-init-hook #'global-flycheck-mode))
 
+#+END_SRC
+
+** Company mode
+
+I set the delay to 0 to prevent any waiting for the autocompletion popup to show
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'global-company-mode)
+(setq company-idle-delay .3)
+(setq company-echo-delay 0)
+(setq company-tooltip-limit 15)
 #+END_SRC
 
 ** Clojure
@@ -682,15 +684,38 @@ npm install -g eslint babel-eslint eslint-plugin-react
 
 #+BEGIN_SRC emacs-lisp
 (use-package js2-mode
-  :ensure t)
+  :ensure t
+  :init (setq js-indent-level 2)
+  :config (add-hook 'js-mode-hook 'js2-minor-mode))
 #+END_SRC
 
 React specific settings
 
 #+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 #+END_SRC
 
+** Go
+
+Go mode. This will also autoformat after saving following go standards
+
+#+BEGIN_SRC emacs-lisp
+(use-package go-mode
+  :ensure t
+  :config (add-hook 'before-save-hook 'gofmt-before-save))
+#+END_SRC
+
+
+Autocomplete for Go. We will be using company mode too.
+
+#+BEGIN_SRC emacs-lisp
+(use-package company-go
+  :ensure t
+  :config (add-hook 'go-mode-hook (lambda ()
+                                    (set (make-local-variable 'company-backends) '(company-go))
+                                      (company-mode))))
+#+END_SRC
 
 
 * Puppet

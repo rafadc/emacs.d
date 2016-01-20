@@ -135,7 +135,7 @@ To show the list of available fonts you can eval
 (set-default-coding-systems 'utf-8)
 
 (set-face-attribute 'default nil
-                    :family "Inconsolata" :height 210 :weight 'light)
+                    :family "Inconsolata" :height 160 :weight 'light)
 #+END_SRC
 
 Manually setting font for managing Unicode symbols
@@ -153,7 +153,7 @@ Smoother scrolling with mouse. This is the only thing I still miss from Sublime 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
 #+END_SRC
 
-Scrolling with keyboard before touching bottom
+Scrolling with keyboard before touching bottom.
 
 #+BEGIN_SRC emacs-lisp
 (setq redisplay-dont-pause t
@@ -161,6 +161,11 @@ Scrolling with keyboard before touching bottom
       scroll-step 1
       scroll-conservatively 10000
       scroll-preserve-screen-position 1)
+
+(use-package smooth-scrolling
+  :ensure t
+  :init (setq smooth-scroll-margin 10))
+
 #+END_SRC
 
 Asking y/n instead of yes/no
@@ -728,7 +733,6 @@ Puppet will use its own mode since Ruby mode can cause some weirdness there.
   :ensure t)
 #+END_SRC
 
-
 * Git
 
 We will use Magit for git. Also opening timemachine is a nice binding to have.
@@ -743,6 +747,21 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
   :bind (("C-<f6>" . git-timemachine)))
 
 #+END_SRC
+
+* Docker
+
+Emacs is great for managing docker images. Also I will use the syntax help for Dockerfiles
+
+#+BEGIN_SRC emacs-lisp
+(use-package docker
+  :ensure t)
+
+(use-package dockerfile-mode
+  :ensure t
+  :config (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+
+#+END_SRC
+
 
 * Unmanaged scripts
 

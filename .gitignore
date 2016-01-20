@@ -9,6 +9,9 @@ tramp
 # XKCD temporal files
 /xkcd
 
+# High scores
+/games
+
 # Cookies should not be in a public repo
 url/cookies
 url/cache

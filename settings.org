@@ -611,6 +611,7 @@ I set the delay to 0 to prevent any waiting for the autocompletion popup to show
 
 #+BEGIN_SRC emacs-lisp
 (use-package web-mode
+  :ensure t
   :mode (("\\.html?\\'" . web-mode)
          ("\\.html\\.erb\\'" . web-mode))
   :config
@@ -619,6 +620,15 @@ I set the delay to 0 to prevent any waiting for the autocompletion popup to show
       (setq web-mode-css-indent-offset 2)
       (setq web-mode-enable-auto-pairing t)))
 #+END_SRC
+
+Also for SASS
+
+#+BEGIN_SRC emacs-lisp
+(use-package scss-mode
+  :ensure t
+  :mode (("\\.scss\\'" . scss-mode)))
+#+END_SRC
+
 
 ** Markdown
 

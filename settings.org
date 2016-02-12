@@ -734,6 +734,16 @@ Autocomplete for Go. We will be using company mode too.
                                       (company-mode))))
 #+END_SRC
 
+** Elm
+
+#+BEGIN_SRC emacs-lisp
+(use-package elm-mode
+  :ensure t
+  :init (progn
+           (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
+           (add-to-list 'company-backends 'company-elm)))
+
+#+END_SRC
 
 * Puppet
 

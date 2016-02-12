@@ -135,7 +135,7 @@ To show the list of available fonts you can eval
 (set-default-coding-systems 'utf-8)
 
 (set-face-attribute 'default nil
-                    :family "Inconsolata" :height 160 :weight 'light)
+                    :family "Inconsolata" :height 170 :weight 'light)
 #+END_SRC
 
 Manually setting font for managing Unicode symbols
@@ -626,7 +626,8 @@ Also for SASS
 #+BEGIN_SRC emacs-lisp
 (use-package scss-mode
   :ensure t
-  :mode (("\\.scss\\'" . scss-mode)))
+  :mode (("\\.scss\\'" . scss-mode))
+  :config (setq scss-compile-at-save nil))
 #+END_SRC
 
 

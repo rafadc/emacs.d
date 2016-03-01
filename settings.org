@@ -869,6 +869,17 @@ Making dired to open the file in the current buffer instead of opening a new one
 (put 'dired-find-alternate-file 'disabled nil)
 #+END_SRC
 
+* Keyfreq
+
+This is just for measuring the frequency for the commands run
+
+#+BEGIN_SRC emacs-lisp
+(use-package keyfreq
+  :ensure t
+  :init (progn
+          (keyfreq-mode 1)
+          (keyfreq-autosave-mode 1)))
+#+END_SRC
 
 * Applications
 ** RSS reader

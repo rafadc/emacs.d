@@ -776,11 +776,22 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
 (use-package magit
   :ensure t
   :bind (("<f6>" . magit-status)))
+#+END_SRC
 
+Time machine is a nice package to browse the story of a file
+
+#+BEGIN_SRC emacs-lisp
 (use-package git-timemachine
   :ensure t
   :bind (("C-<f6>" . git-timemachine)))
 
+#+END_SRC
+
+Also for some projects it is nice to be able to browse the file on Github.
+
+#+BEGIN_SRC emacs-lisp
+(use-package github-browse-file
+  :ensure t)
 #+END_SRC
 
 * Docker

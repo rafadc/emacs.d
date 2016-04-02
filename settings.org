@@ -494,11 +494,11 @@ Enabling projectile for project management
 
 * Org mode
 
-#+BEGIN_SRC emacs-lisp
-(use-package org
-  :ensure t)
+Org mode is one of the most awesome things in emacs.
 
-;; Binding F7 to open a personal_notes.org file in root of projectile
+Binding F7 to open a personal_notes.org file in root of projectile
+
+#+BEGIN_SRC emacs-lisp
 (require 'projectile)
 
 (defun projectile-open-personal-notes ()
@@ -510,7 +510,19 @@ Enabling projectile for project management
       (find-file (concat folder "personal_notes.org"))
       (message "No project folder found"))))
 
-(global-set-key (kbd "<f7>") 'projectile-open-personal-notes)
+(use-package org
+  :ensure t
+  :bind ("<f7>" . projectile-open-personal-notes)
+  :config (setq org-hide-emphasis-markers t))
+#+END_SRC
+
+Org bullets will display bullet points as UTF characters
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets
+  :ensure t
+  :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 #+END_SRC
 
 * Helm

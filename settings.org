@@ -952,7 +952,6 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
   :load-path "unmanaged/elfeed-org"
   :init (progn
           (elfeed-org)
-          (load-file "~/.emacs.d/elfeed/feeds.el")
           (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed/elfeed.org"))))
 
 #+END_SRC

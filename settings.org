@@ -872,19 +872,19 @@ Emacs is great for managing docker images. Also I will use the syntax help for D
 #+END_SRC
 
 
-* Unmanaged scripts
+* Vendored scripts
 
 These are stand alone scripts I don't want in this config file.
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/unmanaged/restclient")
+(add-to-list 'load-path "~/.emacs.d/vendor/restclient")
 (require 'restclient)
 #+END_SRC
 
 There is a problem with MELPA stable projectile helm version. It is outdated and seems to be broken. Until they fix it I have the latest here
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/unmanaged/helm-projectile")
+(add-to-list 'load-path "~/.emacs.d/vendor/helm-projectile")
 (require 'helm-projectile)
 #+END_SRC
 
@@ -904,7 +904,7 @@ When I start typing a combo a help with the possible continuations appear if I w
 Integration with Dash
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/unmanaged/dash-at-point")
+(add-to-list 'load-path "~/.emacs.d/vendor/dash-at-point")
 (autoload 'dash-at-point "dash-at-point"
   "Search the word at point with Dash." t nil)
 (global-set-key "\C-cd" 'dash-at-point)
@@ -959,7 +959,7 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
   :init (setf url-queue-timeout 30))
 
 (use-package elfeed-org
-  :load-path "unmanaged/elfeed-org"
+  :load-path "vendor/elfeed-org"
   :init (progn
           (elfeed-org)
           (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed/elfeed.org"))))

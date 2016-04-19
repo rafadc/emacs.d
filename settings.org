@@ -823,6 +823,15 @@ Also for some projects it is nice to be able to browse the file on Github.
   :bind (("C-c g f" . github-browse-file)))
 #+END_SRC
 
+And let's put a nice gutter
+
+#+BEGIN_SRC emacs-lisp
+(use-package git-gutter+
+  :ensure t
+  :init (global-git-gutter+-mode))
+#+END_SRC
+
+
 * Docker
 
 Emacs is great for managing docker images. Also I will use the syntax help for Dockerfiles

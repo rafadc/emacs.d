@@ -82,10 +82,16 @@ Nothing bigger than 80 lines. This is nice also for code. ;). Anyway we can avoi
                  (global-whitespace-mode t)))
 #+END_SRC
 
-The theme is based on base16 color set
+I know I know. Too cyberpunk but is is nice sometimes :D
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
+;(load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
+(use-package cyberpunk-theme
+  :ensure t
+  :init (add-hook 'after-init-hook
+             (lambda () (load-theme 'cyberpunk t))))
+
+
 #+END_SRC
 
 I'll use a smart-mode-line. A powerline replacement.

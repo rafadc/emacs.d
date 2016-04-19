@@ -601,13 +601,22 @@ We will globally enable syntax highlight
 
 ** Company mode
 
+Company mode is used for autocompletion
+
 I set the delay to 0 to prevent any waiting for the autocompletion popup to show
 
+Usually it is not needed at the start (remember I use emacs daemon).
+
 #+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook 'global-company-mode)
-(setq company-idle-delay .3)
-(setq company-echo-delay 0)
-(setq company-tooltip-limit 15)
+(use-package company
+  :ensure t
+  :defer t
+  :idle (global-company-mode)
+  :config (progn
+                (setq company-idle-delay .3)
+                (setq company-echo-delay 0)
+                (setq company-tooltip-limit 15)
+                (setq company-minimum-prefix-length 1)))
 #+END_SRC
 
 ** Clojure

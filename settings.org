@@ -196,6 +196,15 @@ For extra nyanness
   :init (nyan-mode +1))
 #+END_SRC
 
+We will use rainbow delimiters when possible
+
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-delimiters
+  :ensure t
+  :init (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+END_SRC
+
+
 * Minibuffer
 
 Incremental search in minibuffer

@@ -929,15 +929,20 @@ This is just for measuring the frequency for the commands run
 * Applications
 ** RSS reader
 
-I use elfeed to read RSS
+I use elfeed to read RSS. It can be configured via and org mode file. Extra awesomeness!
 
 #+BEGIN_SRC emacs-lisp
 
 (use-package elfeed
   :ensure t
+  :init (setf url-queue-timeout 30))
+
+(use-package elfeed-org
+  :load-path "unmanaged/elfeed-org"
   :init (progn
+          (elfeed-org)
           (load-file "~/.emacs.d/elfeed/feeds.el")
-          (setf url-queue-timeout 30)))
+          (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed/elfeed.org"))))
 
 #+END_SRC
 

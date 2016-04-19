@@ -1,0 +1,8 @@
+* Programming
+** http://feeds.feedburner.com/codinghorror
+** http://martinfowler.com/feed.atom
+** Emacs
+*** http://sachachua.com/blog/feed/
+*** http://nullprogram.com/feed/
+* Webcomic
+** http://xkcd.com/rss.xml

@@ -582,11 +582,25 @@ Helm bindings to substitute some standard commands
 (global-set-key (kbd "C-x b") 'helm-buffers-list) ; Helm for buffer list
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring) ; Helm for kill ring
-
-(global-set-key (kbd "C-p") 'helm-projectile-find-file)
-
-(global-set-key (kbd "C-F") 'helm-do-ag)
 #+END_SRC
+
+One of my most used bindings. Search in project.
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm-projectile
+  :bind (("C-p" . helm-projectile-find-file))
+  :ensure t)
+#+END_SRC
+
+And also we can search in the contents of any file in the current project or the root of the project.
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm-ag
+  :bind (("C-f" . helm-do-ag-project-root)
+         ("C-S-f" . helm-do-ag))
+  :ensure t)
+#+END_SRC
+
 
 * Snippets
 
@@ -879,13 +893,6 @@ These are stand alone scripts I don't want in this config file.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/vendor/restclient")
 (require 'restclient)
-#+END_SRC
-
-There is a problem with MELPA stable projectile helm version. It is outdated and seems to be broken. Until they fix it I have the latest here
-
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/vendor/helm-projectile")
-(require 'helm-projectile)
 #+END_SRC
 
 * Help and documentation

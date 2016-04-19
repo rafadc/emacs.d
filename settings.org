@@ -699,6 +699,7 @@ We will use RVM's provided Ruby
 #+BEGIN_SRC emacs-lisp
 (use-package rvm
   :ensure t
+  :defer t
   :config (rvm-use-default))
 
 #+END_SRC

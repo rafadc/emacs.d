@@ -42,6 +42,17 @@
     (if (string-match-p (regexp-quote "PFM-") ticket-name)
         (insert (concat ticket-name " ")))))
 
+(defun send-test-to-tmux ()
+  "Sends the currently open test to tmux"
+  (interactive)
+  (let*
+      ((base_path (car (projectile-get-project-directories)))
+       (filename (replace-regexp-in-string base_path "" (current_buffer_file_name)))
+       (command (concat "tmux send -t platform161 'rspec -I spec/app " filename "'  ENTER")))
+    (message command)
+    (shell-command command)))
+
+
 (define-minor-mode p161-mode
   "Platform 161 mode"
   :lighter " P161"
@@ -51,6 +62,7 @@
             (define-key map (kbd "C-c p n") 'open-current-ticket-in-browser)
             map)
   (add-hook 'git-commit-mode-hook 'insert-pfm-in-commit-message)
+;  (add-hook 'ruby-mode-hook (local-set-key (kbd "C-c C-t") 'send-test-to-tmux))
   )
 
 (provide 'p161-mode)

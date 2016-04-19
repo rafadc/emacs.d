@@ -88,11 +88,15 @@ The theme is based on base16 color set
 (load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
 #+END_SRC
 
-But the dark theme colors are cooler
+I'll use a smart-mode-line. A powerline replacement.
 
 #+BEGIN_SRC emacs-lisp
-(sml/setup)
-(sml/apply-theme 'dark)
+(use-package smart-mode-line
+  :ensure t
+  :init (progn
+          (sml/setup)
+          (sml/apply-theme 'dark)))
+
 #+END_SRC
 
 Disable menu and icon bar
@@ -176,6 +180,14 @@ Asking y/n instead of yes/no
 
 #+BEGIN_SRC emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+For extra nyanness
+
+#+BEGIN_SRC emacs-lisp
+(use-package nyan-mode
+  :ensure t
+  :init (nyan-mode +1))
 #+END_SRC
 
 * Minibuffer

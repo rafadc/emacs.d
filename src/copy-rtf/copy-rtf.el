@@ -1,4 +1,6 @@
-;; Copy code as RTF to the clipboard. This is commonly used for 
+;;; copy-rtf.el --- Copies code as RTF
+
+;; Copy code as RTF to the clipboard. This is commonly used for
 ;; presentations in keynote or such
 ;;
 ;; This is compatible only with MacOSX
@@ -33,3 +35,7 @@
     (shell-command command)
     (deactivate-mark)
     (message "RTF copied to clipboard")))
+
+(provide 'copy-rtf)
+
+;;; copy-rtf.el ends here

@@ -1040,9 +1040,11 @@ This function just reloads chrome. This is useful to avoid too much alt-tab
 These are scripts that are worthy of their own source file and I'm not including them here.
 
 #+BEGIN_SRC emacs-lisp
-(load-file "~/.emacs.d/src/copy-rtf/copy-rtf.el")
+(use-package copy-rtf
+  :load-path "src/copy-rtf")
 
-(load-file "~/.emacs.d/src/p161-mode/p161-mode.el")
+(use-package p161-mode
+  :load-path "src/p161-mode")
 
 (load-file "~/.emacs.d/src/emacs-presentation-mode/emacs-presentation-mode.el")
 #+END_SRC

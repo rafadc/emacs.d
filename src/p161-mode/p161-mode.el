@@ -1,3 +1,13 @@
+;;; p161-mode.el --- P161 workflow custom mode
+
+;; Copyright 2016 Rafa de Castro
+
+;; Author: Rafa de Castro <rafael@micubiculo.com>
+;; URL: http://github.com/rafadc/emacs.d
+;; Version: 0.0.1
+;; Package-Requires: ()
+
+
 (defun git-folder ()
   "Returns the folder for the project"
   (car (projectile-get-project-directories)))
@@ -66,3 +76,5 @@
   )
 
 (provide 'p161-mode)
+
+;;; p161-mode.el ends here

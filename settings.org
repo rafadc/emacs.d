@@ -1045,7 +1045,8 @@ These are scripts that are worthy of their own source file and I'm not including
   :load-path "src/copy-rtf")
 
 (use-package p161-mode
-  :load-path "src/p161-mode")
+  :load-path "src/p161-mode"
+  :bind ("C-c t" . send-test-to-tmux))
 
 (load-file "~/.emacs.d/src/emacs-presentation-mode/emacs-presentation-mode.el")
 #+END_SRC

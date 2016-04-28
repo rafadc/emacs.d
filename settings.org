@@ -50,6 +50,14 @@ Copy the environment variables from shell's environment
 #+END_SRC
 
 
+* Scratch buffer
+
+We need to customize the scratch buffer. No particular reason.
+
+#+BEGIN_SRC
+(setq initial-scratch-message ";; Beware of the emacs church")
+#+END_SRC
+
 
 * Editing settings
 

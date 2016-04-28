@@ -830,7 +830,8 @@ Autocomplete for Go. We will be using company mode too.
   :ensure t
   :init (progn
            (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
-           (add-to-list 'company-backends 'company-elm)))
+           (with-eval-after-load 'company
+              (add-to-list 'company-backends 'company-elm))))
 
 #+END_SRC
 

@@ -775,7 +775,8 @@ Project navigation with Robe
 
 (use-package alchemist
   :ensure t
-  :config (setq alchemist-hooks-test-on-save t))
+  :config (setq alchemist-hooks-test-on-save t)
+  :bind (("C-c m" . alchemist-mix)))
 #+END_SRC
 
 ** Javascript

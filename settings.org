@@ -969,7 +969,12 @@ This is just for measuring the frequency for the commands run
   :ensure t
   :init (progn
           (keyfreq-mode 1)
-          (keyfreq-autosave-mode 1)))
+          (keyfreq-autosave-mode 1)
+          (setq keyfreq-excluded-commands
+            '(self-insert-command
+              abort-recursive-edit
+              previous-line
+              next-line))))
 #+END_SRC
 
 * Applications

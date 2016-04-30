@@ -12,6 +12,8 @@
 #+TAGS: export(e) noexport(n)
 #+STARTUP: align fold nodlcheck lognotestate content
 
+[[file:~/.emacs.d/emacs-logo.png]]
+
 To use this change your init file for something like
 
 #+BEGIN_SRC
@@ -552,7 +554,9 @@ Binding F7 to open a personal_notes.org file in root of projectile
 (use-package org
   :ensure t
   :bind ("<f7>" . projectile-open-personal-notes)
-  :config (setq org-hide-emphasis-markers t))
+  :config (progn
+            (setq org-hide-emphasis-markers t)
+            (org-display-inline-images t t)))
 #+END_SRC
 
 Org bullets will display bullet points as UTF characters

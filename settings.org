@@ -12,7 +12,7 @@
 #+TAGS: export(e) noexport(n)
 #+STARTUP: align fold nodlcheck lognotestate content
 
-[[file:~/.emacs.d/emacs-logo.png]]
+[[file:emacs-logo.png]]
 
 To use this change your init file for something like
 

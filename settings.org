@@ -1,4 +1,4 @@
-+TITLE:   Rafa's Emacs settings file
+#+TITLE:   Rafa's Emacs settings file
 #+AUTHOR:  Rafa de Castro
 #+EMAIL:   rafael@micubiculo.com
 #+LANGUAGE: en

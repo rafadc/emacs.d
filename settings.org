@@ -215,6 +215,13 @@ We will use rainbow delimiters when possible
 #+END_SRC
 
 
+Highlight current line
+
+#+BEGIN_SRC emacs-lisp
+(global-hl-line-mode)
+#+END_SRC
+
+
 * Minibuffer
 
 Incremental search in minibuffer

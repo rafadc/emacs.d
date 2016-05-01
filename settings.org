@@ -894,9 +894,11 @@ Also for some projects it is nice to be able to browse the file on Github.
 And let's put a nice gutter
 
 #+BEGIN_SRC emacs-lisp
-(use-package git-gutter+
+(use-package git-gutter
   :ensure t
-  :init (global-git-gutter+-mode))
+  :init (progn
+          (global-git-gutter-mode t)
+          (git-gutter:linum-setup)))
 #+END_SRC
 
 

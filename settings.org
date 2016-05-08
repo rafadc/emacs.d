@@ -560,10 +560,15 @@ Binding F7 to open a personal_notes.org file in root of projectile
 
 (use-package org
   :ensure t
-  :bind ("<f7>" . projectile-open-personal-notes)
-  :config (progn
-            (setq org-hide-emphasis-markers t)
-            (org-display-inline-images t t)))
+  :bind (("<f7>" . projectile-open-personal-notes)
+         ("C-c c" . org-capture))
+  :init (progn
+          (setq org-hide-emphasis-markers t)
+          (setq org-startup-with-inline-images t)
+          (setq org-default-notes-file "~/capture.org"))
+          (setq org-capture-templates
+                    '(("t" "Todo" entry (file+headline "~/org/tasks.org" "Tasks") "* TODO %?\n  %i\n  %a")
+                      ("r" "Retro" entry (file+datetree "~/org/retro.org") "* %?\nEntered on %U\n  %i\n  %a"))))
 #+END_SRC
 
 Org bullets will display bullet points as UTF characters

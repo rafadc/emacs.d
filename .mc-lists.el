@@ -12,8 +12,11 @@
 
 (setq mc/cmds-to-run-once
       '(
+        duplicate-line
+        haml-electric-backspace
         helm-M-x
         helm-confirm-and-exit-minibuffer
         helm-do-ag
+        helm-do-ag-project-root
         ns-copy-including-secondary
         ))

@@ -421,13 +421,14 @@ Using phi search for a nice incremental search that allows to go to the search o
 
 ** Avy jump
 
-Avy jump is great for moving around.
+Avy jump is great for moving around. I use the new timer version. This was introduced in avy 0.4.0 and it is a really beautiful way of moving around. A combination of classical avy jump + isearch
+
 
 #+BEGIN_SRC emacs-lisp
 
 (use-package avy
   :ensure t
-  :bind ("C-c j" . avy-goto-char))
+  :bind ("C-c j" . avy-goto-char-timer))
 #+END_SRC
 
 * Open in external editor
@@ -899,11 +900,13 @@ Also for some projects it is nice to be able to browse the file on Github.
 And let's put a nice gutter
 
 #+BEGIN_SRC emacs-lisp
-(use-package git-gutter
-  :ensure t
-  :init (progn
-          (global-git-gutter-mode t)
-          (git-gutter:linum-setup)))
+;(use-package git-gutter
+;  :ensure t
+;  :init (progn
+;           (global-git-gutter-mode t)
+;           (git-gutter:linum-setup)
+;            (custom-set-variables
+;              '(git-gutter:update-interval 2))))
 #+END_SRC
 
 

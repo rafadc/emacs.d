@@ -6,7 +6,7 @@
  '(custom-enabled-themes (quote (smart-mode-line-dark)))
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+    ("135bbd2e531f067ed6a25287a47e490ea5ae40b7008211c70385022dbab3ab2a" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(elfeed-feeds
    (quote
     ("http://nullprogram.com/feed/"
@@ -15,7 +15,10 @@
      ("http://xkcd.com/rss.xml" webcomic)
      ("http://sachachua.com/blog/feed/" emacs))))
  '(magit-push-arguments (quote ("--set-upstream")))
- '(magit-rebase-arguments (quote ("--autosquash" "--autostash"))))
+ '(magit-rebase-arguments (quote ("--autosquash" "--autostash")))
+ '(package-selected-packages
+   (quote
+    (org org-plus-contrib org-capture yasnippet yafolding web-mode use-package unicode-fonts undo-tree tle smooth-scrolling smart-mode-line slim-mode scss-mode rvm ruby-tools ruby-end ruby-compilation ruby-block rubocop robe request-deferred rainbow-delimiters puppet-mode projectile-rails phi-search org-bullets nyan-mode nrepl neotree multiple-cursors move-text markdown-toc magit kv keyfreq js2-mode hlinum helm-projectile helm-ag haskell-mode haml-mode guide-key go-mode github-browse-file git-timemachine git-gutter gh flymake-ruby flymake-jslint flymake-cursor flycheck find-file-in-project expand-region exec-path-from-shell elm-mode elixir-mix elfeed dockerfile-mode docker cyberpunk-theme company-go color-theme coffee-mode closure-lint-mode clojurescript-mode clojure-test-mode avy alchemist ac-cider-compliment))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

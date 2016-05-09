@@ -1005,6 +1005,11 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
 
 #+BEGIN_SRC emacs-lisp
 
+(defun elfeed-feeds ()
+  "Open the elfeed feeds file"
+  (interactive)
+  (find-file "~/.emacs.d/elfeed/elfeed.org"))
+
 (use-package elfeed
   :ensure t
   :init (setf url-queue-timeout 30))

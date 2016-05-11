@@ -109,9 +109,11 @@ I'll use a smart-mode-line. A powerline replacement.
 #+BEGIN_SRC emacs-lisp
 (use-package smart-mode-line
   :ensure t
-  :init (progn
-          (sml/setup)
-          (sml/apply-theme 'dark)))
+  :init (sml/setup))
+
+(use-package smart-mode-line-powerline-theme
+  :ensure t
+  :init (sml/apply-theme 'powerline))
 
 #+END_SRC
 
@@ -196,14 +198,6 @@ Asking y/n instead of yes/no
 
 #+BEGIN_SRC emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
-
-For extra nyanness
-
-#+BEGIN_SRC emacs-lisp
-(use-package nyan-mode
-  :ensure t
-  :init (nyan-mode +1))
 #+END_SRC
 
 We will use rainbow delimiters when possible
@@ -924,15 +918,6 @@ Emacs is great for managing docker images. Also I will use the syntax help for D
 
 #+END_SRC
 
-
-* Vendored scripts
-
-These are stand alone scripts I don't want in this config file.
-
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/vendor/restclient")
-(require 'restclient)
-#+END_SRC
 
 * Help and documentation
 

@@ -92,6 +92,12 @@ Nothing bigger than 80 lines. This is nice also for code. ;). Anyway we can avoi
                  (global-whitespace-mode t)))
 #+END_SRC
 
+Enable word wrap globally.
+
+#+BEGIN_SRC emacs-lisp
+(global-visual-line-mode t)
+#+END_SRC
+
 I know I know. Too cyberpunk but is is nice sometimes :D
 
 #+BEGIN_SRC emacs-lisp

@@ -101,11 +101,9 @@ Enable word wrap globally.
 I know I know. Too cyberpunk but is is nice sometimes :D
 
 #+BEGIN_SRC emacs-lisp
-;(load-file "~/.emacs.d/themes/base16-emacs/base16-default-theme.el")
-(use-package cyberpunk-theme
+(use-package dracula-theme
   :ensure t
-  :init (add-hook 'after-init-hook
-             (lambda () (load-theme 'cyberpunk t))))
+  :config (load-theme 'dracula t))
 
 
 #+END_SRC
@@ -834,6 +832,16 @@ React specific settings
 (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 #+END_SRC
+
+** Coffeescript
+
+#+BEGIN_SRC emacs-lisp
+(use-package coffee-mode
+  :ensure t
+  :config (custom-set-variables
+            '(coffee-tab-width 2)))
+#+END_SRC
+
 
 ** Go
 

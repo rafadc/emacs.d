@@ -280,25 +280,15 @@ This takes back mouse and makes it work in a terminal. Commented until I make te
 This is a small script so ALT key drags lines up and down.
 
 #+BEGIN_SRC emacs-lisp
-(defun grab-line-down ()
-  "Moves current line down"
-  (interactive)
-  (progn
-   (forward-line 1)
-   (transpose-lines 1)
-   (forward-line -1)))
+(use-package move-text
+  :ensure t
+  :bind (("M-<up>" . move-text-up)
+         ("M-<down>" . move-text-down)))
+#+END_SRC
 
-(defun grab-line-up ()
-  "Moves current line up"
-  (interactive)
-  (progn
-   (forward-line 1)
-   (transpose-lines -1)
-   (forward-line -2)))
+Line duplication
 
-(global-set-key (kbd "M-<down>") 'grab-line-down)
-(global-set-key (kbd "M-<up>") 'grab-line-up)
-
+#+BEGIN_SRC emacs-lisp
 (defun duplicate-line ()
   "Duplicates current line"
   (interactive)

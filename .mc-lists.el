@@ -19,4 +19,5 @@
         helm-do-ag
         helm-do-ag-project-root
         ns-copy-including-secondary
+        ns-open-file-using-panel
         ))

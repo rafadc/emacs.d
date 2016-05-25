@@ -67,6 +67,7 @@ I'll add a function to edit settings.org file. I don't need a shortcut since thi
 Use spaces instead of tabs
 
 #+BEGIN_SRC emacs-lisp
+(setq ns-use-srgb-colorspace t)
 (setq-default indent-tabs-mode nil)
 #+END_SRC
 
@@ -103,7 +104,12 @@ I'll use a smart-mode-line. A powerline replacement.
 #+BEGIN_SRC emacs-lisp
 (use-package smart-mode-line
   :ensure t
-  :init (sml/setup))
+  :init (progn
+          (setq powerline-arrow-shape 'curve)
+          (setq sml/mode-width 0)
+          (rich-minority-mode 1)
+          (setf rm-blacklist ""))
+  :config (sml/setup))
 
 (use-package smart-mode-line-powerline-theme
   :ensure t
@@ -651,8 +657,7 @@ Usually it is not needed at the start (remember I use emacs daemon).
 #+BEGIN_SRC emacs-lisp
 (use-package company
   :ensure t
-  :defer t
-  :idle (global-company-mode)
+  :init (global-company-mode)
   :config (progn
                 (setq company-idle-delay .3)
                 (setq company-echo-delay 0)
@@ -999,14 +1004,14 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
 
 (use-package elfeed
   :ensure t
-  :init (setf url-queue-timeout 30)
-  :bind (("<f1>" . elfeed)))
-
-(use-package elfeed-org
-  :load-path "vendor/elfeed-org"
   :init (progn
-          (elfeed-org)
-          (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed/elfeed.org"))))
+          (use-package elfeed-org
+              :ensure t
+              :init (progn
+                     (elfeed-org)
+                       (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed/elfeed.org"))))
+          (setf url-queue-timeout 30))
+  :bind (("<f1>" . elfeed)))
 
 #+END_SRC
 

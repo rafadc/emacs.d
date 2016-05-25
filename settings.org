@@ -67,7 +67,6 @@ I'll add a function to edit settings.org file. I don't need a shortcut since thi
 Use spaces instead of tabs
 
 #+BEGIN_SRC emacs-lisp
-(setq ns-use-srgb-colorspace t)
 (setq-default indent-tabs-mode nil)
 #+END_SRC
 
@@ -106,22 +105,28 @@ I know I know. Too cyberpunk but is is nice sometimes :D
 
 #+END_SRC
 
-I'll use a smart-mode-line. A powerline replacement.
+To avoid cluttering the mode line I'll diminish some modes
 
 #+BEGIN_SRC emacs-lisp
-(use-package smart-mode-line
-  :ensure smart-mode-line-powerline-theme
+(eval-after-load "projectile" '(diminish 'projectile-mode "Ⓟ"))
+(eval-after-load "yasnippet" '(diminish 'yas-minor-mode "Ⓨ"))
+(eval-after-load "undo-tree" '(diminish 'undo-tree-mode "⎌"))
+(eval-after-load "company" '(diminish 'company-mode "Ⓒ"))
+(eval-after-load "guide-key" '(diminish 'guide-key-mode "✚"))
+(eval-after-load "flycheck" '(diminish 'flycheck-mode "✈"))
+#+END_SRC
+
+Let's powerline.
+
+#+BEGIN_SRC emacs-lisp
+(setq ns-use-srgb-colorspace nil)
+
+(use-package powerline
+  :ensure t
   :init (progn
-          (require 'smart-mode-line)
-          (setq powerline-arrow-shape 'curve)
+          (setq powerline-arrow-shape 'wave)
           (setq powerline-default-separator-dir '(right . left))
-          (setq sml/theme 'powerline)
-          (setq powerline-arrow-shape 'curve)
-          (setq sml/mode-width 0)
-          (setq sml/name-width 20)
-          (rich-minority-mode 1)
-          (setf rm-blacklist ""))
-  :config (sml/setup))
+          (powerline-center-theme)))
 #+END_SRC
 
 Disable menu and icon bar
@@ -165,7 +170,7 @@ To show the list of available fonts you can eval
 (set-default-coding-systems 'utf-8)
 
 (set-face-attribute 'default nil
-                    :family "Source Code Pro"
+                    :family "Hack"
                     :height 160
                     :weight 'semi-light
                     :width 'normal)

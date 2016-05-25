@@ -51,16 +51,6 @@ Copy the environment variables from shell's environment
             (exec-path-from-shell-initialize)))
 #+END_SRC
 
-
-* Scratch buffer
-
-We need to customize the scratch buffer. No particular reason.
-
-#+BEGIN_SRC
-(setq initial-scratch-message ";; Beware of the emacs church")
-#+END_SRC
-
-
 * Editing settings
 
 I'll add a function to edit settings.org file. I don't need a shortcut since this is not such a common task now.
@@ -1009,7 +999,8 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
 
 (use-package elfeed
   :ensure t
-  :init (setf url-queue-timeout 30))
+  :init (setf url-queue-timeout 30)
+  :bind (("<f1>" . elfeed)))
 
 (use-package elfeed-org
   :load-path "vendor/elfeed-org"

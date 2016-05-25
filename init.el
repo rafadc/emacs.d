@@ -37,6 +37,10 @@
 
 (package-initialize)
 
+(setq initial-scratch-message "\;; Beware of the emacs church
+
+")
+
 (require 'ob-tangle)
 (require 'org)
 (org-babel-load-file

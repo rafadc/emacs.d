@@ -132,7 +132,7 @@ Let's powerline.
           (setq powerline-display-hud t)
           (setq powerline-display-buffer-size nil)
           (setq powerline-display-mule-info nil)
-          (powerline-default-theme)))
+          (powerline-center-theme)))
 #+END_SRC
 
 Disable menu and icon bar

@@ -93,6 +93,7 @@ Enable word wrap globally.
 
 #+BEGIN_SRC emacs-lisp
 (global-visual-line-mode t)
+(diminish 'visual-line-mode)
 #+END_SRC
 
 I know I know. Too cyberpunk but is is nice sometimes :D
@@ -101,17 +102,6 @@ I know I know. Too cyberpunk but is is nice sometimes :D
 (use-package dracula-theme
   :ensure t
   :config (load-theme 'dracula t))
-#+END_SRC
-
-To avoid cluttering the mode line I'll diminish some modes
-
-#+BEGIN_SRC emacs-lisp
-(eval-after-load "projectile" '(diminish 'projectile-mode "Ⓟ"))
-(eval-after-load "yasnippet" '(diminish 'yas-minor-mode "Ⓨ"))
-(eval-after-load "undo-tree" '(diminish 'undo-tree-mode "⎌"))
-(eval-after-load "company" '(diminish 'company-mode "Ⓒ"))
-(eval-after-load "guide-key" '(diminish 'guide-key-mode "✚"))
-(eval-after-load "flycheck" '(diminish 'flycheck-mode "✈"))
 #+END_SRC
 
 Let's powerline.
@@ -368,6 +358,7 @@ Much better undo than the default one.
 
 (use-package undo-tree
   :ensure t
+  :diminish undo-tree-mode "⎌"
   :init
     (progn
       (global-undo-tree-mode 1)
@@ -511,6 +502,7 @@ Enabling projectile for project management
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
+  :diminish projectile-mode "Ⓟ"
   :init (setq projectile-enable-caching nil)
   :config (projectile-global-mode))
 #+END_SRC
@@ -643,6 +635,7 @@ And also we can search in the contents of any file in the current project or the
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
   :ensure t
+  :diminish yas-minor-mode "Ⓨ"
   :config (progn (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
                  (yas-global-mode 1)))
 #+END_SRC
@@ -660,6 +653,7 @@ We will globally enable syntax highlight
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
   :ensure t
+  :diminish flycheck-mode "✈"
   :config (add-hook 'after-init-hook #'global-flycheck-mode))
 
 #+END_SRC
@@ -675,6 +669,7 @@ Usually it is not needed at the start (remember I use emacs daemon).
 #+BEGIN_SRC emacs-lisp
 (use-package company
   :ensure t
+  :diminish company-mode "Ⓒ"
   :init (global-company-mode)
   :config (progn
                 (setq company-idle-delay .3)
@@ -880,6 +875,13 @@ Autocomplete for Go. We will be using company mode too.
 
 #+END_SRC
 
+** Rust
+
+#+BEGIN_SRC emacs-lisp
+(use-package rust-mode
+  :ensure t)
+#+END_SRC
+
 * Puppet
 
 Puppet will use its own mode since Ruby mode can cause some weirdness there.
@@ -951,8 +953,11 @@ Emacs is great for managing docker images. Also I will use the syntax help for D
 When I start typing a combo a help with the possible continuations appear if I wait for a while.
 
 #+BEGIN_SRC emacs-lisp
-(setq guide-key/guide-key-sequence t)
-(guide-key-mode 1)
+(use-package guide-key
+  :ensure t
+  :diminish guide-key-mode
+  :init (setq guide-key/guide-key-sequence t)
+  :config (guide-key-mode 1))
 #+END_SRC
 
 ** Dash

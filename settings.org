@@ -273,10 +273,10 @@ There are some default mac bindings that are annoying to me. I will disable s-P 
 This takes back mouse and makes it work in a terminal. Commented until I make terminal mode to work as I want.
 
 #+BEGIN_SRC emacs-lisp
-;(require 'mouse)
-;(xterm-mouse-mode t)
-;(defun track-mouse (e))
-;(setq mouse-sel-mode t)
+(require 'mouse)
+(xterm-mouse-mode t)
+(defun track-mouse (e))
+(setq mouse-sel-mode t)
 #+END_SRC
 
 * Manipulating text
@@ -302,7 +302,7 @@ Line duplication
     (insert text-to-insert)
     (forward-line -1)))
 
-(global-set-key (kbd "s-*") 'duplicate-line)
+(global-set-key (kbd "C-*") 'duplicate-line)
 
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -776,6 +776,7 @@ Adding file types with no rb extension: rake files, irbrc...
 
 ;; Projectile rails mode
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
+(eval-after-load "projectile" (diminish 'projectile-rails-on "Ⓡ"))
 #+END_SRC
 
 Use Rubocop for Ruby code linting
@@ -783,6 +784,7 @@ Use Rubocop for Ruby code linting
 #+BEGIN_SRC emacs-lisp
 (use-package rubocop
   :ensure t
+  :diminish rubocop-mode
   :init (add-hook 'ruby-mode-hook #'rubocop-mode))
 #+END_SRC
 

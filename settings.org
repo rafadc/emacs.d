@@ -358,7 +358,7 @@ Much better undo than the default one.
 
 (use-package undo-tree
   :ensure t
-  :diminish undo-tree-mode "⎌"
+  :diminish undo-tree-mode
   :init
     (progn
       (global-undo-tree-mode 1)
@@ -512,6 +512,8 @@ Enabling projectile for project management
 
 #+BEGIN_SRC emacs-lisp
 ;; Flyspell
+(diminish 'flyspell-mode)
+
 (global-set-key (kbd "<f8>") 'ispell-word)
 (global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
 (global-set-key (kbd "C-M-<f8>") 'flyspell-buffer)
@@ -635,7 +637,7 @@ And also we can search in the contents of any file in the current project or the
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
   :ensure t
-  :diminish yas-minor-mode "Ⓨ"
+  :diminish yas-minor-mode "Ⓨ "
   :config (progn (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
                  (yas-global-mode 1)))
 #+END_SRC

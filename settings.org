@@ -639,6 +639,7 @@ And also we can search in the contents of any file in the current project or the
   :ensure t
   :diminish yas-minor-mode "Ⓨ "
   :config (progn (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+                 (add-hook 'term-mode-hook (lambda() (setq yas-dont-activate t)))
                  (yas-global-mode 1)))
 #+END_SRC
 

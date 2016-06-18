@@ -1001,6 +1001,13 @@ Making dired to open the file in the current buffer instead of opening a new one
 (put 'dired-find-alternate-file 'disabled nil)
 #+END_SRC
 
+Dired likes gnu ls more than ls in osx so let's make it use it
+
+#+BEGIN_SRC emacs-lisp
+(setq ls-lisp-use-insert-directory-program t)
+(setq insert-directory-program "gls")
+#+END_SRC
+
 * Keyfreq
 
 This is just for measuring the frequency for the commands run

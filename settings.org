@@ -42,7 +42,7 @@ Bootstrapping use-package. This looks for use package in the system ans installs
 (require 'bind-key)                ;; if you use any :bind variant
 #+END_SRC
 
-* Environment from shell
+* Shell
 
 Copy the environment variables from shell's environment
 
@@ -52,6 +52,20 @@ Copy the environment variables from shell's environment
   :ensure t
   :config (when (memq window-system '(mac ns))
             (exec-path-from-shell-initialize)))
+#+END_SRC
+
+Also set zsh shell with login as default
+
+#+BEGIN_SRC emacs-lisp
+(setq explicit-shell-file-name "/bin/zsh")
+(setq multi-term-program-switches "--login")
+#+END_SRC
+
+Using multi-term as terminal emulator. I'm not still 100% sure on this
+
+#+BEGIN_SRC emacs-lisp
+(use-package multi-term
+  :ensure t)
 #+END_SRC
 
 * Editing settings
@@ -772,15 +786,15 @@ Adding file types with no rb extension: rake files, irbrc...
 
 
 ;; Adding syntax checking
-(add-hook 'ruby-mode-hook 'flymake-ruby-load)
-(add-hook 'ruby-mode-hook 'flymake-cursor-mode)
+;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
 (add-hook 'ruby-mode-hook 'yafolding-mode)
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
-;; Projectile rails mode
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
-(eval-after-load "projectile" (diminish 'projectile-rails-on "Ⓡ"))
+(use-package projectile-rails
+  :ensure t
+  :diminish projectile-rails-mode "RoR "
+  :config (add-hook 'projectile-mode-hook 'projectile-rails-on))
 #+END_SRC
 
 Use Rubocop for Ruby code linting

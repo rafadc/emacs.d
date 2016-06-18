@@ -36,7 +36,10 @@ Bootstrapping use-package. This looks for use package in the system ans installs
   (package-refresh-contents)
   (package-install 'use-package))
 
-(require 'use-package)
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)                ;; if you use :diminish
+(require 'bind-key)                ;; if you use any :bind variant
 #+END_SRC
 
 * Environment from shell

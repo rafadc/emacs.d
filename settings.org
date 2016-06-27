@@ -1062,8 +1062,11 @@ EMACS=$(which emacs) brew install mu --with-emacs --HEAD
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "<f1>") 'mu4e)
 
-(setq mu4e-maildir "~/Maildir")
+(setq mu4e-maildir "~/.Maildir")
 (require 'mu4e)
+(setq mu4e-get-mail-command "offlineimap")
+(setq message-kill-buffer-on-exit t)
+
 (setq mu4e-contexts
     `( ,(make-mu4e-context
 	  :name "Personal"
@@ -1079,9 +1082,9 @@ EMACS=$(which emacs) brew install mu --with-emacs --HEAD
 		     (concat
 		       "Rafa de Castro\n"
 		       "http://joy.pm\n"))
-                   (mu4e-drafts-folder . "/Personal/[Gmail].Drafts")
-                   (mu4e-sent-folder   . "/Personal/[Gmail].Sent Mail")
-                   (mu4e-trash-folder  . "/Personal/[Gmail].Trash")))
+                   (mu4e-drafts-folder . "/Personal/[Google Mail].Drafts")
+                   (mu4e-sent-folder   . "/Personal/[Google Mail].Sent Mail")
+                   (mu4e-trash-folder  . "/Personal/[Google Mail].Bin")))
        ,(make-mu4e-context
 	  :name "Work"
 	  :enter-func (lambda () (mu4e-message "Switch to the Work context"))

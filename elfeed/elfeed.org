@@ -6,8 +6,11 @@
 *** Emacs
 **** http://sachachua.com/blog/feed/
 
+**** http://cestlaz.github.io/rss.xml
 ** Webcomic
 *** http://xkcd.com/rss.xml
 ** Other
 ***   Copywriting
 **** http://copyhackers.com/feed/
+*** Economy
+**** http://politikon.es/feed/

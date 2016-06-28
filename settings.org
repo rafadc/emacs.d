@@ -611,6 +611,27 @@ The export to HTML of org mode requires htmlize
   :ensure t)
 #+END_SRC
 
+Let's configure some languages to run in org-babel mode.
+
+- Ditta: To draw diagrams
+
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages 'org-babel-load-languages '(
+        (ruby . t)
+        (ditaa . t)))
+
+(setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.9/libexec/ditaa0_9.jar")
+#+END_SRC
+
+I can never accept code from external sources :P161
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-confirm-babel-evaluate (lang body) nil)
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+#+END_SRC
+
+#+RESULTS:
+: my-org-confirm-babel-evaluate
 
 * Helm
 

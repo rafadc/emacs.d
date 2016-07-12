@@ -270,8 +270,8 @@ Let's use ibuffer for buffer listing
 #+BEGIN_SRC emacs-lisp
 (use-package tabbar
   :ensure t
-  :bind (("C-M-<right>" . tabbar-backward-tab)
-         ("C-M-<left>" . tabbar-forward-tab))
+  :bind (("C-M-<left>" . tabbar-backward-tab)
+         ("C-M-<right>" . tabbar-forward-tab))
   :config (tabbar-mode 1))
 
 (use-package tabbar-ruler

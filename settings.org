@@ -91,65 +91,12 @@ I'll add a function to edit settings.org file. I don't need a shortcut since thi
 
 * Visuals
 
-Use spaces instead of tabs
-
-#+BEGIN_SRC emacs-lisp
-(setq-default indent-tabs-mode nil)
-#+END_SRC
+** General UI
 
 Remove scrollbars. One extra character per line and goodbye to that unthemed thing :P
 
 #+BEGIN_SRC emacs-lisp
 (scroll-bar-mode -1)
-#+END_SRC
-
-
-Nothing bigger than 80 lines. This is nice also for code. ;). Anyway we can avoid the org node since this may make sense for longer texts.
-
-#+BEGIN_SRC emacs-lisp
-(use-package whitespace
-  :ensure t
-  :diminish whitespace-mode
-  :config (progn (setq whitespace-line-column 120)
-                 (setq whitespace-style '(face empty tabs lines-tail trailing))
-                 (setq whitespace-global-modes '(not org-mode web-mode "Web" emacs-lisp-mode))
-                 (global-whitespace-mode t)))
-#+END_SRC
-
-Enable word wrap globally.
-
-#+BEGIN_SRC emacs-lisp
-(global-visual-line-mode t)
-(diminish 'visual-line-mode)
-#+END_SRC
-
-This is a theme that is really similar to Spacemacs. It is super nice though.
-
-#+BEGIN_SRC emacs-lisp
-(use-package dracula-theme
-  :ensure t
-  :config (load-theme 'dracula t))
-#+END_SRC
-
-Let's powerline.
-
-#+BEGIN_SRC emacs-lisp
-(setq ns-use-srgb-colorspace nil) ; Needed to display correctly powerline separators
-
-
-(set-face-attribute 'mode-line nil
-                    :foreground "White"
-                    :background "#6E549E"
-                    :box nil)
-
-(use-package powerline
-  :ensure t
-  :config (progn
-          (setq powerline-default-separator 'wave)
-          (setq powerline-display-hud t)
-          (setq powerline-display-buffer-size nil)
-          (setq powerline-display-mule-info nil)
-          (powerline-center-theme)))
 #+END_SRC
 
 Disable menu and icon bar
@@ -175,6 +122,64 @@ Paren highlight
 #+BEGIN_SRC emacs-lisp
 (show-paren-mode 1)
 (setq show-paren-delay 0)
+#+END_SRC
+
+Asking y/n instead of yes/no
+
+#+BEGIN_SRC emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+We will use rainbow delimiters when possible
+
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-delimiters
+  :ensure t
+  :init (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+END_SRC
+
+Highlight current line
+
+#+BEGIN_SRC emacs-lisp
+(global-hl-line-mode)
+#+END_SRC
+
+
+** Whitespace
+
+Use spaces instead of tabs
+
+#+BEGIN_SRC emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+END_SRC
+
+Nothing bigger than 80 lines. This is nice also for code. ;). Anyway we can avoid the org node since this may make sense for longer texts.
+
+#+BEGIN_SRC emacs-lisp
+(use-package whitespace
+  :ensure t
+  :diminish whitespace-mode
+  :config (progn (setq whitespace-line-column 120)
+                 (setq whitespace-style '(face empty tabs lines-tail trailing))
+                 (setq whitespace-global-modes '(not org-mode web-mode "Web" emacs-lisp-mode))
+                 (global-whitespace-mode t)))
+#+END_SRC
+
+Enable word wrap globally.
+
+#+BEGIN_SRC emacs-lisp
+(global-visual-line-mode t)
+(diminish 'visual-line-mode)
+#+END_SRC
+
+** Theme and fonts
+
+This is a theme that is really similar to Spacemacs. It is super nice though.
+
+#+BEGIN_SRC emacs-lisp
+(use-package dracula-theme
+  :ensure t
+  :config (load-theme 'dracula t))
 #+END_SRC
 
 Font. I like a ton of different fonts and I use them a lot. My choices are:
@@ -205,7 +210,30 @@ Manually setting font for managing Unicode symbols
 (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)
 #+END_SRC
 
+** Powerline
 
+Let's powerline.
+
+#+BEGIN_SRC emacs-lisp
+(setq ns-use-srgb-colorspace nil) ; Needed to display correctly powerline separators
+
+
+(set-face-attribute 'mode-line nil
+                    :foreground "White"
+                    :background "#6E549E"
+                    :box nil)
+
+(use-package powerline
+  :ensure t
+  :config (progn
+          (setq powerline-default-separator 'wave)
+          (setq powerline-display-hud t)
+          (setq powerline-display-buffer-size nil)
+          (setq powerline-display-mule-info nil)
+          (powerline-center-theme)))
+#+END_SRC
+
+** Mouse
 
 Smoother scrolling with mouse. This is the only thing I still miss from Sublime text
 
@@ -229,27 +257,29 @@ Scrolling with keyboard before touching bottom.
 
 #+END_SRC
 
-Asking y/n instead of yes/no
+** Buffer listing
+
+Let's use ibuffer for buffer listing
 
 #+BEGIN_SRC emacs-lisp
-(defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'list-buffers 'ibuffer)
 #+END_SRC
 
-We will use rainbow delimiters when possible
+** Tab bar
 
 #+BEGIN_SRC emacs-lisp
-(use-package rainbow-delimiters
+(use-package tabbar
   :ensure t
-  :init (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  :bind (("C-M-<right>" . tabbar-backward-tab)
+         ("C-M-<left>" . tabbar-forward-tab))
+  :config (tabbar-mode 1))
+
+(use-package tabbar-ruler
+  :ensure t
+  :after (tabbar)
+  :config (progn
+            (setq tabbar-ruler-global-tabbar t)))
 #+END_SRC
-
-
-Highlight current line
-
-#+BEGIN_SRC emacs-lisp
-(global-hl-line-mode)
-#+END_SRC
-
 
 * Minibuffer
 
@@ -592,7 +622,8 @@ Binding F7 to open a personal_notes.org file in root of projectile
           (setq org-default-notes-file "~/capture.org"))
           (setq org-capture-templates
                     '(("t" "Todo" entry (file+headline "~/org/tasks.org" "Tasks") "* TODO %?\n  %i\n  %a")
-                      ("r" "Retro" entry (file+headline "~/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a"))))
+                      ("r" "Retro" entry (file+headline "~/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")
+                      ("a" "Agile" entry (file+headline "~/org/agile.org" "Agile") "* %?\nEntered on %U\n  %i\n  %a"))))
 #+END_SRC
 
 Org bullets will display bullet points as UTF characters

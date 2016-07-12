@@ -123,7 +123,7 @@ Enable word wrap globally.
 (diminish 'visual-line-mode)
 #+END_SRC
 
-I know I know. Too cyberpunk but is is nice sometimes :D
+This is a theme that is really similar to Spacemacs. It is super nice though.
 
 #+BEGIN_SRC emacs-lisp
 (use-package dracula-theme

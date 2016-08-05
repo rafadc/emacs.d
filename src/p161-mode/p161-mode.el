@@ -68,11 +68,10 @@
   :lighter " P161"
   :global t
   :keymap (let ((map (make-sparse-keymap)))
-            (define-key map (kbd "C-c p c") 'create-branch-for-ticket)
-            (define-key map (kbd "C-c p n") 'open-current-ticket-in-browser)
+            (define-key map (kbd "C-c C-p c") 'create-branch-for-ticket)
+            (define-key map (kbd "C-c C-p b") 'open-current-ticket-in-browser)
             map)
-  (add-hook 'git-commit-mode-hook 'insert-pfm-in-commit-message)
-;  (add-hook 'ruby-mode-hook (local-set-key (kbd "C-c C-t") 'send-test-to-tmux))
+  ;(add-hook 'git-commit-mode-hook 'insert-pfm-in-commit-message)
   )
 
 (provide 'p161-mode)

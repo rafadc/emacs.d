@@ -763,7 +763,8 @@ Usually it is not needed at the start (remember I use emacs daemon).
                 (setq company-idle-delay .3)
                 (setq company-echo-delay 0)
                 (setq company-tooltip-limit 15)
-                (setq company-minimum-prefix-length 1)))
+                (setq company-minimum-prefix-length 1)
+                (setq company-dabbrev-downcase nil)))
 #+END_SRC
 
 ** Clojure

@@ -822,6 +822,18 @@ Some projects I do use HAML
   :ensure t)
 #+END_SRC
 
+And our good old Emmet. Previously called Zencoding
+
+#+BEGIN_SRC emacs-lisp
+(use-package emmet-mode
+  :ensure t
+  :diminish
+  :config (progn
+            (add-hook 'css-mode-hook  'emmet-mode)
+            (setq emmet-expand-jsx-className? t))
+#+END_SRC
+
+
 
 ** Markdown
 
@@ -920,6 +932,9 @@ React specific settings
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+
+(setq web-mode-content-types-alist
+  '(("jsx" . "\\.js[x]?\\'")))
 #+END_SRC
 
 ** Coffeescript

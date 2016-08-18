@@ -830,7 +830,7 @@ And our good old Emmet. Previously called Zencoding
   :diminish
   :config (progn
             (add-hook 'css-mode-hook  'emmet-mode)
-            (setq emmet-expand-jsx-className? t))
+            (setq emmet-expand-jsx-className? t)))
 #+END_SRC
 
 
@@ -1177,17 +1177,23 @@ EMACS=$(which emacs) brew install mu --with-emacs --HEAD
                    (mu4e-trash-folder  . "/Work/[Gmail].Bin")))))
 #+END_SRC
 
-
 ** RSS reader
 
 I use elfeed to read RSS. It can be configured via and org mode file. Extra awesomeness!
 
 #+BEGIN_SRC emacs-lisp
-
 (defun elfeed-feeds ()
   "Open the elfeed feeds file"
   (interactive)
   (find-file "~/.emacs.d/elfeed/elfeed.org"))
+
+(defun elfeed-send-to-pocket ()
+  "Send current article to pocket"
+  (interactive)
+  (let
+    ((url (elfeed-entry-link elfeed-show-entry)))
+    (shell-command (concat  "echo '\\n\\n" url "' | msmtp add@getpocket.com"))
+    (message "Saved to pocket!")))
 
 (use-package elfeed
   :ensure t

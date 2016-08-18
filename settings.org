@@ -1213,7 +1213,10 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
                       (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed/elfeed.org"))
                       (setq elfeed-use-curl t))
                       (setf url-queue-timeout 30)))
-  :bind (("<f2>" . elfeed)))
+  :bind (("<f2>" . elfeed))
+  :config
+       (bind-keys :mapq elfeed-show-mode-map
+                  ("x" . elfeed-send-to-pocket)))
 
 #+END_SRC
 

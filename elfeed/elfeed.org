@@ -1,8 +1,7 @@
 * Blogs                                                              :elfeed:
 ** Programming                                                          :dev:
-*** http://feeds.feedburner.com/codinghorror
-*** http://martinfowler.com/feed.atom
 *** http://nullprogram.com/feed/
+*** https://mzucker.github.io/feed.xml
 *** Emacs
 **** http://sachachua.com/blog/feed/
 
@@ -10,7 +9,5 @@
 ** Webcomic
 *** http://xkcd.com/rss.xml
 ** Other
-***   Copywriting
-**** http://copyhackers.com/feed/
 *** Economy
 **** http://politikon.es/feed/

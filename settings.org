@@ -670,6 +670,14 @@ I can never accept code from external sources :P161
 #+RESULTS:
 : my-org-confirm-babel-evaluate
 
+Adding bibliography. I'm starting to write a lot these days so a bibliography plugin is nice.
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-ref
+  :ensure t)
+#+END_SRC
+
+
 * Helm
 
 This is done to solve a bug in MELPA stable helm version. Once this is not needed I should remove this line.

@@ -467,12 +467,12 @@ These are multiple cursors bindings.
 * Moving around
 ** Search
 
-Using phi search for a nice incremental search that allows to go to the search or come back if the search is not what expected.
+I moved from phi search to swiper. It looks like an awesome idea.
 
 #+BEGIN_SRC emacs-lisp
-(use-package phi-search
+(use-package swiper-helm
   :ensure t
-  :bind ("C-s" . phi-search))
+  :bind ("C-s" . swiper))
 #+END_SRC
 
 ** Avy jump

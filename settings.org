@@ -782,6 +782,16 @@ Usually it is not needed at the start (remember I use emacs daemon).
                 (setq company-dabbrev-downcase nil)))
 #+END_SRC
 
+** YAML
+
+Just for coloring...
+
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-mode
+  :ensure t
+  :diminish)
+#+END_SRC
+
 ** Clojure
 
 #+BEGIN_SRC emacs-lisp

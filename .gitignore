@@ -1,8 +1,10 @@
 auto-save-list/
+org-gcal/
 
 # The compiled settings will not be commited
 *.elc
 settings.el
+secrets.el
 
 tramp
 

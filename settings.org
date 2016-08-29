@@ -1240,11 +1240,33 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
                       (setf url-queue-timeout 30)))
   :bind (("<f2>" . elfeed))
   :config
-       (bind-keys :mapq elfeed-show-mode-map
+       (bind-keys :map elfeed-show-mode-map
                   ("x" . elfeed-send-to-pocket)))
 
 #+END_SRC
 
+
+** Calendar
+
+Why leaving emacs at all? Let's manage Google Calendar here.
+
+#+BEGIN_SRC emacs-lisp
+(defun open-calendar ()
+  "Opens the calendar for today"
+  (interactive)
+  (find-file "~/org/schedule.org")
+  (cfw:open-calendar-buffer))
+
+(use-package calfw
+   :ensure t
+   :bind (("<f3>" . open-calendar)))
+
+(use-package org-gcal
+   :ensure t
+   :init (setq org-gcal-client-id gcalendar-client-id
+               org-gcal-client-secret gcalendar-client-secret
+               org-gcal-file-alist '(("rafadecastro@gmail.com" .  "~/org/schedule.org"))))
+#+END_SRC
 
 * Some general purpose functions
 

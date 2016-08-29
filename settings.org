@@ -925,6 +925,13 @@ Project navigation with Robe
               (rvm-activate-corresponding-ruby))))
 #+END_SRC
 
+To not envy RubyMine users
+
+#+BEGIN_SRC emacs-lisp
+(use-package ruby-refactor
+  :ensure t)
+#+END_SRC
+
 
 ** Elixir
 

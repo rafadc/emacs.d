@@ -494,6 +494,17 @@ Avy jump is great for moving around. I use the new timer version. This was intro
   :bind ("C-c j" . avy-goto-char-timer))
 #+END_SRC
 
+** Jump to char
+
+I found this to be super awesome specially in combination with multiple cursors.
+
+#+BEGIN_SRC emacs-lisp
+(use-package jump-char
+  :ensure t
+  :bind (("C-c u" . jump-char-backward)
+         ("C-c i" . jump-char-forward)))
+#+END_SRC
+
 * Open in external editor
 
 A small snippet to open current file in external editor.

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: use-package
+# key: usep_
+# --
+#+BEGIN_SRC emacs-lisp
+(use-package $0
+  :ensure t
+  :init ()
+  :config ())
+#+END_SRC

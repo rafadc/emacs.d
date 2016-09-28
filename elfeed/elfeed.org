@@ -2,6 +2,7 @@
 ** Programming                                                          :dev:
 *** http://nullprogram.com/feed/
 *** https://mzucker.github.io/feed.xml
+*** http://www.wildml.com/feed/
 *** Emacs
 **** http://sachachua.com/blog/feed/
 

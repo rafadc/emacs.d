@@ -197,11 +197,11 @@ I don't like the default gutter since the separation between 2 frames is too dif
 
 Font. I like a ton of different fonts and I use them a lot. My choices are:
 
-+ Hermit / light: Playful. Coding must be fun.
-+ M+ 1mn / light: When you are feeling professional
-+ Input Mono Compressed: Somewhat old school but really readable.
-+ Inconsolata: A bit all-around
-+ Source code pro: Wide but nice
+- Hermit / light: Playful. Coding must be fun.
+- M+ 1mn / light: When you are feeling professional
+- Input Mono Compressed: Somewhat old school but really readable.
+- Inconsolata: A bit all-around
+- Source code pro: Wide but nice
 
 To show the list of available fonts you can eval
 (print (font-family-list))
@@ -212,8 +212,8 @@ To show the list of available fonts you can eval
 
 (set-face-attribute 'default nil
                     :family "Hack"
-                    :height 140
-                    :weight 'semi-light
+                    :height 160
+                    :weight 'regular
                     :width 'normal)
 #+END_SRC
 

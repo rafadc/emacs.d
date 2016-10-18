@@ -387,7 +387,7 @@ Line duplication
 (global-set-key (kbd "C-c C-e") 'eval-and-replace)
 #+END_SRC
 
-I hace ALT-backspace to change my kill ring since I don't often want that there.
+I don't want ALT-backspace to change my kill ring since I don't often want that there.
 
 #+BEGIN_SRC emacs-lisp
 (defun delete-word (arg)

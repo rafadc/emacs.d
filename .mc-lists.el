@@ -3,15 +3,22 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        beginning-of-visual-line
         delete-word
+        end-of-visual-line
         git-rebase-squash
         helm-projectile
+        jump-char-process-char
+        jump-char-repeat-backward
         magit-status
+        markdown-demote
+        markdown-exdent-or-delete
         ruby-end-space
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        coffee-dedent-line-backspace
         duplicate-line
         haml-electric-backspace
         helm-M-x
@@ -20,4 +27,5 @@
         helm-do-ag-project-root
         ns-copy-including-secondary
         ns-open-file-using-panel
+        org-self-insert-command
         ))

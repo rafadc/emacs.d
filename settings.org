@@ -867,8 +867,6 @@ And our good old Emmet. Previously called Zencoding
             (setq emmet-expand-jsx-className? t)))
 #+END_SRC
 
-
-
 ** Markdown
 
 #+BEGIN_SRC emacs-lisp
@@ -981,6 +979,13 @@ React specific settings
   '(("jsx" . "\\.js[x]?\\'")))
 #+END_SRC
 
+And for Vue.js
+#+BEGIN_SRC emacs-lisp
+(use-package vue-mode
+  :ensure t
+  :defer)
+#+END_SRC
+
 ** Coffeescript
 
 #+BEGIN_SRC emacs-lisp
@@ -998,6 +1003,7 @@ Go mode. This will also autoformat after saving following go standards
 #+BEGIN_SRC emacs-lisp
 (use-package go-mode
   :ensure t
+  :defer
   :bind ("C-c C-r" . go-remove-unused-imports)
   :config (add-hook 'before-save-hook 'gofmt-before-save))
 #+END_SRC
@@ -1007,6 +1013,7 @@ Autocomplete for Go. We will be using company mode too.
 
 #+BEGIN_SRC emacs-lisp
 (use-package company-go
+  :defer
   :ensure t
   :config (add-hook 'go-mode-hook (lambda ()
                                     (set (make-local-variable 'company-backends) '(company-go))
@@ -1018,6 +1025,7 @@ Autocomplete for Go. We will be using company mode too.
 #+BEGIN_SRC emacs-lisp
 (use-package elm-mode
   :ensure t
+  :defer
   :init (progn
            (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
            (with-eval-after-load 'company
@@ -1029,17 +1037,11 @@ Autocomplete for Go. We will be using company mode too.
 
 #+BEGIN_SRC emacs-lisp
 (use-package rust-mode
+  :defer
   :ensure t)
+
 #+END_SRC
 
-* Puppet
-
-Puppet will use its own mode since Ruby mode can cause some weirdness there.
-
-#+BEGIN_SRC emacs-lisp
-(use-package puppet-mode
-  :ensure t)
-#+END_SRC
 
 * Git
 

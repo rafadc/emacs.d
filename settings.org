@@ -187,12 +187,10 @@ I'm trying to design a more calm theme. It gets me in the mood for a good cup of
 I don't like the default gutter since the separation between 2 frames is too difficult to see.
 
 #+BEGIN_SRC emacs-lisp
-(use-package labburn-theme
+(use-package creamsody-theme
   :ensure t
   :config (progn
-            (load-theme 'labburn t)
-            (set-face-attribute 'fringe nil :background "#444444" :foreground "#E1E1D4")
-            (set-face-attribute 'linum nil :background "#444444" :foreground "#E1E1D4")))
+            (load-theme 'creamsody t)))
 #+END_SRC
 
 Font. I like a ton of different fonts and I use them a lot. My choices are:

@@ -292,6 +292,16 @@ Let's use ibuffer for buffer listing
             (setq tabbar-ruler-global-tabbar t)))
 #+END_SRC
 
+
+** Column indentation
+
+This is useful in huge config files. In one project I'm dealing with huge yamls and this is great
+
+#+BEGIN_SRC emacs-lisp
+(use-package highlight-indentation
+  :ensure t)
+#+END_SRC
+
 * Minibuffer
 
 Incremental search in minibuffer

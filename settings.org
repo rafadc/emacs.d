@@ -1251,8 +1251,8 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
   (interactive)
   (let
     ((url (elfeed-entry-link elfeed-show-entry)))
-    (shell-command (concat  "echo '\\n\\n" url "' | msmtp add@getpocket.com"))
-    (message "Saved to pocket!")))
+    (shell-command (concat  "echo '\\n\\n" url "' | msmtp readlater.iliwkd1e3iq@instapaper.com"))
+    (message "Saved to Instapaper!")))
 
 (use-package elfeed
   :ensure t

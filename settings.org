@@ -465,7 +465,8 @@ Expand region key binding.
 #+BEGIN_SRC emacs-lisp
 (use-package expand-region
   :ensure t
-  :bind (("s-e" . er/expand-region)))
+  :bind (("s-e" . er/expand-region)
+         ("s-E" . er/contract-region)))
 #+END_SRC
 
 These are multiple cursors bindings.

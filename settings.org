@@ -302,6 +302,14 @@ This is useful in huge config files. In one project I'm dealing with huge yamls 
   :ensure t)
 #+END_SRC
 
+** Images
+
+Let's loop gifs by default
+
+#+BEGIN_SRC emacs-lisp
+(setq image-animate-loop 1)
+#+END_SRC
+
 * Minibuffer
 
 Incremental search in minibuffer

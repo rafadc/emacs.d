@@ -1034,6 +1034,7 @@ Autocomplete for Go. We will be using company mode too.
   :defer
   :init (progn
            (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
+           (setq elm-format-on-save t)
            (with-eval-after-load 'company
               (add-to-list 'company-backends 'company-elm))))
 

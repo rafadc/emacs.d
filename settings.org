@@ -72,20 +72,6 @@ Copy the environment variables from shell's environment
             (exec-path-from-shell-initialize)))
 #+END_SRC
 
-Also set zsh shell with login as default
-
-#+BEGIN_SRC emacs-lisp
-(setq explicit-shell-file-name "/bin/zsh")
-(setq multi-term-program-switches "--login")
-#+END_SRC
-
-Using multi-term as terminal emulator. I'm not still 100% sure on this
-
-#+BEGIN_SRC emacs-lisp
-(use-package multi-term
-  :ensure t)
-#+END_SRC
-
 * Editing settings
 
 I'll add a function to edit settings.org file. I don't need a shortcut since this is not such a common task now.

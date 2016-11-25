@@ -186,6 +186,7 @@ Font. I like a ton of different fonts and I use them a lot. My choices are:
 - Input Mono Compressed: Somewhat old school but really readable.
 - Inconsolata: A bit all-around
 - Source code pro: Wide but nice
+- Fira Code: I want to test something with programming ligatures
 
 To show the list of available fonts you can eval
 (print (font-family-list))
@@ -195,8 +196,8 @@ To show the list of available fonts you can eval
 (set-default-coding-systems 'utf-8)
 
 (set-face-attribute 'default nil
-                    :family "Hack"
-                    :height 160
+                    :family "Fira Code"
+                    :height 155
                     :weight 'regular
                     :width 'normal)
 #+END_SRC
@@ -1275,9 +1276,12 @@ I am starting a Jekyll blog I can write from emacs. I'll be trying to have every
 (use-package hyde
   :ensure t
   :commands (hyde)
-  :preface (defun my/open-joypm ()
-             (interactive)
-             (hyde "~/code/joy.pm"))
+  :preface (progn
+             (defun my/open-joypm ()
+               (interactive)
+               (hyde "~/code/joy.pm"))
+             (defun jekyll-make-slug (s) "Turn a string into a slug."
+               (replace-regexp-in-string " " "-"  (downcase (replace-regexp-in-string "[^A-Za-z0-9 ]" "" s)))))
   :bind (("<f3>" . my/open-joypm)))
 #+END_SRC
 

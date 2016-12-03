@@ -509,6 +509,12 @@ I found this to be super awesome specially in combination with multiple cursors.
          ("C-c i" . jump-char-forward)))
 #+END_SRC
 
+** Goto URL
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook 'goto-address-mode)
+(add-hook 'prog-mode-hook 'goto-address-prog-mode)
+#+END_SRC
 * Open in external editor
 
 A small snippet to open current file in external editor.

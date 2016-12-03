@@ -1175,6 +1175,12 @@ Dired likes gnu ls more than ls in osx so let's make it use it
 (setq insert-directory-program "gls")
 #+END_SRC
 
+Also I prefer passing some switches to ls
+
+#+BEGIN_SRC emacs-lisp
+(setq dired-listing-switches "-lh")
+#+END_SRC
+
 * Keyfreq
 
 This is just for measuring the frequency for the commands run

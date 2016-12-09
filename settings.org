@@ -1009,7 +1009,25 @@ And for Vue.js
             '(coffee-tab-width 2)))
 #+END_SRC
 
+** Typescript
 
+#+BEGIN_SRC emacs-lisp
+(use-package tide
+  :ensure t
+  :preface (defun my/tide-save-hook ()
+              (when (eq major-mode 'typescript-mode)
+                        (tide-format-before-save)))
+
+  :mode ("\\.ts\\'" . typescript-mode)
+  :config
+  (add-hook 'typescript-mode-hook
+            (progn
+              (tide-setup)
+              (eldoc-mode +1)
+              (company-mode +1)
+              (add-hook 'before-save-hook 'my/tide-save-hook)
+            )))
+#+END_SRC
 ** Go
 
 Go mode. This will also autoformat after saving following go standards

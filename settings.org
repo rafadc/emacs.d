@@ -404,6 +404,8 @@ With argument ARG, do this that many times."
 
 * Windows
 
+** Moving in windows
+
 This is a small snippet to move to next or previous windows with C-x p and C-x o
 
 #+BEGIN_SRC emacs-lisp
@@ -421,6 +423,14 @@ Enabling winner mode to restore the configuration of window layout.
 
 #+BEGIN_SRC emacs-lisp
 (winner-mode t)
+#+END_SRC
+
+** Eyebrowse
+
+#+BEGIN_SRC emacs-lisp
+(use-package eyebrowse
+  :ensure t
+  :init (eyebrowse-mode t))
 #+END_SRC
 
 * Undo

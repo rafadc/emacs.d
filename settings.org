@@ -1178,7 +1178,7 @@ Dired likes gnu ls more than ls in osx so let's make it use it
 Also I prefer passing some switches to ls
 
 #+BEGIN_SRC emacs-lisp
-(setq dired-listing-switches "-lh")
+(setq dired-listing-switches "-lah")
 #+END_SRC
 
 * Keyfreq

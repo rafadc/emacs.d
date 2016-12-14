@@ -168,15 +168,11 @@ Enable word wrap globally.
 
 ** Theme and fonts
 
-I'm trying to design a more calm theme. It gets me in the mood for a good cup of coffee and a nice calm talk.
-
-I don't like the default gutter since the separation between 2 frames is too difficult to see.
-
 #+BEGIN_SRC emacs-lisp
-(use-package creamsody-theme
+(use-package color-theme-sanityinc-tomorrow
   :ensure t
   :config (progn
-            (load-theme 'creamsody t)))
+            (load-theme 'sanityinc-tomorrow-night t)))
 #+END_SRC
 
 Font. I like a ton of different fonts and I use them a lot. My choices are:

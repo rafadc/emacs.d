@@ -1241,6 +1241,15 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
   :config (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
 #+END_SRC
 
+Since I use github a lot let's use this layer over magit
+
+#+BEGIN_SRC emacs-lisp
+(use-package magithub
+  :ensure t
+  :after magit
+  :config (magithub-feature-autoinject t))
+#+END_SRC
+
 Time machine is a nice package to browse the story of a file
 
 #+BEGIN_SRC emacs-lisp

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: class
+# key: class_
+# --
+class $1 {
+  constructor($2){
+    $3
+  }
+}
+
+export default $1;

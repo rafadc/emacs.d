@@ -1177,6 +1177,9 @@ And for Vue.js
               (eldoc-mode +1)
               (company-mode +1)
               (add-hook 'before-save-hook 'my/tide-save-hook)
+              (setq typescript-indent-level 2
+                    typescript-expr-indent-offset 2
+                    js-indent-level 2)
             )))
 #+END_SRC
 ** Go

@@ -1417,7 +1417,7 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
   (interactive)
   (find-file "~/.emacs.d/elfeed/elfeed.org"))
 
-(defun elfeed-send-to-pocket ()
+(defun my/elfeed-send-to-pocket ()
   "Send current article to pocket"
   (interactive)
   (let

@@ -794,11 +794,13 @@ Binding F7 to open a personal_notes.org file in root of projectile
   :init (progn
           (setq org-hide-emphasis-markers t)
           (setq org-startup-with-inline-images t)
-          (setq org-default-notes-file "~/capture.org"))
+          (setq org-default-notes-file "~/org/capture.org")
           (setq org-capture-templates
-                    '(("t" "Todo" entry (file+headline "~/org/tasks.org" "Tasks") "* TODO %?\n  %i\n  %a")
-                      ("r" "Retro" entry (file+headline "~/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")
-                      ("a" "Agile" entry (file+headline "~/org/agile.org" "Agile") "* %?\nEntered on %U\n  %i\n  %a"))))
+                    '(("t" "Todo" entry (file+headline "~/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
+                      ("r" "Retro" entry (file+headline "~/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
+          (setq org-directory "~/org")
+          (setq org-mobile-inbox-for-pull "~/org/index.org")
+          (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")))
 #+END_SRC
 
 Org bullets will display bullet points as UTF characters

@@ -848,7 +848,6 @@ Adding bibliography. I'm starting to write a lot these days so a bibliography pl
   :ensure t)
 #+END_SRC
 
-
 * Helm
 
 This is done to solve a bug in MELPA stable helm version. Once this is not needed I should remove this line.
@@ -955,6 +954,15 @@ Just for coloring...
   :ensure t
   :diminish)
 #+END_SRC
+
+** RAML
+
+#+BEGIN_SRC emacs-lisp
+(use-package raml-mode
+  :load-path "vendor/raml-mode"
+  :diminish)
+#+END_SRC
+
 
 ** Clojure
 

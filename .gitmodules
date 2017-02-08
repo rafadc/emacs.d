@@ -1,3 +1,6 @@
 [submodule "/Users/rafael/.emacs.d/unmanaged/elfeed-org/"]
 	path = unmanaged/elfeed-org
 	url = git@github.com:remyhonig/elfeed-org.git
+[submodule "vendor/raml-mode"]
+	path = vendor/raml-mode
+	url = https://github.com/victorquinn/raml-mode

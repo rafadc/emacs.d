@@ -1425,6 +1425,20 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
     (shell-command (concat  "echo '\\n\\n" url "' | msmtp readlater.iliwkd1e3iq@instapaper.com"))
     (message "Saved to Instapaper!")))
 
+(defun my/elfeed-send-to-tts ()
+  "Send current article to a text to speech system"
+  (interactive)
+  (let*
+    ((html-to-read (elfeed-deref (elfeed-entry-content elfeed-show-entry)))
+     (text-to-read (replace-regexp-in-string "<.*?>" "" html-to-read))
+     (temp-input-file (make-temp-file "elfeed-input-tts"))
+     (temp-output-file (make-temp-file "elfeed-output-tts" nil ".mp3"))
+     (polly-command (concat "aws polly synthesize-speech --region eu-west-1 --output-format mp3 --voice-id Joanna --text \"$(< " temp-input-file ")\" " temp-output-file )))
+    (progn
+      (write-region text-to-read nil temp-input-file)
+      (shell-command polly-command)
+      (shell-command (concat "open -g " temp-output-file)))))
+
 (use-package elfeed
   :ensure t
   :init (progn
@@ -1438,7 +1452,8 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
   :bind (("<f2>" . elfeed))
   :config
        (bind-keys :map elfeed-show-mode-map
-                  ("x" . elfeed-send-to-pocket)))
+                  ("x" . my/elfeed-send-to-pocket)
+                  ("t" . my/elfeed-send-to-tts)))
 
 #+END_SRC
 

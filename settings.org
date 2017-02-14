@@ -480,16 +480,6 @@ These are multiple cursors bindings.
 #+END_SRC
 
 * Moving around
-** Search
-
-I moved from phi search to swiper. It looks like an awesome idea.
-
-#+BEGIN_SRC emacs-lisp
-(use-package swiper-helm
-  :ensure t
-  :bind ("C-s" . swiper))
-#+END_SRC
-
 ** Avy jump
 
 Avy jump is great for moving around. I use the new timer version. This was introduced in avy 0.4.0 and it is a really beautiful way of moving around. A combination of classical avy jump + isearch
@@ -711,52 +701,42 @@ Adding bibliography. I'm starting to write a lot these days so a bibliography pl
   :ensure t)
 #+END_SRC
 
-* Helm
+* Ivy
 
-This is done to solve a bug in MELPA stable helm version. Once this is not needed I should remove this line.
+Back to Ivy. It is faster than Helm and that is enough for me these days.
+
+Swiper is beautiful. Better than standard search.
 
 #+BEGIN_SRC emacs-lisp
-(defalias 'helm-buffer-match-major-mode 'helm-buffers-list--match-fn)
-(defalias 'helm-buffer-match-major-mode 'helm-buffers-match-function)
+  (use-package ivy
+      :ensure t
+      :diminish
+      :bind (("C-x b" . ivy-switch-buffer))
+      :init (ivy-mode 1))
+
+  (use-package counsel
+      :ensure t
+      :bind (
+             ("M-x" . counsel-M-x)
+             ("C-f" . counsel-ag)))
+
+  (use-package swiper
+      :ensure t
+      :bind (("C-s" . swiper)))
 #+END_SRC
 
 Using projectile mode
 
 #+BEGIN_SRC emacs-lisp
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
+  (setq projectile-completion-system 'ivy)
 
-(global-set-key (kbd "C-c p p") 'helm-projectile-switch-project)
+  (use-package counsel-projectile
+    :ensure t
+    :bind (("C-p" . counsel-projectile-find-file)
+           ("C-S-f" . counsel-projectile-ag))
+    :init ()
+    :config ())
 #+END_SRC
-
-Helm bindings to substitute some standard commands
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "M-x") 'helm-M-x) ; Helm for emacs commands
-
-(setq helm-boring-buffer-regexp-list '("\\*.+\\*" "\*magit"))
-(global-set-key (kbd "C-x b") 'helm-buffers-list) ; Helm for buffer list
-
-(global-set-key (kbd "M-y") 'helm-show-kill-ring) ; Helm for kill ring
-#+END_SRC
-
-One of my most used bindings. Search in project.
-
-#+BEGIN_SRC emacs-lisp
-(use-package helm-projectile
-  :bind (("C-p" . helm-projectile-find-file))
-  :ensure t)
-#+END_SRC
-
-And also we can search in the contents of any file in the current project or the root of the project.
-
-#+BEGIN_SRC emacs-lisp
-(use-package helm-ag
-  :bind (("C-f" . helm-do-ag-project-root)
-         ("C-S-f" . helm-do-ag))
-  :ensure t)
-#+END_SRC
-
 
 * Snippets
 

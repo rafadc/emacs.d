@@ -8,11 +8,13 @@
         end-of-visual-line
         git-rebase-squash
         helm-projectile
+        indent-for-tab-command
         jump-char-process-char
         jump-char-repeat-backward
         magit-status
         markdown-demote
         markdown-exdent-or-delete
+        org-end-of-line
         ruby-end-space
         ))
 
@@ -25,6 +27,7 @@
         helm-confirm-and-exit-minibuffer
         helm-do-ag
         helm-do-ag-project-root
+        kill-region
         ns-copy-including-secondary
         ns-open-file-using-panel
         org-self-insert-command

@@ -1330,6 +1330,16 @@ I am starting a Jekyll blog I can write from emacs. I'll be trying to have every
          ("<f4>" . my/open-debatesession)))
 #+END_SRC
 
+** Spotify
+
+Why leaving emacs?
+
+#+BEGIN_SRC emacs-lisp
+(use-package spotify
+  :ensure t
+  :bind (("C-c s" . spotify-playpause)))
+#+END_SRC
+
 * Some general purpose functions
 
 These are some general functions that are useful and have no better place to be in

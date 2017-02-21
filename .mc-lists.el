@@ -5,6 +5,7 @@
       '(
         beginning-of-visual-line
         delete-word
+        dired-unmark-backward
         end-of-visual-line
         git-rebase-squash
         helm-projectile

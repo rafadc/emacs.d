@@ -8,6 +8,7 @@
 **** http://sachachua.com/blog/feed/
 
 **** http://cestlaz.github.io/rss.xml
+**** http://pragmaticemacs.com/feed/
 ** Webcomic
 *** http://xkcd.com/rss.xml
 ** Other

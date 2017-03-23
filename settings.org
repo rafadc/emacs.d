@@ -631,7 +631,7 @@ Binding F7 to open a personal_notes.org file in root of projectile
 #+BEGIN_SRC emacs-lisp
   (require 'projectile)
 
-  (defun projectile-open-personal-notes ()
+  (defun my/projectile-open-personal-notes ()
     "Opens a personal_notes.org file in project folder"
     (interactive)
     (let
@@ -640,9 +640,16 @@ Binding F7 to open a personal_notes.org file in root of projectile
           (find-file (concat folder "personal_notes.org"))
         (message "No project folder found"))))
 
+  (defun my/open-org-agenda ()
+    "Opens agenda file"
+    (interactive)
+    (find-file "~/Dropbox/org/index.org"))
+
+
   (use-package org
     :ensure t
-    :bind (("<f7>" . projectile-open-personal-notes)
+    :bind (("<f3>" . my/open-org-agenda)
+           ("<f7>" . my/projectile-open-personal-notes)
            ("C-c c" . org-capture)
            ("C-c a" . org-agenda))
     :init (progn

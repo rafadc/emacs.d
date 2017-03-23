@@ -4,8 +4,10 @@
 (setq mc/cmds-to-run-for-all
       '(
         beginning-of-visual-line
+        counsel-M-x
         delete-word
         dired-unmark-backward
+        electric-newline-and-maybe-indent
         end-of-visual-line
         git-rebase-squash
         helm-projectile

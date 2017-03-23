@@ -629,31 +629,35 @@ Org mode is one of the most awesome things in emacs.
 Binding F7 to open a personal_notes.org file in root of projectile
 
 #+BEGIN_SRC emacs-lisp
-(require 'projectile)
+  (require 'projectile)
 
-(defun projectile-open-personal-notes ()
-  "Opens a personal_notes.org file in project folder"
-  (interactive)
-  (let
-      ((folder (car (projectile-get-project-directories))))
-    (if folder
-      (find-file (concat folder "personal_notes.org"))
-      (message "No project folder found"))))
+  (defun projectile-open-personal-notes ()
+    "Opens a personal_notes.org file in project folder"
+    (interactive)
+    (let
+        ((folder (car (projectile-get-project-directories))))
+      (if folder
+          (find-file (concat folder "personal_notes.org"))
+        (message "No project folder found"))))
 
-(use-package org
-  :ensure t
-  :bind (("<f7>" . projectile-open-personal-notes)
-         ("C-c c" . org-capture))
-  :init (progn
-          (setq org-hide-emphasis-markers t)
-          (setq org-startup-with-inline-images t)
-          (setq org-default-notes-file "~/org/capture.org")
-          (setq org-capture-templates
-                    '(("t" "Todo" entry (file+headline "~/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
-                      ("r" "Retro" entry (file+headline "~/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
-          (setq org-directory "~/org")
-          (setq org-mobile-inbox-for-pull "~/org/index.org")
-          (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")))
+  (use-package org
+    :ensure t
+    :bind (("<f7>" . projectile-open-personal-notes)
+           ("C-c c" . org-capture)
+           ("C-c a" . org-agenda))
+    :init (progn
+            (setq org-hide-emphasis-markers t)
+            (setq org-startup-with-inline-images t)
+            (setq org-default-notes-file "~/Dropbox/org/capture.org")
+            (setq org-capture-templates
+                  '(("t" "Todo" entry (file+headline "~/Dropbox/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
+                    ("r" "Retro" entry (file+headline "~/Dropbox/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
+            (setq org-directory "~/Dropbox/org")
+            (setq org-mobile-inbox-for-pull "~/Dropbox/org/index.org")
+            (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+            (setq org-todo-keywords
+                  '((sequence "TODO" "INPROGRESS" "DONE(!)" )))
+            ))
 #+END_SRC
 
 Org bullets will display bullet points as UTF characters
@@ -681,7 +685,7 @@ Let's configure some languages to run in org-babel mode.
         (ruby . t)
         (ditaa . t)))
 
-(setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.9/libexec/ditaa0_9.jar")
+(setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
 #+END_SRC
 
 I can never accept code from external sources :P161
@@ -699,6 +703,14 @@ Adding bibliography. I'm starting to write a lot these days so a bibliography pl
 #+BEGIN_SRC emacs-lisp
 (use-package org-ref
   :ensure t)
+#+END_SRC
+
+** Task tracking workflow
+
+Let's define our little task tracker
+
+#+BEGIN_SRC emacs-lisp
+
 #+END_SRC
 
 * Ivy
@@ -1072,6 +1084,12 @@ Autocomplete for Go. We will be using company mode too.
 
 #+END_SRC
 
+** Scala
+
+#+BEGIN_SRC emacs-lisp
+(use-package ensime
+  :ensure t)
+#+END_SRC
 
 * Git
 

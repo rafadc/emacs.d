@@ -1327,27 +1327,6 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
 
 #+END_SRC
 
-** Blogging
-
-I am starting a Jekyll blog I can write from emacs. I'll be trying to have everything as close as possible.
-
-#+BEGIN_SRC emacs-lisp
-(use-package hyde
-  :ensure t
-  :commands (hyde)
-  :preface (progn
-             (defun my/open-joypm ()
-               (interactive)
-               (hyde "~/code/joy.pm"))
-             (defun my/open-debatesession ()
-               (interactive)
-               (hyde "~/code/blognet/debatesession.com"))
-             (defun jekyll-make-slug (s) "Turn a string into a slug."
-               (replace-regexp-in-string " " "-"  (downcase (replace-regexp-in-string "[^A-Za-z0-9 ]" "" s)))))
-  :bind (("<f3>" . my/open-joypm)
-         ("<f4>" . my/open-debatesession)))
-#+END_SRC
-
 ** Spotify
 
 Why leaving emacs?

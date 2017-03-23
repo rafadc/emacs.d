@@ -737,7 +737,8 @@ Swiper is beautiful. Better than standard search.
       :ensure t
       :bind (
              ("M-x" . counsel-M-x)
-             ("C-f" . counsel-ag)))
+             ("C-f" . counsel-rg))
+      :init (setq counsel-rg-base-command "rg -i --no-heading --line-number --color never %s ."))
 
   (use-package swiper
       :ensure t

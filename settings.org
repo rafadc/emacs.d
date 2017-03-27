@@ -419,6 +419,8 @@ Enabling winner mode to restore the configuration of window layout.
 
 ** Eyebrowse
 
+Eyebrowse is extremely useful for temporarily maximize a window and then go back to its previous split state.
+
 #+BEGIN_SRC emacs-lisp
 (use-package eyebrowse
   :ensure t

@@ -145,7 +145,7 @@ Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 #+END_SRC
 
-Nothing bigger than 80 lines. This is nice also for code. ;). Anyway we can avoid the org node since this may make sense for longer texts.
+Nothing bigger than 120 lines. This is nice also for code. ;). Anyway we can avoid the org node since this may make sense for longer texts.
 
 #+BEGIN_SRC emacs-lisp
 (use-package whitespace

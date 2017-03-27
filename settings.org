@@ -23,9 +23,7 @@ To use this change your init file for something like
                    user-emacs-directory))
 #+END_SRC
 
-Then you will only have your org file to handle all your emacs configuration. It may sound overkill in the beginning. I'm testing this too ;)
-
-At this moment all features are in external el files. I'm migrating from those to this dile only so there are some *load-file*s out there yet.
+Then you will only have your org file to handle all your emacs configuration. It may sound overkill in the beginning. It is not.
 
 * Use package
 

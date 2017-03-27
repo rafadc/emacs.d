@@ -626,7 +626,7 @@ Enabling projectile for project management
 
 Org mode is one of the most awesome things in emacs.
 
-Binding F7 to open a personal_notes.org file in root of projectile
+Binding F7 to open a personal_notes.org file in root of projectile and F3 to the agenda file.
 
 #+BEGIN_SRC emacs-lisp
   (require 'projectile)

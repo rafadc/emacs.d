@@ -645,7 +645,6 @@ Binding F7 to open a personal_notes.org file in root of projectile
     (interactive)
     (find-file "~/Dropbox/org/index.org"))
 
-
   (use-package org
     :ensure t
     :bind (("<f3>" . my/open-org-agenda)
@@ -712,11 +711,23 @@ Adding bibliography. I'm starting to write a lot these days so a bibliography pl
   :ensure t)
 #+END_SRC
 
-** Task tracking workflow
-
-Let's define our little task tracker
+Adding a function to save images in clipboard to a doc
 
 #+BEGIN_SRC emacs-lisp
+  (defun org-image-from-clipboard ()
+    "Takes a screenshot into a time stamped unique-named file in the
+  same directory as the org-buffer and insert a link to this file."
+    (interactive)
+    (org-display-inline-images)
+    (let ((filename (concat
+                    (make-temp-name
+                     (concat (file-name-nondirectory (buffer-file-name)) "_imgs/" (format-time-string "%Y%m%d_%H%M%S_")) ) ".png")))
+      (unless (file-exists-p (file-name-directory filename))
+        (make-directory (file-name-directory filename)))
+      (call-process "pngpaste" nil nil nil filename)
+      (if (file-exists-p filename)
+          (insert (concat "[[file:" filename "]]")))
+      (org-display-inline-images)))
 
 #+END_SRC
 
@@ -737,7 +748,7 @@ Swiper is beautiful. Better than standard search.
       :ensure t
       :bind (
              ("M-x" . counsel-M-x)
-             ("C-f" . counsel-rg))
+             ("C-S-f" . counsel-rg))
       :init (setq counsel-rg-base-command "rg -i --no-heading --line-number --color never %s ."))
 
   (use-package swiper
@@ -753,7 +764,7 @@ Using projectile mode
   (use-package counsel-projectile
     :ensure t
     :bind (("C-p" . counsel-projectile-find-file)
-           ("C-S-f" . counsel-projectile-ag))
+           ("C-f" . counsel-projectile-rg))
     :init ()
     :config ())
 #+END_SRC

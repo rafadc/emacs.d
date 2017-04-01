@@ -177,6 +177,7 @@ Font. I like a ton of different fonts and I use them a lot. My choices are:
 
 - Hermit / light: Playful. Coding must be fun.
 - M+ 1mn / light: When you are feeling professional
+- Iosevka / normal (180): A shorter alternative to M+
 - Input Mono Compressed: Somewhat old school but really readable.
 - Source code pro: Wide but nice
 
@@ -188,8 +189,8 @@ To show the list of available fonts you can eval
 (set-default-coding-systems 'utf-8)
 
 (set-face-attribute 'default nil
-                    :family "M+ 1mn"
-                    :height 165
+                    :family "Iosevka"
+                    :height 180
                     :weight 'light
                     :width 'normal)
 #+END_SRC

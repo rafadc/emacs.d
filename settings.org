@@ -167,10 +167,14 @@ Enable word wrap globally.
 ** Theme and fonts
 
 #+BEGIN_SRC emacs-lisp
-(use-package color-theme-sanityinc-tomorrow
+(use-package moe-theme
   :ensure t
   :config (progn
-            (load-theme 'sanityinc-tomorrow-night t)))
+            (powerline-moe-theme)
+            (setq moe-theme-highlight-buffer-id t)
+            (moe-theme-set-color 'orange)
+            (moe-dark)
+))
 #+END_SRC
 
 Font. I like a ton of different fonts and I use them a lot. My choices are:

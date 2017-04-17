@@ -1060,10 +1060,13 @@ And for Vue.js
               (tide-setup)
               (eldoc-mode +1)
               (company-mode +1)
+              (flycheck-mode +1)
+              (tide-hl-identifier-mode +1)
               (add-hook 'before-save-hook 'my/tide-save-hook)
               (setq typescript-indent-level 2
                     typescript-expr-indent-offset 2
-                    js-indent-level 2)
+                    js-indent-level 2
+                    company-tooltip-align-annotations t)
             )))
 #+END_SRC
 ** Go

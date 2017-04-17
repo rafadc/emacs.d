@@ -820,6 +820,14 @@ Usually it is not needed at the start (remember I use emacs daemon).
                 (setq company-dabbrev-downcase nil)))
 #+END_SRC
 
+** C Mode
+
+This comes with emacs by default so I won't be use packaging
+
+#+BEGIN_SRC emacs-lisp
+;(define-key c-mode-map "\C-d/" nil)
+#+END_SRC
+
 ** YAML
 
 Just for coloring...

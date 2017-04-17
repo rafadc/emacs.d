@@ -170,11 +170,11 @@ Enable word wrap globally.
 (use-package moe-theme
   :ensure t
   :config (progn
+            (load-theme 'moe-dark t))
             (powerline-moe-theme)
             (setq moe-theme-highlight-buffer-id t)
             (moe-theme-set-color 'orange)
-            (moe-dark)
-))
+            (moe-dark))
 #+END_SRC
 
 Font. I like a ton of different fonts and I use them a lot. My choices are:

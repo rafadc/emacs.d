@@ -987,7 +987,8 @@ To not envy RubyMine users
 
 #+BEGIN_SRC emacs-lisp
 (use-package ruby-refactor
-  :ensure t)
+  :ensure t
+  :init (add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch))
 #+END_SRC
 
 

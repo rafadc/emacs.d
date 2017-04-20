@@ -169,12 +169,12 @@ Enable word wrap globally.
 #+BEGIN_SRC emacs-lisp
 (use-package moe-theme
   :ensure t
+  :init (setq moe-theme-highlight-buffer-id t)
   :config (progn
-            (load-theme 'moe-dark t))
-            (powerline-moe-theme)
-            (setq moe-theme-highlight-buffer-id t)
+            (load-theme 'moe-dark t)
             (moe-theme-set-color 'orange)
-            (moe-dark))
+            (powerline-moe-theme)
+            (moe-dark)))
 #+END_SRC
 
 Font. I like a ton of different fonts and I use them a lot. My choices are:
@@ -211,12 +211,6 @@ Let's powerline.
 
 #+BEGIN_SRC emacs-lisp
 (setq ns-use-srgb-colorspace nil) ; Needed to display correctly powerline separators
-
-
-(set-face-attribute 'mode-line nil
-                    :foreground "White"
-                    :background "#6E549E"
-                    :box nil)
 
 (use-package powerline
   :ensure t
@@ -1058,7 +1052,7 @@ And for Vue.js
                         (tide-format-before-save)))
 
   :mode ("\\.ts\\'" . typescript-mode)
-  :config
+  :init
   (add-hook 'typescript-mode-hook
             (progn
               (tide-setup)
@@ -1067,9 +1061,9 @@ And for Vue.js
               (flycheck-mode +1)
               (tide-hl-identifier-mode +1)
               (add-hook 'before-save-hook 'my/tide-save-hook)
-              (setq typescript-indent-level 2
-                    typescript-expr-indent-offset 2
-                    js-indent-level 2
+              (setq typescript-indent-level 4
+                    typescript-expr-indent-offset 4
+                    js-indent-level 4
                     company-tooltip-align-annotations t)
             )))
 #+END_SRC

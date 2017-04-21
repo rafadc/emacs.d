@@ -688,7 +688,8 @@ Let's configure some languages to run in org-babel mode.
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages 'org-babel-load-languages '(
         (ruby . t)
-        (ditaa . t)))
+        (ditaa . t)
+        (restclient . t)))
 
 (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
 #+END_SRC
@@ -1257,6 +1258,14 @@ This is just for measuring the frequency for the commands run
 #+END_SRC
 
 * Applications
+** Restclient
+#+BEGIN_SRC emacs-lisp
+(use-package restclient
+  :ensure t)
+
+(use-package ob-restclient
+  :ensure t)
+#+END_SRC
 ** Email
 
 We need to install mu with emacs support in OsX with

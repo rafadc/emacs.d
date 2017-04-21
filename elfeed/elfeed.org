@@ -1,9 +1,18 @@
+#+STARTUP: showall
+
 * Blogs                                                              :elfeed:
 ** Programming                                                          :dev:
 *** http://nullprogram.com/feed/
 *** https://mzucker.github.io/feed.xml
 *** http://www.wildml.com/feed/
 *** https://www.joelonsoftware.com/feed/
+*** Engineering blogs
+**** https://medium.com/feed/airbnb-engineering
+**** https://eng.uber.com/feed/
+**** https://blog.twitter.com/api/blog.rss?name=engineering
+**** https://tech.dropbox.com/feed/
+**** http://techblog.netflix.com/atom.xml
+**** https://engineering.instagram.com/feed
 *** Emacs
 **** http://sachachua.com/blog/feed/
 

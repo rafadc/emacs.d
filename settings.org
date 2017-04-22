@@ -326,10 +326,12 @@ I must admit that this is only here so I can make an hyper-space combo.
 (setq ns-function-modifier 'hyper)  ; make Fn key do Hyper
 #+END_SRC
 
-There are some default mac bindings that are annoying to me. I will disable s-P for printing
+There are some default mac bindings that are annoying to me. I will disable s-P for printing and all the function keys.
 
 #+BEGIN_SRC emacs-lisp
 (global-unset-key (kbd "s-p"))
+(global-unset-key (kbd "<f1>"))
+(global-unset-key (kbd "<f2>"))
 #+END_SRC
 
 * Mouse in terminal

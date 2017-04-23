@@ -5,8 +5,8 @@
 ;; Author: Rafa de Castro <rafael@micubiculo.com>
 ;; URL: http://github.com/rafadc/emacs.d
 ;; Version: 0.0.1
-;; Package-Requires: ()
-
+;; Package-Requires: ((emacs "24.4") (request "20170131.1747"))
+(require 'git-commit)
 
 (defun git-folder ()
   "Returns the folder for the project"
@@ -62,17 +62,26 @@
     (message command)
     (shell-command command)))
 
+(defun on-enable-p161-mode ()
+  "On P161 mode enabling"
+  (interactive)
+  (add-hook 'git-commit-mode-hook 'insert-pfm-in-commit-message)
+  )
 
 (define-minor-mode p161-mode
   "Platform 161 mode"
   :lighter " P161"
   :global t
   :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "C-c t") 'send-test-to-tmux)
             (define-key map (kbd "C-c C-p c") 'create-branch-for-ticket)
             (define-key map (kbd "C-c C-p b") 'open-current-ticket-in-browser)
             map)
-  ;(add-hook 'git-commit-mode-hook 'insert-pfm-in-commit-message)
+  (if p161-mode
+      (on-enable-p161-mode))
   )
+
+;;; (Features)
 
 (provide 'p161-mode)
 

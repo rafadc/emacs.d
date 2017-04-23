@@ -1058,7 +1058,7 @@ And for Vue.js
   :init
   (add-hook 'typescript-mode-hook
             (progn
-              (tide-setup)
+              ;;(tide-setup)
               (eldoc-mode +1)
               (company-mode +1)
               (flycheck-mode +1)
@@ -1438,20 +1438,21 @@ These are scripts that are worthy of their own source file and I'm not including
 
 #+BEGIN_SRC emacs-lisp
 (use-package copy-rtf
-  :load-path "src/copy-rtf")
+  :load-path "src/copy-rtf/"
+  :commands (copy-rtf))
 
 (use-package p161-mode
-  :load-path "src/p161-mode"
-  :bind (("C-c t" . send-test-to-tmux)
-         ("C-c C-p b" . open-current-ticket-in-browser))
-;  :init (add-hook 'git-commit-mode-hook 'insert-pfm-in-commit-message)
-  )
+  :load-path "src/p161-mode/"
+  :commands p161-mode)
 
 (defun turn-on-p161-mode-hook ()
   (cond ((string-match "^//Users/rafael/code/platform161/" buffer-file-name)
          (p161-mode 1))))
 
 ; (add-hook 'text-mode-hook 'turn-on-p161-mode-hook)
+
+(use-package reddit-client
+  :load-path "src/reddit-client")
 
 (load-file "~/.emacs.d/src/emacs-presentation-mode/emacs-presentation-mode.el")
 #+END_SRC

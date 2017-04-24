@@ -418,6 +418,17 @@ Enabling winner mode to restore the configuration of window layout.
 (winner-mode t)
 #+END_SRC
 
+** Golden Ratio
+
+This is a cool package to help in making the current window more prominent
+
+#+BEGIN_SRC emacs-lisp
+(use-package golden-ratio
+  :ensure t
+  :diminish golden-ratio-mode
+  :init
+  (golden-ratio-mode 1))
+#+END_SRC
 ** Eyebrowse
 
 Eyebrowse is extremely useful for temporarily maximize a window and then go back to its previous split state.

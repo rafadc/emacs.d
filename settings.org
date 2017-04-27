@@ -1058,28 +1058,36 @@ And for Vue.js
 
 ** Typescript
 
-#+BEGIN_SRC emacs-lisp
-(use-package tide
-  :ensure t
-  :preface (defun my/tide-save-hook ()
-              (when (eq major-mode 'typescript-mode)
-                        (tide-format-before-save)))
+Both adding support for coding and babel to accept it
 
-  :mode ("\\.ts\\'" . typescript-mode)
-  :init
-  (add-hook 'typescript-mode-hook
-            (progn
-              ;;(tide-setup)
-              (eldoc-mode +1)
-              (company-mode +1)
-              (flycheck-mode +1)
-              (tide-hl-identifier-mode +1)
-              (add-hook 'before-save-hook 'my/tide-save-hook)
-              (setq typescript-indent-level 4
-                    typescript-expr-indent-offset 4
-                    js-indent-level 4
-                    company-tooltip-align-annotations t)
-            )))
+#+BEGIN_SRC emacs-lisp
+  (use-package tide
+    :ensure t
+    :preface (defun my/tide-save-hook ()
+               (when (eq major-mode 'typescript-mode)
+                 (tide-format-before-save)))
+
+    :mode ("\\.ts\\'" . typescript-mode)
+    :init
+    (add-hook 'typescript-mode-hook
+              (progn
+                ;;(tide-setup)
+                (eldoc-mode +1)
+                (company-mode +1)
+                (flycheck-mode +1)
+                (tide-hl-identifier-mode +1)
+                (add-hook 'before-save-hook 'my/tide-save-hook)
+                (setq typescript-indent-level 4
+                      typescript-expr-indent-offset 4
+                      js-indent-level 4
+                      company-tooltip-align-annotations t)
+                )))
+
+  (use-package ob-typescript
+    :ensure t
+    :init (org-babel-do-load-languages
+           'org-babel-load-languages
+           '((typescript . t))))
 #+END_SRC
 ** Go
 

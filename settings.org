@@ -1089,6 +1089,16 @@ Both adding support for coding and babel to accept it
            'org-babel-load-languages
            '((typescript . t))))
 #+END_SRC
+
+I will add angular support here since I play with angular only from typescript
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ng2-mode
+    :ensure t)
+#+END_SRC
+
+
 ** Go
 
 Go mode. This will also autoformat after saving following go standards

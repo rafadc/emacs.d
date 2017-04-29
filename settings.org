@@ -1399,7 +1399,7 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
 
 ** Spotify
 
-Why leaving emacs?
+Why leaving emacs? The most useful thing I can have here is just to stop current song if I have to pay attention to a different thing or stop the noise.
 
 #+BEGIN_SRC emacs-lisp
 (use-package spotify

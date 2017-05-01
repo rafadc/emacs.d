@@ -753,7 +753,7 @@ Swiper is beautiful. Better than standard search.
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
       :ensure t
-      :diminish
+      :diminish ivy-mode
       :bind (("C-x b" . ivy-switch-buffer))
       :init (ivy-mode 1))
 

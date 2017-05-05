@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        beginning-of-defun
         beginning-of-visual-line
         counsel-M-x
         delete-word

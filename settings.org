@@ -1271,6 +1271,13 @@ Also I prefer passing some switches to ls
 (setq dired-listing-switches "-lah")
 #+END_SRC
 
+Wdired mode is awesome. Let's bind a key to it. It allows us to write the buffer to rename files.
+
+#+BEGIN_SRC emacs-lisp
+(define-key dired-mode-map (kbd "C-w") 'wdired-change-to-wdired-mode)
+#+END_SRC
+
+
 * Keyfreq
 
 This is just for measuring the frequency for the commands run

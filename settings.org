@@ -40,6 +40,16 @@ Bootstrapping use-package. This looks for use package in the system ans installs
 (require 'bind-key)                ;; if you use any :bind variant
 #+END_SRC
 
+
+* Hydra
+
+We will have some hydras for many functions.
+
+#+BEGIN_SRC emacs-lisp
+(use-package hydra
+  :ensure t)
+#+END_SRC
+
 * Homebrew
 
 I'll add homebrewe'd emacs packages to load path
@@ -697,11 +707,15 @@ The export to HTML of org mode requires htmlize
 Let's configure some languages to run in org-babel mode.
 
 - Ditta: To draw diagrams
+- Haskell
+- Ruby
+- A REST client
 
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages 'org-babel-load-languages '(
         (ruby . t)
         (ditaa . t)
+        (haskell . t)
         (restclient . t)))
 
 (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
@@ -879,10 +893,16 @@ Just for coloring...
 
 ** Haskell
 
+Let's add some packages for Haskell coding
+
 #+BEGIN_SRC emacs-lisp
-(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-(add-hook 'haskell-mode-hook 'flycheck-mode)
+  (use-package haskell-mode
+    :ensure t
+    :init (progn
+            (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+            (add-hook 'haskell-mode-hook 'flycheck-mode)))
 #+END_SRC
+
 
 ** HTML, templates & CSS
 
@@ -1311,8 +1331,6 @@ We need to install mu with emacs support in OsX with
 EMACS=$(which emacs) brew install mu --with-emacs --HEAD
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<f1>") 'mu4e)
-
 (setq mu4e-maildir "~/.Maildir")
 (require 'mu4e)
 (setq mu4e-get-mail-command "offlineimap")
@@ -1396,7 +1414,6 @@ I use elfeed to read RSS. It can be configured via and org mode file. Extra awes
                       (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed/elfeed.org"))
                       (setq elfeed-use-curl t))
                       (setf url-queue-timeout 30)))
-  :bind (("<f2>" . elfeed))
   :config
        (bind-keys :map elfeed-show-mode-map
                   ("x" . my/elfeed-send-to-pocket)
@@ -1412,6 +1429,29 @@ Why leaving emacs? The most useful thing I can have here is just to stop current
 (use-package spotify
   :ensure t
   :bind (("C-c s" . spotify-playpause)))
+#+END_SRC
+
+
+** Hydra for apps
+
+Let's create an hydra at F1 that shows all the apps
+
+#+BEGIN_SRC elisp
+(defhydra applications-menu (:color blue :hint nil)
+"
+^Apps^
+------
+_f_: elfeed         📰
+_m_: mu4e           📧
+_r_: restclient     ➤
+
+"
+  ("r" restclient-mode :color blue)
+  ("m" mu4e :color blue)
+  ("f" elfeed :color blue)
+  ("q" nil))
+
+(global-set-key (kbd "<f1>") 'applications-menu/body)
 #+END_SRC
 
 * Some general purpose functions

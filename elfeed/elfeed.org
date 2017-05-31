@@ -15,11 +15,11 @@
 **** https://engineering.instagram.com/feed
 *** Emacs
 **** http://sachachua.com/blog/feed/
-
 **** http://cestlaz.github.io/rss.xml
 **** http://pragmaticemacs.com/feed/
 ** Webcomic
 *** http://xkcd.com/rss.xml
+*** http://www.commitstrip.com/en/feed/
 ** Other
 *** Economy
 **** http://politikon.es/feed/

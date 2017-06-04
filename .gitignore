@@ -10,9 +10,6 @@ secrets.el
 
 tramp
 
-# XKCD temporal files
-/xkcd
-
 # High scores
 /games
 

@@ -7,12 +7,11 @@
 *** http://www.wildml.com/feed/
 *** https://www.joelonsoftware.com/feed/
 *** Engineering blogs
-**** https://medium.com/feed/airbnb-engineering
 **** https://eng.uber.com/feed/
-**** https://blog.twitter.com/api/blog.rss?name=engineering
 **** https://tech.dropbox.com/feed/
 **** http://techblog.netflix.com/atom.xml
 **** https://engineering.instagram.com/feed
+**** https://redditblog.com/topic/technology/feed/
 *** Emacs
 **** http://sachachua.com/blog/feed/
 **** http://cestlaz.github.io/rss.xml

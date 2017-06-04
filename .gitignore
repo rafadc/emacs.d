@@ -1,6 +1,7 @@
 auto-save-list/
 org-gcal/
 eshell/
+magithub/
 
 # The compiled settings will not be commited
 *.elc

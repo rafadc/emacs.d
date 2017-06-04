@@ -1,5 +1,6 @@
 auto-save-list/
 org-gcal/
+eshell/
 
 # The compiled settings will not be commited
 *.elc

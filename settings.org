@@ -768,7 +768,10 @@ Swiper is beautiful. Better than standard search.
   (use-package ivy
       :ensure t
       :diminish ivy-mode
-      :bind (("C-x b" . ivy-switch-buffer))
+      :bind (("C-x b" . ivy-switch-buffer)
+             ("C-c v" . ivy-push-view)
+             ("C-c V" . ivy-pop-view))
+      :config (setq ivy-use-virtual-buffers t)
       :init (ivy-mode 1))
 
   (use-package counsel

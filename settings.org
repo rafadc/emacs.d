@@ -114,12 +114,6 @@ Show full path of file in status bar
 (setq frame-title-format '(:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b")))
 #+END_SRC
 
-Show line numbers
-
-#+BEGIN_SRC emacs-lisp
-(global-linum-mode t)
-#+END_SRC
-
 Paren highlight
 #+BEGIN_SRC emacs-lisp
 (show-paren-mode 1)
@@ -679,6 +673,7 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
             (setq org-default-notes-file "~/Dropbox/org/capture.org")
             (setq org-capture-templates
                   '(("t" "Todo" entry (file+headline "~/Dropbox/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
+                    ("b" "Book" entry (file+headline "~/Dropbox/org/library.org" "Book") "* TODO %?")
                     ("r" "Retro" entry (file+headline "~/Dropbox/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
             (setq org-directory "~/Dropbox/org")
             (setq org-mobile-inbox-for-pull "~/Dropbox/org/index.org")
@@ -1434,6 +1429,32 @@ Why leaving emacs? The most useful thing I can have here is just to stop current
   :bind (("C-c s" . spotify-playpause)))
 #+END_SRC
 
+** PDFs
+
+To read PDFs let's switch to pdf-tools. It is much much faster than docview. Also There is the interleave mode to ease the note taking.
+
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+    :ensure t
+    :init ()
+    :config (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode)))
+
+  (use-package interleave
+    :ensure t)
+
+  (use-package ivy-bibtex
+    :ensure t
+    :init (progn
+            (setq bibtex-completion-bibliography
+                  '("~/Dropbox/org/library.bib"))
+            (setq bibtex-completion-fallback-options
+                  '(("Lead 2 Amazon" . "http://lead.to/amazon/en/?key=%s&si=all&op=bt&bn=&so=sa&ht=us")
+                    ("Google Scholar" . "https://scholar.google.com/scholar?q=%s")))))
+
+  (setq debug-on-error t)
+#+END_SRC
 
 ** Hydra for apps
 

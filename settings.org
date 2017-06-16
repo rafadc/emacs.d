@@ -1456,6 +1456,18 @@ To read PDFs let's switch to pdf-tools. It is much much faster than docview. Als
   (setq debug-on-error t)
 #+END_SRC
 
+** Twitter
+
+#+BEGIN_SRC emacs-lisp
+  (use-package twittering-mode
+    :ensure t
+    :init (progn
+            (setq twittering-use-master-password t)
+            (setq twittering-icon-mode t)
+            (setq twittering-timer-interval 300)
+            (setq twittering-url-show-status nil)))
+#+END_SRC
+
 ** Hydra for apps
 
 Let's create an hydra at F1 that shows all the apps
@@ -1468,11 +1480,13 @@ Let's create an hydra at F1 that shows all the apps
 _f_: elfeed         📰
 _m_: mu4e           📧
 _r_: restclient     ➤
+_t_: twitter        🐦
 
 "
   ("r" restclient-mode :color blue)
   ("m" mu4e :color blue)
   ("f" elfeed :color blue)
+  ("t" twit :color blue)
   ("q" nil))
 
 (global-set-key (kbd "<f1>") 'applications-menu/body)

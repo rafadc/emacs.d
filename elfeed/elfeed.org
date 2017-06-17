@@ -19,6 +19,3 @@
 ** Webcomic
 *** http://xkcd.com/rss.xml
 *** http://www.commitstrip.com/en/feed/
-** Other
-*** Economy
-**** http://politikon.es/feed/

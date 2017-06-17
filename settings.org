@@ -41,15 +41,6 @@ Bootstrapping use-package. This looks for use package in the system ans installs
 #+END_SRC
 
 
-* Hydra
-
-We will have some hydras for many functions.
-
-#+BEGIN_SRC emacs-lisp
-(use-package hydra
-  :ensure t)
-#+END_SRC
-
 * Homebrew
 
 I'll add homebrewe'd emacs packages to load path
@@ -1476,28 +1467,34 @@ To read PDFs let's switch to pdf-tools. It is much much faster than docview. Als
             (setq twittering-url-show-status nil)))
 #+END_SRC
 
-** Hydra for apps
+* Hydras
 
-Let's create an hydra at F1 that shows all the apps
+I will create a pair of hydras.
 
-#+BEGIN_SRC elisp
-(defhydra applications-menu (:color blue :hint nil)
-"
-^Apps^
-------
-_f_: elfeed         📰
-_m_: mu4e           📧
-_r_: restclient     ➤
-_t_: twitter        🐦
+- f1: Navigates between apps installed in emacs like twitter or email
+- f2: Navigate between most used projects
 
-"
-  ("r" restclient-mode :color blue)
-  ("m" mu4e :color blue)
-  ("f" elfeed :color blue)
-  ("t" twit :color blue)
-  ("q" nil))
+#+BEGIN_SRC emacs-lisp
+  (use-package hydra
+    :ensure t
+    :bind (("<f1>" . applications-menu/body))
+    :config (progn
+              (hydra-add-font-lock)
 
-(global-set-key (kbd "<f1>") 'applications-menu/body)
+              (defhydra applications-menu (:color blue :hint nil)
+                "
+  ^Apps^
+  ------
+  _f_: elfeed         📰
+  _m_: mu4e           📧
+  _r_: restclient     ➤
+  _t_: twitter        🐦
+  "
+                ("r" restclient-mode :color blue)
+                ("m" mu4e :color blue)
+                ("f" elfeed :color blue)
+                ("t" twit :color blue)
+                ("q" nil))))
 #+END_SRC
 
 * Some general purpose functions

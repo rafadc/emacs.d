@@ -673,7 +673,7 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
             (setq org-default-notes-file "~/Dropbox/org/capture.org")
             (setq org-capture-templates
                   '(("t" "Todo" entry (file+headline "~/Dropbox/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
-                    ("b" "Book" entry (file+headline "~/Dropbox/org/library.org" "Book") "* TODO %?")
+                    ("b" "Book" entry (file "~/Dropbox/org/library.org") "* TODO %?\n:PROPERTIES:\n#+INTERLEAVE_PDF: /Users/rafael/Dropbox/Calibre/\n:END:")
                     ("r" "Retro" entry (file+headline "~/Dropbox/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
             (setq org-directory "~/Dropbox/org")
             (setq org-mobile-inbox-for-pull "~/Dropbox/org/index.org")

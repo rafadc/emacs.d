@@ -592,11 +592,13 @@ This is done so we avoid cluttering the folder where the file is being edited
 Enabling projectile for project management
 
 #+BEGIN_SRC emacs-lisp
-(use-package projectile
-  :ensure t
-  :diminish projectile-mode "Ⓟ"
-  :init (setq projectile-enable-caching nil)
-  :config (projectile-global-mode))
+  (use-package projectile
+    :ensure t
+    :diminish projectile-mode "Ⓟ"
+    :init (progn
+            (setq projectile-enable-caching nil)
+            (setq projectile-switch-project-action 'projectile-dired))
+    :config (projectile-global-mode))
 #+END_SRC
 
 

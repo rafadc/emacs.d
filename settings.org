@@ -604,6 +604,8 @@ Enabling projectile for project management
 
 * Spellchecker
 
+Let's use Flycheck's integration with ispell
+
 #+BEGIN_SRC emacs-lisp
 ;; Flyspell
 (diminish 'flyspell-mode)
@@ -629,6 +631,16 @@ Enabling projectile for project management
 (setq flyspell-default-dictionary "english")
 
 (global-set-key (kbd "C-S-s-<f8>") 'cycle-ispell-languages)
+#+END_SRC
+
+And we can provide a thesaurus
+
+#+BEGIN_SRC emacs-lisp
+(use-package synonyms
+  :ensure t
+  :init (progn
+           (setq synonyms-file "~/.emacs.d/resources/synonyms/mthesaur.txt")
+           (setq synonyms-cache-file "~/.emacs.d/resources/synonyms/mthesaur.cache")))
 #+END_SRC
 
 * Org mode
@@ -991,6 +1003,16 @@ Adding file types with no rb extension: rake files, irbrc...
   :ensure t
   :diminish projectile-rails-mode "RoR "
   :config (add-hook 'projectile-mode-hook 'projectile-rails-on))
+#+END_SRC
+
+Some customizations of highlight
+ - Highlight equal sign
+ - Mark a debug
+
+#+BEGIN_SRC elisp
+(font-lock-add-keywords 'ruby-mode
+  '(("\\<\\(binding.pry\\|binding.irb\\)\\>" . font-lock-warning-face)
+    ("\\<\\(=\\>\\)" . font-lock-keyword-face)))
 #+END_SRC
 
 Use Rubocop for Ruby code linting

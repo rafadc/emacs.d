@@ -638,6 +638,7 @@ And we can provide a thesaurus
 #+BEGIN_SRC emacs-lisp
 (use-package synonyms
   :ensure t
+  :bind ("S-<f8>" . synonyms)
   :init (progn
            (setq synonyms-file "~/.emacs.d/resources/synonyms/mthesaur.txt")
            (setq synonyms-cache-file "~/.emacs.d/resources/synonyms/mthesaur.cache")))

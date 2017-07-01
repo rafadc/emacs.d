@@ -1195,6 +1195,15 @@ Autocomplete for Go. We will be using company mode too.
   :ensure t)
 #+END_SRC
 
+** Solidity
+
+Ethereum's programming language
+
+#+BEGIN_SRC emacs-lisp
+(use-package solidity-mode
+  :ensure t)
+#+END_SRC
+
 * Git
 
 We will use Magit for git. Also opening timemachine is a nice binding to have.

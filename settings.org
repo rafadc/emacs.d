@@ -1328,6 +1328,14 @@ Wdired mode is awesome. Let's bind a key to it. It allows us to write the buffer
 (define-key dired-mode-map (kbd "C-w") 'wdired-change-to-wdired-mode)
 #+END_SRC
 
+Adding sort options to dired
+
+#+BEGIN_SRC emacs-lisp
+(use-package dired-quick-sort
+  :ensure t
+  :config
+  (dired-quick-sort-setup))
+#+END_SRC
 
 * Keyfreq
 

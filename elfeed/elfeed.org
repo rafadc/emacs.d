@@ -7,8 +7,6 @@
 *** http://www.wildml.com/feed/
 *** https://www.joelonsoftware.com/feed/
 *** Engineering blogs
-**** https://eng.uber.com/feed/
-**** https://tech.dropbox.com/feed/
 **** http://techblog.netflix.com/atom.xml
 **** https://engineering.instagram.com/feed
 **** https://redditblog.com/topic/technology/feed/
@@ -16,6 +14,8 @@
 **** http://sachachua.com/blog/feed/
 **** http://cestlaz.github.io/rss.xml
 **** http://pragmaticemacs.com/feed/
+*** Vision
+**** http://feeds.feedburner.com/Pyimagesearch
 ** Webcomic
 *** http://xkcd.com/rss.xml
 *** http://www.commitstrip.com/en/feed/

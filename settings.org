@@ -1509,6 +1509,21 @@ To read PDFs let's switch to pdf-tools. It is much much faster than docview. Als
             (setq twittering-url-show-status nil)))
 #+END_SRC
 
+** Blogging
+
+I migrated not so long ago my blog to hugo to be able to write posts in org mode.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package easy-hugo
+    :ensure t
+    :init (progn
+            (setq easy-hugo-basedir "~/code/sites/joy.pm/")
+            (setq easy-hugo-url "https://joy.pm")
+            (setq easy-hugo-root "~/code/sites/joy.pm/")
+            (setq easy-hugo-previewtime "300")
+            ))
+#+END_SRC
+
 * Hydras
 
 I will create a pair of hydras.
@@ -1527,7 +1542,7 @@ I will create a pair of hydras.
                 "
   ^Apps^
   ------
-  _f_: elfeed         📰
+  _f_: elfeed         📰     _b_: Blog       🖊
   _m_: mu4e           📧
   _r_: restclient     ➤
   _t_: twitter        🐦
@@ -1536,6 +1551,7 @@ I will create a pair of hydras.
                 ("m" mu4e :color blue)
                 ("f" elfeed :color blue)
                 ("t" twit :color blue)
+                ("b" easy-hugo :color blue)
                 ("q" nil))))
 #+END_SRC
 

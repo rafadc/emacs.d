@@ -19,7 +19,9 @@
         markdown-demote
         markdown-exdent-or-delete
         org-end-of-line
+        org-shiftright
         ruby-end-space
+        typescript-insert-and-indent
         ))
 
 (setq mc/cmds-to-run-once

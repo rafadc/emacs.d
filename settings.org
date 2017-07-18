@@ -1195,6 +1195,15 @@ Autocomplete for Go. We will be using company mode too.
   :ensure t)
 #+END_SRC
 
+** Python
+
+Even though python-mode is good enough we need to do some linting
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flymake-python-pyflakes
+    :ensure t
+    :init (setq flymake-python-pyflakes-executable "flake8"))
+#+END_SRC
 ** Solidity
 
 Ethereum's programming language

@@ -1221,7 +1221,8 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :ensure t
-  :bind (("<f6>" . magit-status))
+  :bind (("<f6>" . magit-status)
+         ("H-6" . magit-status))
   :config (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
 #+END_SRC
 

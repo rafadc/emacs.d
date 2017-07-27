@@ -1214,6 +1214,14 @@ Ethereum's programming language
   :ensure t)
 #+END_SRC
 
+* File formats
+
+For init files we have conf mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package conf-mode
+  :ensure t)
+#+END_SRC
 * Git
 
 We will use Magit for git. Also opening timemachine is a nice binding to have.

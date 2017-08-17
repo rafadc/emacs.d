@@ -773,7 +773,9 @@ Swiper is beautiful. Better than standard search.
       :bind (("C-x b" . ivy-switch-buffer)
              ("C-c v" . ivy-push-view)
              ("C-c V" . ivy-pop-view))
-      :config (setq ivy-use-virtual-buffers t)
+      :config (progn
+                 (setq ivy-use-virtual-buffers t)
+                 (define-key ivy-minibuffer-map (kbd "M-j") 'ivy-immediate-done))
       :init (ivy-mode 1))
 
   (use-package counsel

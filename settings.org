@@ -328,292 +328,8 @@ There are some default mac bindings that are annoying to me. I will disable s-P 
 (global-unset-key (kbd "<f1>"))
 (global-unset-key (kbd "s-w"))
 (global-unset-key (kbd "<f2>"))
-#+END_SRC
 
-* Mouse in terminal
-
-This takes back mouse and makes it work in a terminal. Commented until I make terminal mode to work as I want.
-
-#+BEGIN_SRC emacs-lisp
-(require 'mouse)
-(xterm-mouse-mode t)
-(defun track-mouse (e))
-(setq mouse-sel-mode t)
-#+END_SRC
-
-* Manipulating text
-
-This is a small script so ALT key drags lines up and down.
-
-#+BEGIN_SRC emacs-lisp
-(use-package move-text
-  :ensure t
-  :bind (("M-<up>" . move-text-up)
-         ("M-<down>" . move-text-down)))
-#+END_SRC
-
-Line duplication
-
-#+BEGIN_SRC emacs-lisp
-(defun duplicate-line ()
-  "Duplicates current line"
-  (interactive)
-  (let
-      ((text-to-insert (thing-at-point 'line)))
-    (forward-line 1)
-    (insert text-to-insert)
-    (forward-line -1)))
-
-(global-set-key (kbd "C-*") 'duplicate-line)
-
-(defun eval-and-replace ()
-  "Replace the preceding sexp with its value."
-  (interactive)
-  (backward-kill-sexp)
-  (condition-case nil
-      (prin1 (eval (read (current-kill 0)))
-             (current-buffer))
-    (error (message "Invalid expression")
-           (insert (current-kill 0)))))
-
-(global-set-key (kbd "C-c C-e") 'eval-and-replace)
-#+END_SRC
-
-I don't want ALT-backspace to change my kill ring since I don't often want that there.
-
-#+BEGIN_SRC emacs-lisp
-(defun delete-word (arg)
-  "Delete characters backward until encountering the beginning of a word.
-With argument ARG, do this that many times."
-  (interactive "p")
-  (delete-region (point) (progn (backward-word arg) (point))))
-
-(global-set-key (kbd "<M-backspace>") 'delete-word)
-#+END_SRC
-
-* Windows
-
-** Moving in windows
-
-This is a small snippet to move to next or previous windows with C-x p and C-x o
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x p") 'other-window)
-
-(defun other-window-previous (&optional n)
-  "Moves to previous window"
-  (interactive "p")
-  (other-window (if n (- n) -1)))
-
-(global-set-key (kbd "C-x o") 'other-window-previous)
-#+END_SRC
-
-Enabling winner mode to restore the configuration of window layout.
-
-#+BEGIN_SRC emacs-lisp
-(winner-mode t)
-#+END_SRC
-
-** Golden Ratio
-
-This is a cool package to help in making the current window more prominent
-
-#+BEGIN_SRC emacs-lisp
-(use-package golden-ratio
-  :ensure t
-  :diminish golden-ratio-mode
-  :init
-  (golden-ratio-mode 1))
-#+END_SRC
-** Eyebrowse
-
-Eyebrowse is extremely useful for temporarily maximize a window and then go back to its previous split state.
-
-#+BEGIN_SRC emacs-lisp
-(use-package eyebrowse
-  :ensure t
-  :init (eyebrowse-mode t))
-#+END_SRC
-
-* Undo
-
-Much better undo than the default one.
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package undo-tree
-  :ensure t
-  :diminish undo-tree-mode
-  :init
-    (progn
-      (global-undo-tree-mode 1)
-      (defalias 'redo 'undo-tree-redo)
-
-      (global-set-key (kbd "s-z") 'undo)
-      (global-set-key (kbd "s-Z") 'redo)))
-#+END_SRC
-
-This is binding the visualization to C-s-z but instead of that combo I need to use that strange status number.
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<C-s-268632090>") 'undo-tree-visualize)
-#+END_SRC
-
-* Selecting text
-
-Typing over a selection deletes text
-
-#+BEGIN_SRC emacs-lisp
-(delete-selection-mode 1)
-#+END_SRC
-
-Expand region key binding.
-
-#+BEGIN_SRC emacs-lisp
-(use-package expand-region
-  :ensure t
-  :bind (("s-e" . er/expand-region)
-         ("s-E" . er/contract-region)))
-#+END_SRC
-
-These are multiple cursors bindings.
-
-#+BEGIN_SRC emacs-lisp
-(use-package multiple-cursors
-  :ensure t
-  :bind (("C-d" . mc/mark-next-like-this)
-         ("C-S-d" . mc/mark-previous-like-this)
-         ("C-M-d" . mc/mark-all-like-this)
-         ("H-SPC" . set-rectangular-region-anchor)))
-#+END_SRC
-
-* Moving around
-** Avy jump
-
-Avy jump is great for moving around. I use the new timer version. This was introduced in avy 0.4.0 and it is a really beautiful way of moving around. A combination of classical avy jump + isearch
-
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package avy
-  :ensure t
-  :bind ("C-c j" . avy-goto-char-timer))
-#+END_SRC
-
-** Jump to char
-
-I found this to be super awesome specially in combination with multiple cursors.
-
-#+BEGIN_SRC emacs-lisp
-(use-package jump-char
-  :ensure t
-  :bind (("C-c u" . jump-char-backward)
-         ("C-c i" . jump-char-forward)))
-#+END_SRC
-
-** Goto URL
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'text-mode-hook 'goto-address-mode)
-(add-hook 'prog-mode-hook 'goto-address-prog-mode)
-#+END_SRC
-* Open in external editor
-
-A small snippet to open current file in external editor.
-
-TODO: give credit for this.
-
-#+BEGIN_SRC emacs-lisp
-(defun open-with (arg)
-  "Open visited file in default external program.
-
-With a prefix ARG always prompt for command to use."
-  (interactive "P")
-  (when buffer-file-name
-    (shell-command (concat
-                    (cond
-                     ((and (not arg) (eq system-type 'darwin)) "open")
-                     ((and (not arg) (member system-type '(gnu gnu/linux gnu/kfreebsd))) "xdg-open")
-                     (t (read-shell-command "Open current file with: ")))
-                    " "
-                    (shell-quote-argument buffer-file-name)))))
-
-(global-set-key (kbd "C-c o") 'open-with)
-#+END_SRC
-
-* White space handling
-
-Remove trailing whitespace of the file
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-#+END_SRC
-
-* Midnight
-
-#+BEGIN_SRC emacs-lisp
-(require 'midnight)
-#+END_SRC
-
-Kill buffers if they were last disabled more than this seconds ago
-
-#+BEGIN_SRC emacs-lisp
-(setq clean-buffer-list-delay-special 900)
-
-(defvar clean-buffer-list-timer nil
-  "Stores clean-buffer-list timer if there is one. You can disable clean-buffer-list by (cancel-timer clean-buffer-list-timer).")
-
-;; run clean-buffer-list every 4 hours
-(setq clean-buffer-list-timer (run-at-time t 14400 'clean-buffer-list))
-
-;; kill everything, clean-buffer-list is very intelligent at not killing
-;; unsaved buffer.
-(setq clean-buffer-list-kill-regexps '("^.*$"))
-#+END_SRC
-
-* Backup files
-
-This will create a folder called $HOME/.saves-emacs that will contain all backups.
-
-This is done so we avoid cluttering the folder where the file is being edited
-
-#+BEGIN_SRC emacs-lisp
-(setq
-   backup-by-copying t      ; don't clobber symlinks
-   backup-directory-alist
-    '(("." . "~/.saves-emacs"))    ; don't litter my fs tree
-   delete-old-versions t
-   kept-new-versions 6
-   kept-old-versions 2
-   version-control t)       ; use versioned backups
-#+END_SRC
-
-* Projectile
-
-Enabling projectile for project management
-
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :ensure t
-    :diminish projectile-mode "Ⓟ"
-    :init (progn
-            (setq projectile-enable-caching nil)
-            (setq projectile-switch-project-action 'projectile-dired))
-    :config (projectile-global-mode))
-#+END_SRC
-
-
-* Spellchecker
-
-Let's use Flycheck's integration with ispell
-
-#+BEGIN_SRC emacs-lisp
-;; Flyspell
-(diminish 'flyspell-mode)
-
-(global-set-key (kbd "<f8>") 'ispell-word)
-(global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
-(global-set-key (kbd "C-M-<f8>") 'flyspell-buffer)
+(unbind-key "C-," flyspell-mode-map)
 
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'markdown-mode-hook 'flyspell-mode)
@@ -687,7 +403,8 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
             (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
             (setq org-todo-keywords
                   '((sequence "TODO" "INPROGRESS" "DONE(!)" )))
-            ))
+            )
+    :config (unbind-key "C-," org-mode-map))
 #+END_SRC
 
 Org bullets will display bullet points as UTF characters
@@ -1229,10 +946,16 @@ For init files we have conf mode
 We will use Magit for git. Also opening timemachine is a nice binding to have.
 
 #+BEGIN_SRC emacs-lisp
+(define-prefix-command 'magit-map)
+(global-set-key (kbd "C-,") 'magit-map)
+
 (use-package magit
   :ensure t
   :bind (("<f6>" . magit-status)
-         ("H-6" . magit-status))
+         ("H-6" . magit-status)
+         ("C-, m" . magit-status)
+         ("C-, s" . magit-stage-file)
+         ("C-, l" . magit-log-current-file))
   :config (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
 #+END_SRC
 

@@ -324,30 +324,33 @@ I must admit that this is only here so I can make an hyper-space combo.
 There are some default mac bindings that are annoying to me. I will disable s-P for printing and all the function keys.
 
 #+BEGIN_SRC emacs-lisp
-(global-unset-key (kbd "s-p"))
-(global-unset-key (kbd "<f1>"))
-(global-unset-key (kbd "s-w"))
-(global-unset-key (kbd "<f2>"))
+  (global-unset-key (kbd "s-p"))
+  (global-unset-key (kbd "<f1>"))
+  (global-unset-key (kbd "s-w"))
+  (global-unset-key (kbd "<f2>"))
+  (global-unset-key (kbd "C-z"))
 
-(unbind-key "C-," flyspell-mode-map)
 
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'markdown-mode-hook 'flyspell-mode)
+  (use-package flyspell
+    :ensure t
+    :bind ("C-S-s-<f8>" . cycle-ispell-languages)
+    :init (progn
+             (add-hook 'text-mode-hook 'flyspell-mode)
+             (add-hook 'markdown-mode-hook 'flyspell-mode)
 
-(let ((langs '("english" "spanish")))
-      (setq lang-ring (make-ring (length langs)))
-      (dolist (elem langs) (ring-insert lang-ring elem)))
+             (let ((langs '("english" "spanish")))
+               (setq lang-ring (make-ring (length langs)))
+               (dolist (elem langs) (ring-insert lang-ring elem)))
 
-(defun cycle-ispell-languages ()
-  (interactive)
-  (let ((lang (ring-ref lang-ring -1)))
-    (ring-insert lang-ring lang)
-    (ispell-change-dictionary lang)))
+             (defun cycle-ispell-languages ()
+               (interactive)
+               (let ((lang (ring-ref lang-ring -1)))
+                 (ring-insert lang-ring lang)
+                 (ispell-change-dictionary lang)))
 
-(ispell-change-dictionary "english")
-(setq flyspell-default-dictionary "english")
-
-(global-set-key (kbd "C-S-s-<f8>") 'cycle-ispell-languages)
+             (ispell-change-dictionary "english")
+             (setq flyspell-default-dictionary "english"))
+    :config (unbind-key "C-," flyspell-mode-map))
 #+END_SRC
 
 And we can provide a thesaurus
@@ -953,8 +956,9 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
   :ensure t
   :bind (("<f6>" . magit-status)
          ("H-6" . magit-status)
-         ("C-, m" . magit-status)
+         ("C-, ," . magit-status)
          ("C-, s" . magit-stage-file)
+         ("C-, c" . magit-commit)
          ("C-, l" . magit-log-current-file))
   :config (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
 #+END_SRC

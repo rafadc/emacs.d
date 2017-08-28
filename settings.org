@@ -1237,7 +1237,8 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
          ("C-, ," . magit-status)
          ("C-, s" . magit-stage-file)
          ("C-, c" . magit-commit)
-         ("C-, l" . magit-log-current-file))
+         ("C-, b" . magit-checkout)
+         ("C-, l" . magit-log-buffer-file))
   :config (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
 #+END_SRC
 

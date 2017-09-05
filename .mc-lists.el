@@ -9,6 +9,8 @@
         delete-word
         dired-unmark-backward
         electric-newline-and-maybe-indent
+        electric-pair-delete-pair
+        end-of-buffer-other-window
         end-of-visual-line
         git-rebase-squash
         helm-projectile
@@ -18,9 +20,11 @@
         magit-status
         markdown-demote
         markdown-exdent-or-delete
+        neotree-toggle
         org-end-of-line
         org-shiftright
         ruby-end-space
+        tabbar-forward-tab
         typescript-insert-and-indent
         ))
 
@@ -28,6 +32,7 @@
       '(
         coffee-dedent-line-backspace
         duplicate-line
+        end-of-buffer
         haml-electric-backspace
         helm-M-x
         helm-confirm-and-exit-minibuffer

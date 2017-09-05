@@ -2,6 +2,7 @@ auto-save-list/
 org-gcal/
 eshell/
 magithub/
+request/
 
 # The compiled settings will not be commited
 *.elc

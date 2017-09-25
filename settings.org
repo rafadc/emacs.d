@@ -667,6 +667,10 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
 
   (use-package org
     :ensure t
+    :preface
+    (defun my/fix-inline-images ()
+      (when org-inline-image-overlays
+        (org-redisplay-inline-images)))
     :bind (("<f3>" . my/open-org-agenda)
            ("<f7>" . my/projectile-open-personal-notes)
            ("C-c c" . org-capture)
@@ -685,7 +689,9 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
             (setq org-todo-keywords
                   '((sequence "TODO" "INPROGRESS" "DONE(!)" )))
             )
-    :config (unbind-key "C-," org-mode-map))
+    :config (progn
+              (unbind-key "C-," org-mode-map)
+              (add-hook 'org-babel-after-execute-hook 'my/fix-inline-images)))
 #+END_SRC
 
 Org bullets will display bullet points as UTF characters
@@ -710,13 +716,17 @@ Let's configure some languages to run in org-babel mode.
 - Haskell
 - Ruby
 - A REST client
+- Python
+- Digraph
 
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages 'org-babel-load-languages '(
         (ruby . t)
         (ditaa . t)
         (haskell . t)
-        (restclient . t)))
+        (restclient . t)
+        (python . t)
+        (dot . t)))
 
 (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
 #+END_SRC

@@ -550,6 +550,15 @@ Remove trailing whitespace of the file
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
+* Terminal
+
+I am not very happy with no emacs terminal so I will stay using tmux and have some shortcuts here
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emamux
+    :ensure t
+    :bind (("C-ç" . emamux:send-command)))
+#+END_SRC
 * Midnight
 
 #+BEGIN_SRC emacs-lisp

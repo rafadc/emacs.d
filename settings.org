@@ -1215,6 +1215,13 @@ Even though python-mode is good enough we need to do some linting
     :ensure t
     :init (setq flymake-python-pyflakes-executable "flake8"))
 #+END_SRC
+
+Using python3 exporting babel
+
+#+BEGIN_SRC emacs-elisp
+(setq org-babel-python-command "python3")
+#+END_SRC
+
 ** Solidity
 
 Ethereum's programming language
@@ -1340,29 +1347,30 @@ Integration with Dash
 
 ** Dired
 
-Making dired to open the file in the current buffer instead of opening a new one
+Start using dired+
 
-#+BEGIN_SRC emacs-lisp
-(put 'dired-find-alternate-file 'disabled nil)
-#+END_SRC
+Making dired to open the file in the current buffer instead of opening a new one
 
 Dired likes gnu ls more than ls in osx so let's make it use it
 
-#+BEGIN_SRC emacs-lisp
-(setq ls-lisp-use-insert-directory-program t)
-(setq insert-directory-program "gls")
-#+END_SRC
+Wdired mode is awesome. Let's bind a key to it. It allows us to write the buffer to rename files.
 
 Also I prefer passing some switches to ls
 
 #+BEGIN_SRC emacs-lisp
-(setq dired-listing-switches "-lah")
-#+END_SRC
+(use-package dired
+  :config
+  (use-package dired+
+    :ensure t)
+  :init (progn
+           (put 'dired-find-alternate-file 'disabled nil)
+           (setq ls-lisp-use-insert-directory-program t)
+           (setq insert-directory-program "gls")
+           (setq dired-listing-switches "-lah")
+    ))
 
-Wdired mode is awesome. Let's bind a key to it. It allows us to write the buffer to rename files.
-
-#+BEGIN_SRC emacs-lisp
 (define-key dired-mode-map (kbd "C-w") 'wdired-change-to-wdired-mode)
+
 #+END_SRC
 
 Adding sort options to dired
@@ -1561,6 +1569,40 @@ I migrated not so long ago my blog to hugo to be able to write posts in org mode
             ))
 #+END_SRC
 
+** IRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package erc
+    :init
+    (setq erc-nick "rafadc"
+          erc-prompt-for-password nil
+          erc-prompt-for-nickserv-password nil
+          erc-nickserv-passwords
+            '((freenode     ((erc-username . erc-password))))
+          erc-hide-list '("JOIN" "PART" "QUIT")
+          erc-fill-column 100
+          erc-server-reconnect-timeout 5
+          erc-server-reconnect-attempts 3
+          erc-autojoin-channels-alist '(("chat.freenode.net" "#python" "#emacs"))))
+
+  (use-package erc-hl-nicks :ensure t)
+
+  (use-package ercn
+    :ensure t
+    :init
+    (setq ercn-notify-rules
+          '((current-nick . all)
+            (query-buffer . all)))
+    (use-package s :ensure t)
+    (when (fboundp 'alert)
+      (defun do-notify (nickname message)
+        (interactive)
+        (let*
+            ((message-to-show (concat nickname ": " (s-trim (s-collapse-whitespace message))))
+             (notification-command (concat "/usr/bin/osascript -e 'display notification \"" message-to-show  "\" with title \"Emacs ERC\"' &")))
+          (shell-command notification-command)))
+      (add-hook 'ercn-notify-hook 'do-notify)))
+#+END_SRC
 * Hydras
 
 I will create a pair of hydras.
@@ -1669,4 +1711,11 @@ These are scripts that are worthy of their own source file and I'm not including
   :load-path "src/reddit-client")
 
 (load-file "~/.emacs.d/src/emacs-presentation-mode/emacs-presentation-mode.el")
+#+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-jira
+  :ensure t
+  :config (setq jiralib-url "https://jira.platform161.com"))
 #+END_SRC

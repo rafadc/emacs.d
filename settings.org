@@ -1639,8 +1639,8 @@ I will create a pair of hydras.
                 "
   ^Apps^
   ------
-  _f_: elfeed         📰     _b_: Blog       🖊
-  _m_: mu4e           📧
+  _f_: elfeed         📰     _b_: Blog          🖊
+  _m_: mu4e           📧     _k_: Kubernetes    ⎈
   _r_: restclient     ➤
   _t_: twitter        🐦
   "
@@ -1649,6 +1649,7 @@ I will create a pair of hydras.
                 ("f" elfeed :color blue)
                 ("t" twit :color blue)
                 ("b" easy-hugo :color blue)
+                ("k" kubenetes-overview :color blue)
                 ("q" nil))))
 #+END_SRC
 

@@ -1307,6 +1307,15 @@ Emacs is great for managing docker images. Also I will use the syntax help for D
   :config (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
 
 #+END_SRC
+* Kubernetes
+
+Porcelain magit-like? I'm in!
+
+#+BEGIN_SRC emacs-lisp
+(use-package kubernetes
+    :ensure t)
+#+END_SRC
+
 * Salt
 #+BEGIN_SRC emacs-lisp
 (use-package salt-mode

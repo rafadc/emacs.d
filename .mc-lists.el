@@ -26,11 +26,14 @@
         ruby-end-space
         tabbar-forward-tab
         typescript-insert-and-indent
+        wdired-finish-edit
+        yaml-electric-backspace
         ))
 
 (setq mc/cmds-to-run-once
       '(
         coffee-dedent-line-backspace
+        counsel-projectile-rg
         duplicate-line
         end-of-buffer
         haml-electric-backspace

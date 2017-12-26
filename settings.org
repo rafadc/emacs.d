@@ -686,8 +686,8 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
            ("C-c c" . org-capture)
            ("C-c a" . org-agenda))
     :init (progn
-            (setq org-hide-emphasis-markers t)
             (setq org-startup-with-inline-images t)
+;;            (setq org-hide-emphasis-markers t)  <- This is causing problems with asterisks in headers
             (setq org-default-notes-file "~/Dropbox/org/capture.org")
             (setq org-capture-templates
                   '(("t" "Todo" entry (file+headline "~/Dropbox/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
@@ -984,13 +984,16 @@ And our good old Emmet. Previously called Zencoding
 ** Markdown
 
 #+BEGIN_SRC emacs-lisp
-(use-package markdown-mode
-  :ensure t
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  (use-package markdown-mode
+    :ensure t
+    :commands (markdown-mode gfm-mode)
+    :mode (("README\\.md\\'" . gfm-mode)
+           ("\\.md\\'" . markdown-mode)
+           ("\\.markdown\\'" . markdown-mode))
+    :init (progn
+            (setq markdown-command "multimarkdown")
+            (setq markdown-max-image-size '(700 . 300)))
+    )
 #+END_SRC
 
 Saving images from clipboard in markdown
@@ -1002,9 +1005,9 @@ same directory as the org-buffer and insert a link to this file."
   (interactive)
   (let ((filename (concat
                   (make-temp-name
-                   (concat (file-name-nondirectory (buffer-file-name)) "images/" (format-time-string "%Y%m%d_%H%M%S_")) ) ".png")))
+                   (concat (file-name-nondirectory (buffer-file-name)) ".images/" (format-time-string "%Y%m%d_%H%M%S_")) ) ".png")))
     (unless (file-exists-p (file-name-directory filename))
-      (make-directory (file-name-directory filename)))
+      (make-directory (file-name-directory filename) t))
     (call-process "pngpaste" nil nil nil filename)
     (if (file-exists-p filename)
         (insert (concat "![](" filename ")"))))
@@ -1300,10 +1303,10 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
 Since I use github a lot let's use this layer over magit
 
 #+BEGIN_SRC emacs-lisp
-(use-package magithub
-  :ensure t
-  :after magit
-  :config (magithub-feature-autoinject t))
+;(use-package magithub
+;  :ensure t
+;  :after magit
+;  :config (magithub-feature-autoinject t))
 #+END_SRC
 
 Time machine is a nice package to browse the story of a file

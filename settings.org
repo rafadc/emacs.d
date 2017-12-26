@@ -1037,6 +1037,14 @@ Some customizations of highlight
     ("\\<\\(=\\>\\)" . font-lock-keyword-face)))
 #+END_SRC
 
+For editing code in Ruby in electric mode
+#+BEGIN_SRC elisp
+(use-package ruby-electric
+  :ensure t
+  :init (add-hook 'ruby-mode-hook #'ruby-electric-mode))
+#+END_SRC
+
+
 Use Rubocop for Ruby code linting
 
 #+BEGIN_SRC emacs-lisp

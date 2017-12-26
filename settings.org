@@ -993,6 +993,26 @@ And our good old Emmet. Previously called Zencoding
   :init (setq markdown-command "multimarkdown"))
 #+END_SRC
 
+Saving images from clipboard in markdown
+
+#+BEGIN_SRC emacs-lisp
+(defun md-image-from-clipboard ()
+  "Takes a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive)
+  (let ((filename (concat
+                  (make-temp-name
+                   (concat (file-name-nondirectory (buffer-file-name)) "images/" (format-time-string "%Y%m%d_%H%M%S_")) ) ".png")))
+    (unless (file-exists-p (file-name-directory filename))
+      (make-directory (file-name-directory filename)))
+    (call-process "pngpaste" nil nil nil filename)
+    (if (file-exists-p filename)
+        (insert (concat "![](" filename ")"))))
+)
+#+END_SRC
+
+
+
 ** Ruby
 
 We will use RVM's provided Ruby

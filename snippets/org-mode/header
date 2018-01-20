@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: header
+# key: header_
+# --
+#+TITLE: $1
+#+AUTHOR: $2
+#+STARTUP: showall
+
+$0

@@ -1619,40 +1619,13 @@ I migrated not so long ago my blog to hugo to be able to write posts in org mode
             ))
 #+END_SRC
 
-** IRC
+** Reddit
 
 #+BEGIN_SRC emacs-lisp
-  (use-package erc
-    :init
-    (setq erc-nick "rafadc"
-          erc-prompt-for-password nil
-          erc-prompt-for-nickserv-password nil
-          erc-nickserv-passwords
-            '((freenode     ((erc-username . erc-password))))
-          erc-hide-list '("JOIN" "PART" "QUIT")
-          erc-fill-column 100
-          erc-server-reconnect-timeout 5
-          erc-server-reconnect-attempts 3
-          erc-autojoin-channels-alist '(("chat.freenode.net" "#python" "#emacs"))))
-
-  (use-package erc-hl-nicks :ensure t)
-
-  (use-package ercn
-    :ensure t
-    :init
-    (setq ercn-notify-rules
-          '((current-nick . all)
-            (query-buffer . all)))
-    (use-package s :ensure t)
-    (when (fboundp 'alert)
-      (defun do-notify (nickname message)
-        (interactive)
-        (let*
-            ((message-to-show (concat nickname ": " (s-trim (s-collapse-whitespace message))))
-             (notification-command (concat "/usr/bin/osascript -e 'display notification \"" message-to-show  "\" with title \"Emacs ERC\"' &")))
-          (shell-command notification-command)))
-      (add-hook 'ercn-notify-hook 'do-notify)))
+;(use-package redditor-mode
+;  :ensure t)
 #+END_SRC
+
 * Hydras
 
 I will create a pair of hydras.

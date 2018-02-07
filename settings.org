@@ -1237,7 +1237,21 @@ Autocomplete for Go. We will be using company mode too.
 (use-package rust-mode
   :defer
   :ensure t)
+#+END_SRC
 
+Racer gives us autocompletion. Before using we need:
+
+$ rustup component add rust-src
+$ cargo install racer
+
+
+#+BEGIN_SRC emacs-lisp
+(use-package racer
+  :defer
+  :ensure t
+  :init (progn
+           (add-hook 'rust-mode-hook #'racer-mode)
+           (add-hook 'racer-mode-hook #'eldoc-mode)))
 #+END_SRC
 
 ** Scala
@@ -1262,6 +1276,20 @@ Using python3 exporting babel
 #+BEGIN_SRC emacs-elisp
 (setq org-babel-python-command "python3")
 #+END_SRC
+
+All our projects.
+
+#+BEGIN_SRC emacs-lisp
+(use-package pipenv
+  :ensure t
+  :init
+    (setq
+      pipenv-projectile-after-switch-function
+      #'pipenv-projectile-after-switch-extended)
+  :config
+    (add-hook 'python-mode-hook #'pipenv-mode))
+#+END_SRC
+
 
 ** Solidity
 

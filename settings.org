@@ -1647,12 +1647,6 @@ I migrated not so long ago my blog to hugo to be able to write posts in org mode
             ))
 #+END_SRC
 
-** Reddit
-
-#+BEGIN_SRC emacs-lisp
-;(use-package redditor-mode
-;  :ensure t)
-#+END_SRC
 
 * Hydras
 
@@ -1758,9 +1752,6 @@ These are scripts that are worthy of their own source file and I'm not including
          (p161-mode 1))))
 
 ; (add-hook 'text-mode-hook 'turn-on-p161-mode-hook)
-
-(use-package reddit-client
-  :load-path "src/reddit-client")
 
 (load-file "~/.emacs.d/src/emacs-presentation-mode/emacs-presentation-mode.el")
 #+END_SRC

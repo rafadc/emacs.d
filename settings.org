@@ -1636,17 +1636,6 @@ To read PDFs let's switch to pdf-tools. It is much much faster than docview. Als
   (setq debug-on-error t)
 #+END_SRC
 
-** Twitter
-
-#+BEGIN_SRC emacs-lisp
-  (use-package twittering-mode
-    :ensure t
-    :init (progn
-            (setq twittering-use-master-password t)
-            (setq twittering-icon-mode t)
-            (setq twittering-timer-interval 300)
-            (setq twittering-url-show-status nil)))
-#+END_SRC
 
 ** Blogging
 

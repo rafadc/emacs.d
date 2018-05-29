@@ -652,6 +652,22 @@ And we can provide a thesaurus
            (setq synonyms-cache-file "~/.emacs.d/resources/synonyms/mthesaur.cache")))
 #+END_SRC
 
+* Writing mode
+
+#+BEGIN_SRC emacs-lisp
+;;(use-package minimal-theme
+;;  :ensure t)
+
+(use-package writeroom-mode
+  :ensure t
+  :preface (defun my-writeroom-theme (arg)
+             (cond
+              ((= arg 1)
+                 (enable-theme 'minimal-light))
+              ((= arg -1)
+                 (disable-theme 'minimal-light)))))
+#+END_SRC
+
 * Org mode
 
 Org mode is one of the most awesome things in emacs.

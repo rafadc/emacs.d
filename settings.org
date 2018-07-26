@@ -223,6 +223,7 @@ Smoother scrolling with mouse. This is the only thing I still miss from Sublime 
 
 #+BEGIN_SRC emacs-lisp
 (setq mouse-wheel-follow-mouse 't)
+(setq scroll-conservatively 101)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
 #+END_SRC
 
@@ -283,6 +284,13 @@ Let's loop gifs by default
 (setq image-animate-loop 1)
 #+END_SRC
 
+** Line numbers
+
+Use emacs native line numbers
+
+#+BEGIN_SRC emacs-lisp
+(global-display-line-numbers-mode t)
+#+END_SRC
 * Minibuffer
 
 Incremental search in minibuffer
@@ -1383,20 +1391,6 @@ Emacs is great for managing docker images. Also I will use the syntax help for D
   :config (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
 
 #+END_SRC
-* Kubernetes
-
-Porcelain magit-like? I'm in!
-
-#+BEGIN_SRC emacs-lisp
-(use-package kubernetes
-    :ensure t)
-#+END_SRC
-
-* Salt
-#+BEGIN_SRC emacs-lisp
-(use-package salt-mode
-  :ensure t)
-#+END_SRC
 * Help and documentation
 
 ** Guide key
@@ -1672,16 +1666,13 @@ I will create a pair of hydras.
   ^Apps^
   ------
   _f_: elfeed         📰     _b_: Blog          🖊
-  _m_: mu4e           📧     _k_: Kubernetes    ⎈
+  _m_: mu4e           📧
   _r_: restclient     ➤
-  _t_: twitter        🐦
   "
                 ("r" restclient-mode :color blue)
                 ("m" mu4e :color blue)
                 ("f" elfeed :color blue)
-                ("t" twit :color blue)
                 ("b" easy-hugo :color blue)
-                ("k" kubenetes-overview :color blue)
                 ("q" nil))))
 #+END_SRC
 

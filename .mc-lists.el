@@ -17,9 +17,11 @@
         indent-for-tab-command
         jump-char-process-char
         jump-char-repeat-backward
+        keyboard-escape-quit
         magit-status
         markdown-demote
         markdown-exdent-or-delete
+        markdown-outdent-or-delete
         neotree-toggle
         org-end-of-line
         org-shiftright

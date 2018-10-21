@@ -1235,7 +1235,12 @@ Go mode. This will also autoformat after saving following go standards
   :ensure t
   :defer
   :bind ("C-c C-r" . go-remove-unused-imports)
+  :init (setq gofmt-command "goimports")
   :config (add-hook 'before-save-hook 'gofmt-before-save))
+
+(use-package go-guru
+  :ensure t
+  :defer)
 #+END_SRC
 
 

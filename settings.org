@@ -1407,16 +1407,16 @@ Emacs is great for managing docker images. Also I will use the syntax help for D
 #+END_SRC
 * Help and documentation
 
-** Guide key
+** Which key
 
 When I start typing a combo a help with the possible continuations appear if I wait for a while.
 
 #+BEGIN_SRC emacs-lisp
-(use-package guide-key
+(use-package which-key
   :ensure t
-  :diminish guide-key-mode
-  :init (setq guide-key/guide-key-sequence t)
-  :config (guide-key-mode 1))
+  :defer 0.2
+  :diminish
+  :config (which-key-mode))
 #+END_SRC
 
 ** Dash

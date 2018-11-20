@@ -701,7 +701,7 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
     "Opens a personal_notes.org file in project folder"
     (interactive)
     (let
-        ((folder (car (projectile-get-project-directories))))
+        ((folder (projectile-project-root)))
       (if folder
           (find-file (concat folder "personal_notes.org"))
         (message "No project folder found"))))
@@ -1442,7 +1442,7 @@ Integration with Dash
   "Moves neotree to root of project"
   (interactive)
 
-  (let ((git-folder (car (projectile-get-project-directories))))
+  (let ((git-folder (projectile-project-root)))
                               (neotree-dir git-folder)))
 
 (use-package neotree
@@ -1718,8 +1718,7 @@ Copies the file to the clipboard.
 (defun copy-filename-to-clipboard ()
   "Copy the current buffer file name relative to projectile root to the clipboard."
   (interactive)
-  (let* ((base_path (car (projectile-get-project-directories)))
-         (filename (replace-regexp-in-string base_path "" (current_buffer_file_name))))
+  (let* ((filename (replace-regexp-in-string (projectile-project-root) "" (current_buffer_file_name))))
      (when filename
        (kill-new filename)
        (message "Copied buffer file name '%s' to the clipboard." filename))))

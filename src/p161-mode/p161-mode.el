@@ -10,7 +10,7 @@
 
 (defun git-folder ()
   "Returns the folder for the project"
-  (car (projectile-get-project-directories)))
+  (car (projectile-project-root)))
 
 (defun current-ticket ()
   "Returns the current ticket name based on brach name. Returns null in a ticketless branch."
@@ -45,7 +45,7 @@
   "Inserts the PFM ticket name at the beginning of commit message"
   (interactive)
   (let*
-      ((git-folder (car (projectile-get-project-directories)))
+      ((git-folder (car (projectile-project-root)))
        (command (concat "git --git-dir=" git-folder ".git branch | sed -n '/* /s///p'"))
        (branch-name (shell-command-to-string command))
        (ticket-name (car (split-string branch-name "\\."))))
@@ -56,7 +56,7 @@
   "Sends the currently open test to tmux"
   (interactive)
   (let*
-      ((base_path (car (projectile-get-project-directories)))
+      ((base_path (car (projectile-project-root)))
        (filename (replace-regexp-in-string base_path "" (current_buffer_file_name)))
        (command (concat "tmux send -t platform161 'rspec -I spec/app " filename "'  ENTER")))
     (message command)

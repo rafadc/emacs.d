@@ -35,7 +35,7 @@
 (defun gif-me-love (query)
   "Add a loving Gif in current buffer."
   (interactive "sTheme for the gif: ")
-  (let ((buffer (url-retrieve-synchronously (get-one-gif "love"))))
+  (let ((buffer (url-retrieve-synchronously (get-one-gif query))))
     (unwind-protect
          (let* ((data (with-current-buffer buffer
                        (goto-char (point-min))

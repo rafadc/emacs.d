@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;;; A weird package to have fun with gif files. Just a toy
+;;; A weird package to have fun with gif files.  Just a toy
 
 ;;; Code:
 (require 'json)
@@ -19,23 +19,23 @@
       (kill-buffer (current-buffer)))
     (json-read-from-string json)))
 
-(defun get-gifs ()
+(defun get-gifs (query)
   "Retrieves giffy JSON object."
-  (get-json "http://api.giphy.com/v1/gifs/search?q=give-me-love&api_key=dc6zaTOxFJmzC"))
+  (get-json (concat "http://api.giphy.com/v1/gifs/search?q=" query "&api_key=dc6zaTOxFJmzC")))
 
-(defun get-one-gif ()
+(defun get-one-gif (query)
   "Retrieves only one gif url from Giffy."
-  (let* ((json-gif-info (get-gifs))
+  (let* ((json-gif-info (get-gifs query))
          (gif-list (cdr (assoc 'data json-gif-info)))
          (first-gif-data (aref gif-list 1))
          (gif-urls-data (cdr (assoc 'images first-gif-data)))
          (gif-original-data (cdr (assoc 'original gif-urls-data))))
     (cdr (assoc 'url gif-original-data))))
 
-(defun gif-me-love ()
+(defun gif-me-love (query)
   "Add a loving Gif in current buffer."
-  (interactive)
-  (let ((buffer (url-retrieve-synchronously (get-one-gif))))
+  (interactive "sTheme for the gif: ")
+  (let ((buffer (url-retrieve-synchronously (get-one-gif "love"))))
     (unwind-protect
          (let* ((data (with-current-buffer buffer
                        (goto-char (point-min))

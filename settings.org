@@ -1768,7 +1768,7 @@ These are scripts that are worthy of their own source file and I'm not including
   (cond ((string-match "^//Users/rafael/code/platform161/" buffer-file-name)
          (p161-mode 1))))
 
-; (add-hook 'text-mode-hook 'turn-on-p161-mode-hook)
+(add-hook 'text-mode-hook 'turn-on-p161-mode-hook)
 
 (load-file "~/.emacs.d/src/emacs-presentation-mode/emacs-presentation-mode.el")
 #+END_SRC

@@ -1771,6 +1771,7 @@ These are scripts that are worthy of their own source file and I'm not including
 (add-hook 'text-mode-hook 'turn-on-p161-mode-hook)
 
 (load-file "~/.emacs.d/src/emacs-presentation-mode/emacs-presentation-mode.el")
+(load-file "~/.emacs.d/src/gif-me.el/gif-me.el")
 #+END_SRC
 
 

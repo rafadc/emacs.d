@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: stateless widget
+# key: stlw_
+# --
+import 'package:flutter/material.dart';
+
+class SplashScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Material(
+      color: Colors.red,
+    );
+  }
+}

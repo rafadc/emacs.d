@@ -1529,52 +1529,6 @@ This is just for measuring the frequency for the commands run
 #+END_SRC
 ** Email
 
-We need to install mu with emacs support in OsX with
-
-EMACS=$(which emacs) brew install mu --with-emacs --HEAD
-
-#+BEGIN_SRC emacs-lisp
-(setq mu4e-maildir "~/.Maildir")
-(require 'mu4e)
-(setq mu4e-get-mail-command "offlineimap")
-(setq message-kill-buffer-on-exit t)
-
-(setq mu4e-contexts
-    `( ,(make-mu4e-context
-	  :name "Personal"
-	  :enter-func (lambda () (mu4e-message "Switch to the Personal context"))
-	  ;; leave-func not defined
-	  :match-func (lambda (msg)
-			(when msg
-			  (mu4e-message-contact-field-matches msg
-			    :to "rafael@micubiculo.com")))
-	  :vars '(  ( user-mail-address	     . "rafael@micubiculo.com"  )
-		   ( user-full-name	    . "Rafa de Castro" )
-		   ( mu4e-compose-signature .
-		     (concat
-		       "Rafa de Castro\n"
-		       "http://joy.pm\n"))
-                   (mu4e-drafts-folder . "/Personal/[Google Mail].Drafts")
-                   (mu4e-sent-folder   . "/Personal/[Google Mail].Sent Mail")
-                   (mu4e-trash-folder  . "/Personal/[Google Mail].Bin")))
-       ,(make-mu4e-context
-	  :name "Work"
-	  :enter-func (lambda () (mu4e-message "Switch to the Work context"))
-	  ;; leave-fun not defined
-	  :match-func (lambda (msg)
-			(when msg
-			  (mu4e-message-contact-field-matches msg
-			    :to "rafael.decastro@platform161.com")))
-	  :vars '( ( user-mail-address	     . "rafael.decastro@platform161.com" )
-		   ( user-full-name	    . "Rafael de Castro" )
-		   ( mu4e-compose-signature .
-		     (concat
-		       "Rafael de Castro\n"))
-                   (mu4e-drafts-folder . "/Work/[Gmail].Drafts")
-                   (mu4e-sent-folder   . "/Work/[Gmail].Sent Mail")
-                   (mu4e-trash-folder  . "/Work/[Gmail].Bin")))))
-#+END_SRC
-
 ** RSS reader
 
 I use elfeed to read RSS. It can be configured via and org mode file. Extra awesomeness!

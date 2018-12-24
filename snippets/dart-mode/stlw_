@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: stateless widget
+# name: Stateless widget
 # key: stlw_
 # --
 import 'package:flutter/material.dart';

@@ -424,6 +424,10 @@ This is a small snippet to move to next or previous windows with C-x p and C-x o
   (other-window (if n (- n) -1)))
 
 (global-set-key (kbd "C-x o") 'other-window-previous)
+
+
+(global-set-key (kbd "C-x l") 'next-buffer)
+(global-set-key (kbd "C-x j") 'previous-buffer)
 #+END_SRC
 
 Enabling winner mode to restore the configuration of window layout.

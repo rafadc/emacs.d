@@ -712,13 +712,19 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
     (let
         ((folder (projectile-project-root)))
       (if folder
-          (find-file (concat folder "personal_notes.org"))
+          (progn
+             (split-window-right)
+             (other-window 1)
+             (find-file (concat folder "personal_notes.org")))
         (message "No project folder found"))))
 
   (defun my/open-org-agenda ()
     "Opens agenda file"
     (interactive)
-    (find-file "~/Dropbox/org/index.org"))
+          (progn
+             (split-window-right)
+             (other-window 1)
+             (find-file "~/Dropbox/org/index.org")))
 
   (use-package org
     :ensure t

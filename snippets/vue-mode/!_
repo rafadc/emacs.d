@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: Vue component
+# key: !_
+# --
+
+<template>
+</template>
+
+<script>
+export default {
+    name: 'MyComponent',
+    props: {},
+    components: {},
+    methods: {}
+}
+</script>
+
+<style scoped>
+</style>

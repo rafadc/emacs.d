@@ -1385,7 +1385,9 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
          ("C-, c" . magit-commit)
          ("C-, b" . magit-checkout)
          ("C-, l" . magit-log-buffer-file))
-  :config (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1))
+  :config (progn
+            (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
+            (setq magit-revision-show-gravatars t)))
 #+END_SRC
 
 Since I use github a lot let's use this layer over magit

@@ -43,11 +43,12 @@ Bootstrapping use-package. This looks for use package in the system ans installs
 
 * Homebrew
 
-I'll add homebrewe'd emacs packages to load path
+I'll add homebrewe'd emacs packages to load path. We only have to do this in a Mac.
 
 #+BEGIN_SRC emacs-lisp
-(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
-  (normal-top-level-add-subdirs-to-load-path))
+(if (eq system-type 'darwin)
+  (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+    (normal-top-level-add-subdirs-to-load-path)))
 #+END_SRC
 
 * Secrets
@@ -140,7 +141,11 @@ Highlight current line
 (global-hl-line-mode)
 #+END_SRC
 
+Do not show splash screen
 
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-splash-screen t)
+#+END_SRC
 ** Whitespace
 
 Use spaces instead of tabs
@@ -872,7 +877,7 @@ Using projectile mode
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
   :ensure t
-  :diminish yas-minor-mode "Ⓨ "
+;;  :diminish yas-minor-mode "Ⓨ "
   :config (progn (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
                  (add-hook 'term-mode-hook (lambda() (setq yas-dont-activate t)))
                  (yas-global-mode 1)))
@@ -943,15 +948,6 @@ Just for coloring...
   :ensure t
   :diminish)
 #+END_SRC
-
-** RAML
-
-#+BEGIN_SRC emacs-lisp
-(use-package raml-mode
-  :load-path "vendor/raml-mode"
-  :diminish)
-#+END_SRC
-
 
 ** Clojure
 
@@ -1489,7 +1485,7 @@ Also I prefer passing some switches to ls
 (use-package dired
   :config
   (use-package dired+
-    :ensure t)
+    :load-path "vendor/dired+/")
   :init (progn
            (put 'dired-find-alternate-file 'disabled nil)
            (setq ls-lisp-use-insert-directory-program t)

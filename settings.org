@@ -68,8 +68,10 @@ Copy the environment variables from shell's environment
 (use-package exec-path-from-shell
   :ensure t
   :no-require t
-  :config (when (memq window-system '(mac ns))
-            (exec-path-from-shell-initialize)))
+  :config (progn
+            (when (memq window-system '(mac ns))
+              (exec-path-from-shell-initialize))
+            (exec-path-from-shell-copy-env "GEM_PATH")))
 #+END_SRC
 
 * Editing settings

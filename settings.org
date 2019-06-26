@@ -186,14 +186,18 @@ Enable word wrap globally.
 ** Theme and fonts
 
 #+BEGIN_SRC emacs-lisp
-(use-package moe-theme
+(use-package doom-themes
   :ensure t
-  :init (setq moe-theme-highlight-buffer-id t)
   :config (progn
-            (load-theme 'moe-dark t)
-            (moe-theme-set-color 'orange)
-            (powerline-moe-theme)
-            (moe-dark)))
+            (load-theme 'doom-one t)
+            (doom-themes-neotree-config)
+            (doom-themes-org-config)))
+
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config (setq doom-modeline-height 15))
+
 #+END_SRC
 
 Font. I like a ton of different fonts and I use them a lot. My choices are:
@@ -213,7 +217,7 @@ To show the list of available fonts you can eval
 
 (set-face-attribute 'default nil
                     :family "Iosevka"
-                    :height 180
+                    :height 160
                     :weight 'light
                     :width 'normal)
 #+END_SRC

@@ -221,24 +221,11 @@ To show the list of available fonts you can eval
 Manually setting font for managing Unicode symbols
 
 #+BEGIN_SRC emacs-lisp
-(set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)
-#+END_SRC
-
-** Powerline
-
-Let's powerline.
-
-#+BEGIN_SRC emacs-lisp
-(setq ns-use-srgb-colorspace nil) ; Needed to display correctly powerline separators
-
-(use-package powerline
+(use-package unicode-fonts
   :ensure t
-  :config (progn
-          (setq powerline-default-separator 'wave)
-          (setq powerline-display-hud t)
-          (setq powerline-display-buffer-size nil)
-          (setq powerline-display-mule-info nil)
-          (powerline-center-theme)))
+  :init (unicode-fonts-setup))
+
+(set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)
 #+END_SRC
 
 ** Mouse

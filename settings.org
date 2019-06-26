@@ -1649,11 +1649,7 @@ I will create a pair of hydras.
   ^Apps^
   ------
   _f_: elfeed         📰     _b_: Blog          🖊
-  _m_: mu4e           📧
-  _r_: restclient     ➤
   "
-                ("r" restclient-mode :color blue)
-                ("m" mu4e :color blue)
                 ("f" elfeed :color blue)
                 ("b" easy-hugo :color blue)
                 ("q" nil))))

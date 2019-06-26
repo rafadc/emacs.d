@@ -148,6 +148,14 @@ Do not show splash screen
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-splash-screen t)
 #+END_SRC
+
+Removing top bar in MacOS
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+#+END_SRC
+
 ** Whitespace
 
 Use spaces instead of tabs

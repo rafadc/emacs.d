@@ -782,7 +782,6 @@ Let's configure some languages to run in org-babel mode.
         (ruby . t)
         (ditaa . t)
         (haskell . t)
-        (restclient . t)
         (python . t)
         (dot . t)))
 
@@ -1528,16 +1527,6 @@ This is just for measuring the frequency for the commands run
 #+END_SRC
 
 * Applications
-** Restclient
-#+BEGIN_SRC emacs-lisp
-(use-package restclient
-  :ensure t)
-
-(use-package ob-restclient
-  :ensure t)
-#+END_SRC
-** Email
-
 ** RSS reader
 
 I use elfeed to read RSS. It can be configured via and org mode file. Extra awesomeness!

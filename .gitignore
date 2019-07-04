@@ -3,6 +3,7 @@ org-gcal/
 eshell/
 magithub/
 request/
+transient/
 network-security.data
 
 # The compiled settings will not be commited

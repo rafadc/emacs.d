@@ -1117,25 +1117,18 @@ Use Rubocop for Ruby code linting
   :init (add-hook 'ruby-mode-hook #'rubocop-mode))
 #+END_SRC
 
-Project navigation with Robe
-
-#+BEGIN_SRC emacs-lisp
-(use-package robe
-  :ensure t
-  :init (progn
-           (add-hook 'ruby-mode-hook 'robe-mode)
-           (eval-after-load 'company
-              '(push 'company-robe company-backends))
-           (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-              (rvm-activate-corresponding-ruby))))
-#+END_SRC
-
 To not envy RubyMine users
 
 #+BEGIN_SRC emacs-lisp
 (use-package ruby-refactor
   :ensure t
   :init (add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch))
+#+END_SRC
+
+To avoid adding comments at the beginning of file
+
+#+BEGIN_SRC emacs-lisp
+(setq ruby-insert-encoding-magic-comment nil)
 #+END_SRC
 
 

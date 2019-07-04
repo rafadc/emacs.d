@@ -725,7 +725,7 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
           (progn
              (split-window-right)
              (other-window 1)
-             (find-file "~/Dropbox/org/index.org")))
+             (find-file "~/Nextcloud/org/index.org")))
 
   (use-package org
     :ensure t
@@ -743,11 +743,9 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
             (setq org-default-notes-file "~/Dropbox/org/capture.org")
             (setq org-capture-templates
                   '(("t" "Todo" entry (file+headline "~/Dropbox/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
-                    ("b" "Book" entry (file "~/Dropbox/org/library.org") "* TODO %?\n:PROPERTIES:\n#+INTERLEAVE_PDF: /Users/rafael/Dropbox/Calibre/\n:END:")
                     ("r" "Retro" entry (file+headline "~/Dropbox/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
             (setq org-directory "~/Dropbox/org")
             (setq org-mobile-inbox-for-pull "~/Dropbox/org/index.org")
-            (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
             (setq org-todo-keywords
                   '((sequence "TODO" "INPROGRESS" "DONE(!)" )))
             )

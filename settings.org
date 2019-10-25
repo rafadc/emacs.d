@@ -1402,6 +1402,10 @@ We will use Magit for git. Also opening timemachine is a nice binding to have.
   :config (progn
             (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
             (setq magit-revision-show-gravatars t)))
+
+(use-package forge
+  :ensure t
+  :after magit)
 #+END_SRC
 
 Since I use github a lot let's use this layer over magit

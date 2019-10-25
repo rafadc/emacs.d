@@ -231,9 +231,9 @@ To show the list of available fonts you can eval
 (set-default-coding-systems 'utf-8)
 
 (set-face-attribute 'default nil
-                    :family "Iosevka"
-                    :height 160
-                    :weight 'light
+                    :family "IBM Plex Mono"
+                    :height 165
+                    :weight 'regular
                     :width 'normal)
 #+END_SRC
 

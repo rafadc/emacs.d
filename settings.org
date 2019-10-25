@@ -156,6 +156,21 @@ Removing top bar in MacOS
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 #+END_SRC
 
+Tab bar
+
+#+BEGIN_SRC emacs-lisp
+(use-package centaur-tabs
+  :ensure t
+  :demand
+  :config (progn
+            (centaur-tabs-mode t)
+            (setq centaur-tabs-style "bar")
+            (setq centaur-tabs-set-icons t))
+  :bind
+  ("C-M-<left>" . centaur-tabs-backward)
+  ("C-M-<right>" . centaur-tabs-forward))
+#+END_SRC
+
 ** Whitespace
 
 Use spaces instead of tabs

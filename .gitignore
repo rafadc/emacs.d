@@ -29,3 +29,6 @@ projectile.cache
 bookmarks
 
 .tags
+
+*.sqlite
+.mc-lists.el

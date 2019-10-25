@@ -1245,6 +1245,12 @@ I will add angular support here since I play with angular only from typescript
 
 Go mode. This will also autoformat after saving following go standards
 
+We need to run the following commands in a new machine
+
+```
+go get golang.org/x/tools/cmd/goimports
+```
+
 #+BEGIN_SRC emacs-lisp
 (use-package go-mode
   :ensure t

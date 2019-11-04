@@ -89,6 +89,12 @@ I'll add a function to edit settings.org file. I don't need a shortcut since thi
 
 ** General UI
 
+Make window undecorated
+
+#+BEGIN_SRC emacs-lisp
+(set-frame-parameter nil 'undecorated t)
+#+END_SRC
+
 Remove scrollbars. One extra character per line and goodbye to that unthemed thing :P
 
 #+BEGIN_SRC emacs-lisp

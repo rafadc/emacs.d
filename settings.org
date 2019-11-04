@@ -377,6 +377,7 @@ I like macos copy and paster better
 (define-key global-map (kbd "s-x") 'kill-region)
 (define-key global-map (kbd "s-c") 'kill-ring-save)
 (define-key global-map (kbd "s-v") 'yank)
+(define-key global-map (kbd "s-a") 'mark-whole-buffer)
 #+END_SRC
 
 This is a small script so ALT key drags lines up and down.

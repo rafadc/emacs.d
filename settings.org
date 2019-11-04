@@ -371,6 +371,14 @@ This takes back mouse and makes it work in a terminal. Commented until I make te
 
 * Manipulating text
 
+I like macos copy and paster better
+
+#+BEGIN_SRC emacs-lisp
+(define-key global-map (kbd "s-x") 'kill-region)
+(define-key global-map (kbd "s-c") 'kill-ring-save)
+(define-key global-map (kbd "s-v") 'yank)
+#+END_SRC
+
 This is a small script so ALT key drags lines up and down.
 
 #+BEGIN_SRC emacs-lisp

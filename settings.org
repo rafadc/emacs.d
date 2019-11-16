@@ -1669,6 +1669,16 @@ I migrated not so long ago my blog to hugo to be able to write posts in org mode
             ))
 #+END_SRC
 
+** Presentations
+
+I'm starting to use org-reveal for presentations
+
+#+BEGIN_SRC emacs-lisp
+(use-package ox-reveal
+  :ensure t
+  :init ()
+  :config (setq org-reveal-root "vendor/reveal.js"))
+#+END_SRC
 
 * Hydras
 

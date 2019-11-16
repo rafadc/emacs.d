@@ -4,3 +4,6 @@
 [submodule "vendor/raml-mode"]
 	path = vendor/raml-mode
 	url = https://github.com/victorquinn/raml-mode
+[submodule "vendor/reveal.js"]
+	path = vendor/reveal.js
+	url = git@github.com:hakimel/reveal.js.git

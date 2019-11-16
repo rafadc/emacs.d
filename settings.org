@@ -1261,6 +1261,10 @@ go get golang.org/x/tools/cmd/goimports
 (use-package go-guru
   :ensure t
   :defer)
+
+(use-package go-complete
+  :ensure t
+  :config (add-hook 'completion-at-point-functions 'go-complete-at-point))
 #+END_SRC
 
 

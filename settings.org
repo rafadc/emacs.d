@@ -988,7 +988,6 @@ Let's add some packages for Haskell coding
   (use-package haskell-mode
     :ensure t
     :init (progn
-            (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
             (add-hook 'haskell-mode-hook 'flycheck-mode)))
 #+END_SRC
 

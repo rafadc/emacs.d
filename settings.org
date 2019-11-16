@@ -89,6 +89,12 @@ I'll add a function to edit settings.org file. I don't need a shortcut since thi
 
 ** General UI
 
+Make window undecorated
+
+#+BEGIN_SRC emacs-lisp
+(set-frame-parameter nil 'undecorated t)
+#+END_SRC
+
 Remove scrollbars. One extra character per line and goodbye to that unthemed thing :P
 
 #+BEGIN_SRC emacs-lisp
@@ -364,6 +370,15 @@ This takes back mouse and makes it work in a terminal. Commented until I make te
 #+END_SRC
 
 * Manipulating text
+
+I like macos copy and paster better
+
+#+BEGIN_SRC emacs-lisp
+(define-key global-map (kbd "s-x") 'kill-region)
+(define-key global-map (kbd "s-c") 'kill-ring-save)
+(define-key global-map (kbd "s-v") 'yank)
+(define-key global-map (kbd "s-a") 'mark-whole-buffer)
+#+END_SRC
 
 This is a small script so ALT key drags lines up and down.
 

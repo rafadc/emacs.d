@@ -755,12 +755,12 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
     :init (progn
             (setq org-startup-with-inline-images t)
 ;;            (setq org-hide-emphasis-markers t)  <- This is causing problems with asterisks in headers
-            (setq org-default-notes-file "~/Dropbox/org/capture.org")
+            (setq org-default-notes-file "~/Nextcloud/org/capture.org")
             (setq org-capture-templates
-                  '(("t" "Todo" entry (file+headline "~/Dropbox/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
-                    ("r" "Retro" entry (file+headline "~/Dropbox/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
-            (setq org-directory "~/Dropbox/org")
-            (setq org-mobile-inbox-for-pull "~/Dropbox/org/index.org")
+                  '(("t" "Todo" entry (file+headline "~/Nextcloud/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
+                    ("r" "Retro" entry (file+headline "~/Nextcloud/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
+            (setq org-directory "~/Nextcloud/org")
+            (setq org-mobile-inbox-for-pull "~/Nextcloud/org/index.org")
             (setq org-todo-keywords
                   '((sequence "TODO" "INPROGRESS" "DONE(!)" )))
             )

@@ -173,8 +173,8 @@ Tab bar
             (setq centaur-tabs-style "bar")
             (setq centaur-tabs-set-icons t))
   :bind
-  ("C-M-<left>" . centaur-tabs-backward)
-  ("C-M-<right>" . centaur-tabs-forward))
+    ("C-M-j" . centaur-tabs-backward)
+    ("C-M-l" . centaur-tabs-forward))
 #+END_SRC
 
 ** Whitespace

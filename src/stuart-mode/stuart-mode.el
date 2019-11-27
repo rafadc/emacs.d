@@ -1,4 +1,4 @@
-;;; p161-mode.el --- P161 workflow custom mode
+;;; stuart-mode.el --- Stuart workflow custom mode
 ;;; Commentary:
 ;; Copyright 2018 Rafa de Castro
 
@@ -9,27 +9,27 @@
 ;;; Code:
 (require 'git-commit)
 
-(defun p161/current-ticket ()
+(defun stuart/current-ticket ()
   "Return the current ticket name based on brach name.  Return null in a ticketless branch."
   (let*
       ((command (concat "git --git-dir=" (git-folder) ".git branch | sed -n '/* /s///p'"))
        (branch-name (shell-command-to-string command))
        (ticket-name (car (split-string branch-name "\\."))))
-    (if (string-match "PFM-" ticket-name)
+    (if (string-match "POOL-" ticket-name)
       ticket-name)))
 
-(defun p161/open-current-ticket-in-browser ()
+(defun stuart/open-current-ticket-in-browser ()
   "Opens the current ticket in a browser."
   (interactive)
   (let*
-      ((ticket (p161/current-ticket))
-       (url (concat "https://jira.platform161.com/browse/" ticket))
+      ((ticket (stuart/current-ticket))
+       (url (concat stuart/jira-url "/browse/" ticket))
        (command (concat "open " url)))
-    (if (and ticket (string-match "PFM" ticket))
+    (if (and ticket (string-match "POOL" ticket))
         (shell-command-to-string command)
       (message "Not in a ticket branch"))))
 
-(defun p161/create-branch-for-ticket (arg ticket-number)
+(defun stuart/create-branch-for-ticket (arg ticket-number)
   "Asks for a ticket and create a branch for it starting in the current branch."
   (interactive "P\nbTicket number: ")
   (let*
@@ -38,46 +38,46 @@
     (progn
       (shell-command-to-string (concat "git checkout -b" branch-name)))))
 
-(defun p161/insert-pfm-in-commit-message ()
-  "Insert the PFM ticket name at the beginning of commit message."
+(defun stuart/insert-pfm-in-commit-message ()
+  "Insert the POOL ticket name at the beginning of commit message."
   (interactive)
   (let*
       ((command (concat "git --git-dir=" (projectile-project-root) ".git branch | sed -n '/* /s///p'"))
        (branch-name (shell-command-to-string command))
        (ticket-name (car (split-string branch-name "\\."))))
-    (if (string-match-p (regexp-quote "PFM-") ticket-name)
+    (if (string-match-p (regexp-quote "POOL-") ticket-name)
         (insert (concat ticket-name " ")))))
 
-(defun p161/send-test-to-tmux ()
+(defun stuart/send-test-to-tmux ()
   "Send the currently open test to tmux."
   (interactive)
   (let*
       ((filename (replace-regexp-in-string (projectile-project-root) "" (current_buffer_file_name)))
-       (command (concat "tmux send -t platform161 'rspec -I spec/app " filename "'  ENTER")))
+       (command (concat "tmux send -t stuart 'bin/rspec " filename "'  ENTER")))
     (message command)
     (shell-command command)))
 
-(defun p161/on-enable-p161-mode ()
-  "On P161 mode enabling."
+(defun stuart/on-enable-stuart-mode ()
+  "On stuart mode enabling."
   (interactive)
-  (add-hook 'git-commit-mode-hook 'p161/insert-pfm-in-commit-message)
+  (add-hook 'git-commit-mode-hook 'stuart/insert-pfm-in-commit-message)
   )
 
-(define-minor-mode p161-mode
-  "Platform 161 mode."
-  :lighter " P161"
+(define-minor-mode stuart-mode
+  "Stuart mode."
+  :lighter " Stu"
   :global t
   :keymap (let ((map (make-sparse-keymap)))
-            (define-key map (kbd "C-c t") 'p161/send-test-to-tmux)
-            (define-key map (kbd "C-c C-p c") 'p161/create-branch-for-ticket)
-            (define-key map (kbd "C-c C-p b") 'p161/open-current-ticket-in-browser)
+            (define-key map (kbd "C-c t") 'stuart/send-test-to-tmux)
+            (define-key map (kbd "C-c C-p c") 'stuart/create-branch-for-ticket)
+            (define-key map (kbd "C-c C-p b") 'stuart/open-current-ticket-in-browser)
             map)
-  (if p161-mode
-      (p161/on-enable-p161-mode))
+  (if stuart-mode
+      (stuart/on-enable-stuart-mode))
   )
 
 ;;; (Features)
 
-(provide 'p161-mode)
+(provide 'stuart-mode)
 
-;;; p161-mode.el ends here
+;;; stuart-mode.el ends here

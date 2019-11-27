@@ -1109,7 +1109,6 @@ Adding file types with no rb extension: rake files, irbrc...
 
 ;; Adding syntax checking
 ;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
-(add-hook 'ruby-mode-hook 'yafolding-mode)
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 

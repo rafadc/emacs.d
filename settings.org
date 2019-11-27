@@ -770,12 +770,12 @@ Binding F7 to open a personal_notes.org file in root of projectile and F3 to the
     :init (progn
             (setq org-startup-with-inline-images t)
 ;;            (setq org-hide-emphasis-markers t)  <- This is causing problems with asterisks in headers
-            (setq org-default-notes-file "~/Dropbox/org/capture.org")
+            (setq org-default-notes-file "~/Nextcloud/org/capture.org")
             (setq org-capture-templates
-                  '(("t" "Todo" entry (file+headline "~/Dropbox/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
-                    ("r" "Retro" entry (file+headline "~/Dropbox/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
-            (setq org-directory "~/Dropbox/org")
-            (setq org-mobile-inbox-for-pull "~/Dropbox/org/index.org")
+                  '(("t" "Todo" entry (file+headline "~/Nextcloud/org/index.org" "Tasks") "* TODO %?\n  %i\n  %a")
+                    ("r" "Retro" entry (file+headline "~/Nextcloud/org/retro.org" "Retro") "* %?\nEntered on %U\n  %i\n  %a")))
+            (setq org-directory "~/Nextcloud/org")
+            (setq org-mobile-inbox-for-pull "~/Nextcloud/org/index.org")
             (setq org-todo-keywords
                   '((sequence "TODO" "INPROGRESS" "DONE(!)" )))
             )
@@ -1003,7 +1003,6 @@ Let's add some packages for Haskell coding
   (use-package haskell-mode
     :ensure t
     :init (progn
-            (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
             (add-hook 'haskell-mode-hook 'flycheck-mode)))
 #+END_SRC
 
@@ -1277,6 +1276,10 @@ go get golang.org/x/tools/cmd/goimports
 (use-package go-guru
   :ensure t
   :defer)
+
+(use-package go-complete
+  :ensure t
+  :config (add-hook 'completion-at-point-functions 'go-complete-at-point))
 #+END_SRC
 
 
@@ -1389,11 +1392,34 @@ We have to install Dart in order to use this. Just remember to follow instructio
 (use-package lua-mode
   :ensure t)
 #+END_SRC
+
 ** Zig
 
 #+BEGIN_SRC emacs-lisp
 (use-package zig-mode
   :ensure t)
+#+END_SRC
+
+** Nim
+#+BEGIN_SRC emacs-lisp
+(defun my/init-nim-mode ()
+  "Local init function for `nim-mode'."
+
+  (nimsuggest-mode)
+  ;; Remember: Only enable either `flycheck-mode' or `flymake-mode' at the same time.
+  ;; (flycheck-mode 1)
+  ;; (flymake-mode 1)
+
+  ;; The following modes are disabled for Nim files just for the case
+  ;; that they are enabled globally.
+  ;; Anything that is based on smie can cause problems.
+  (auto-fill-mode 0)
+  (electric-indent-local-mode 0)
+)
+
+(use-package nim-mode
+  :ensure t
+  :init (add-hook 'nim-mode-hook 'my/init-nim-mode))
 #+END_SRC
 
 * File formats
@@ -1404,6 +1430,7 @@ For init files we have conf mode
 (use-package conf-mode
   :ensure t)
 #+END_SRC
+
 * Git
 
 We will use Magit for git. Also opening timemachine is a nice binding to have.
@@ -1671,6 +1698,16 @@ I migrated not so long ago my blog to hugo to be able to write posts in org mode
             ))
 #+END_SRC
 
+** Presentations
+
+I'm starting to use org-reveal for presentations
+
+#+BEGIN_SRC emacs-lisp
+(use-package ox-reveal
+  :ensure t
+  :init ()
+  :config (setq org-reveal-root "vendor/reveal.js"))
+#+END_SRC
 
 * Hydras
 

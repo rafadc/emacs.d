@@ -5,6 +5,7 @@ magithub/
 request/
 transient/
 network-security.data
+recentf
 
 # The compiled settings will not be commited
 *.elc

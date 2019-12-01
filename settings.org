@@ -1160,6 +1160,13 @@ To avoid adding comments at the beginning of file
 #+END_SRC
 
 
+** Crystal
+
+#+BEGIN_SRC emacs-lisp
+(use-package crystal-mode
+  :ensure t)
+#+END_SRC
+
 ** Elixir
 
 #+BEGIN_SRC emacs-lisp

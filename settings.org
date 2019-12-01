@@ -911,6 +911,14 @@ Using projectile mode
                  (yas-global-mode 1)))
 #+END_SRC
 
+* Folding
+
+#+BEGIN_SRC emacs-lisp
+(use-package origami
+  :ensure t
+  :bind ("<C-return>" . origami-recursively-toggle-node))
+#+END_SRC
+
 * Programming languages
 
 Globally we will enable electric pair to match parentheses.

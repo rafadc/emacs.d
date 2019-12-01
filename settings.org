@@ -1168,6 +1168,13 @@ To avoid adding comments at the beginning of file
 #+END_SRC
 
 
+** Crystal
+
+#+BEGIN_SRC emacs-lisp
+(use-package crystal-mode
+  :ensure t)
+#+END_SRC
+
 ** Elixir
 
 #+BEGIN_SRC emacs-lisp
@@ -1427,6 +1434,13 @@ We have to install Dart in order to use this. Just remember to follow instructio
 (use-package nim-mode
   :ensure t
   :init (add-hook 'nim-mode-hook 'my/init-nim-mode))
+#+END_SRC
+
+** Protocol buffers
+
+#+BEGIN_SRC emacs-lisp
+  (use-package protobuf-mode
+    :ensure t)
 #+END_SRC
 
 * File formats

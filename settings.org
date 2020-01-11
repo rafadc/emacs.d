@@ -1108,16 +1108,6 @@ same directory as the org-buffer and insert a link to this file."
 
 ** Ruby
 
-We will use RVM's provided Ruby
-
-#+BEGIN_SRC emacs-lisp
-(use-package rvm
-  :ensure t
-  :defer t
-  :config (rvm-use-default))
-
-#+END_SRC
-
 Adding file types with no rb extension: rake files, irbrc...
 
 #+BEGIN_SRC emacs-lisp

@@ -1348,6 +1348,15 @@ $ cargo install racer
            (add-hook 'racer-mode-hook #'eldoc-mode)))
 #+END_SRC
 
+Flycheck rust checker
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck-rust
+  :ensure t
+  :config (with-eval-after-load 'rust-mode
+            (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+#+END_SRC
+
 ** Scala
 
 #+BEGIN_SRC emacs-lisp

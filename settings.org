@@ -588,6 +588,14 @@ For a personn that works in different languages this is awesome
   :config (setq dumb-jump-selector 'ivy)
   :ensure)
 #+END_SRC
+** Folding
+
+#+BEGIN_SRC emacs-lisp
+(use-package yafolding
+  :ensure t
+  :init (add-hook 'ruby-mode-hook 'yafolding-mode)
+  :bind (("<C-return>" . yafolding-toggle-element)))
+#+END_SRC
 * Open in external editor
 
 A small snippet to open current file in external editor.
@@ -922,14 +930,6 @@ Using projectile mode
   :config (progn (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
                  (add-hook 'term-mode-hook (lambda() (setq yas-dont-activate t)))
                  (yas-global-mode 1)))
-#+END_SRC
-
-* Folding
-
-#+BEGIN_SRC emacs-lisp
-(use-package origami
-  :ensure t
-  :bind ("<C-return>" . origami-recursively-toggle-node))
 #+END_SRC
 
 * Programming languages

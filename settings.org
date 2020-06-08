@@ -76,6 +76,11 @@ Copy the environment variables from shell's environment
 
 * Editing settings
 
+Let's copy and paste in a regular Linux way
+#+BEGIN_SRC elisp
+(cua-mode t)
+#+END_SRC
+
 I'll add a function to edit settings.org file. I don't need a shortcut since this is not such a common task now.
 
 #+BEGIN_SRC emacs-lisp
@@ -526,8 +531,8 @@ Expand region key binding.
 #+BEGIN_SRC emacs-lisp
 (use-package expand-region
   :ensure t
-  :bind (("s-e" . er/expand-region)
-         ("s-E" . er/contract-region)))
+  :bind (("C-s-e" . er/expand-region)
+         ("C-s-E" . er/contract-region)))
 #+END_SRC
 
 These are multiple cursors bindings.
@@ -1355,13 +1360,6 @@ Flycheck rust checker
   :ensure t
   :config (with-eval-after-load 'rust-mode
             (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
-#+END_SRC
-
-** Scala
-
-#+BEGIN_SRC emacs-lisp
-(use-package ensime
-  :ensure t)
 #+END_SRC
 
 ** Python

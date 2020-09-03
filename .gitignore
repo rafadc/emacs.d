@@ -33,3 +33,5 @@ bookmarks
 
 *.sqlite
 .mc-lists.el
+
+project-list
